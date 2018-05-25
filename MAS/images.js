@@ -1,12 +1,11 @@
 // Populate the images on site with the chosen characters
-function setImages(){
+function setImages(playerIdx = 0){
 	maxChars = 3;
 	for (var idx = 0; idx < Math.min(characters.length, maxChars); ++idx){
 		char = characters[idx];
 		charname = char2str(char);
-		console.log("dbg: " + "char" + String(idx+1));
-		console.log("dbg: " + charname);
-		document.getElementById("char" + String(idx+1)).src = "./res/" + charname;
+		pname = "p" + String(playerIdx) + "_";
+		document.getElementById(pname + "char" + String(idx+1)).src = "./res/" + charname;
 	}
 }
 
