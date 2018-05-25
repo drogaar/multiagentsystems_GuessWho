@@ -2,8 +2,10 @@ class Knowledge {
 
 	constructor(characters, attributes) {
 		this.knowledge = this.generateBaseKnowledge(attributes);
+
+		// make character knowledge from character attributes
 		this.characters = [];
-		for (var i=0; i<this.characters.length; i++){ // make character knowledge from character attributes
+		for (var i=0; i<this.characters.length; i++){
 			character = []
 			character.push("hair:" + characters[i].hair);
 			character.push("crosseyed:" + characters[i].crosseyed);
