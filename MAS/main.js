@@ -6,6 +6,8 @@ teeth_quantities = [0, 1, 2]
 
 characters = [];
 
+setImages();
+
 for(var i = 0; i < hair_colours.length; i++){
 	for(var j = 0; j < crosseyed.length; j++){
 		for(var k = 0; k < teeth_quantities.length; k++){
