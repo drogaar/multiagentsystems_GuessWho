@@ -37,6 +37,22 @@ for(var i = 0; i < hair_colours.length; i++){
 	}
 }
 
+function setImages(){
+	function char2str(char){
+		charname = "";
+		charname += "h" + char.hair.substr(0,1) + " ";
+		charname += "t" + str(char.teeth_quantity).substr(0,1) + " ";
+		charname += char.crosseyed ? "cy" : "cn";
+		return charname;
+	}
+
+	for (var idx = 0; idx != characters.length; ++idx){
+		char = characters[idx];
+		charname = char2str(char);
+		document.getElementById("char" + str(id)).src = "./res/" + charname;
+	}
+}
+
 console.log(characters)
 
 num_chars = characters.length
@@ -49,6 +65,3 @@ var p2 = new Player(characters[char2])
 
 console.log(p1.get_character())
 console.log(p2.get_character())
-
-
-
