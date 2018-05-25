@@ -6,8 +6,6 @@ teeth_quantities = [0, 1, 2]
 
 characters = [];
 
-setImages();
-
 for(var i = 0; i < hair_colours.length; i++){
 	for(var j = 0; j < crosseyed.length; j++){
 		for(var k = 0; k < teeth_quantities.length; k++){
@@ -17,19 +15,23 @@ for(var i = 0; i < hair_colours.length; i++){
 	}
 }
 
+setImages();
 function setImages(){
 	function char2str(char){
 		charname = "";
 		charname += "h" + char.hair.substr(0,1) + " ";
-		charname += "t" + str(char.teeth_quantity).substr(0,1) + " ";
+		charname += "t" + String(char.teeth_quantity).substr(0,1) + " ";
 		charname += char.crosseyed ? "cy" : "cn";
-		return charname;
+		return charname + ".PNG";
 	}
 
-	for (var idx = 0; idx != characters.length; ++idx){
+	maxChars = 3;
+	for (var idx = 0; idx < Math.min(characters.length, maxChars); ++idx){
 		char = characters[idx];
 		charname = char2str(char);
-		document.getElementById("char" + str(id)).src = "./res/" + charname;
+		console.log("dbg: " + "char" + String(idx+1));
+		console.log("dbg: " + charname);
+		document.getElementById("char" + String(idx+1)).src = "./res/" + charname;
 	}
 }
 
