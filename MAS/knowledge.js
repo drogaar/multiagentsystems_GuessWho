@@ -1,13 +1,16 @@
 class Knowledge {
 
 	constructor(characters) {
-		this.knowledge = ["hair:red->!hair:green", "hair:red->!hair:blue"];
-		this.characters = []
-		for var i=0; i<this.knowledge.length; i++){ // make character knowledge from character attributes
+		this.knowledge = [];
+		this.characters = [];
+		for (var i=0; i<this.knowledge.length; i++){ // make character knowledge from character attributes
 			character = []
-			character.push(characters[i].hair)
+			character.push("hair:" + characters[i].hair);
+			character.push("crosseyed:" + characters[i].crosseyed);
+			character.push("teeth:" + characters[i].teeth);
+			this.characters.push(character)
 		}
-		console.log(characters)
+		console.log(this.characters);
 	}
 
 	// Adds knowledge to the knowledge base and tries to prove characters from this

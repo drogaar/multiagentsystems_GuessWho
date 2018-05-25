@@ -1,8 +1,8 @@
 class Player{
-	constructor(character){
-		this.own_character = character;
+	constructor(characters, own_char, attributes){
+		this.own_character = own_char;
 		this.characters
-		this.knowledge = Knowledge(); // Note: a list of possibilities for the opponent's character is implicitly found in the knowledge base
+		this.knowledge = new Knowledge(attributes); // Note: a list of possibilities for the opponent's character is implicitly found in the knowledge base
 	}
 
 	get_character(){
