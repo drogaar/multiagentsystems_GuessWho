@@ -5,6 +5,12 @@ hair_colours = ["red", "green", "blue"]
 teeth_quantities = [0, 1, 2]
 crosseyed = [true, false]
 
+var attributes = {}
+attributes.hair = hair_colours
+attributes.crosseyed = crosseyed
+attributes.teeth = teeth_quantities
+
+
 characters = [];
 for (var idx = 0; idx < images.length; ++idx){
 	characters.push(str2char(images[idx]));
