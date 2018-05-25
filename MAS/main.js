@@ -10,7 +10,8 @@ for (var idx = 0; idx < images.length; ++idx){
 	characters.push(str2char(images[idx]));
 }
 
-setImages();
+setImages(0);
+setImages(1);
 
 console.log(characters)
 
