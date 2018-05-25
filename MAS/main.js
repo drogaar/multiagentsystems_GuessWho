@@ -16,14 +16,11 @@ console.log(characters)
 
 num_chars = characters.length;
 
-char1 = Math.floor((Math.random() * num_chars - 1) + 1);
-char2 = Math.floor((Math.random() * num_chars - 1) + 1);
+char1 = characters[Math.floor((Math.random() * num_chars - 1) + 1)];
+char2 = characters[Math.floor((Math.random() * num_chars - 1) + 1)];
 
-console.log(char1);
-console.log(char2);
-
-var p1 = new Player(characters[char1]);
-var p2 = new Player(characters[char2]);
+var p1 = new Player(characters);
+var p2 = new Player(characters);
 
 console.log(p1.get_character());
 console.log(p2.get_character());
