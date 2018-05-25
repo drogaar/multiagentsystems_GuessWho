@@ -1,26 +1,4 @@
-class Character {
-	constructor(hair, crosseyed, teeth_quantity) {
-		this.hair = hair
-		this.crosseyed = crosseyed
-		this.teeth_quantity = teeth_quantity
-	}
-}
-
-
-class Player {
-	constructor(character) {
-		this.character = character;
-
-	}
-
-	get_character() {
-		return this.character;
-	}
-
-}
-
 var p1 = new Player();
-
 
 hair_colours = ["red", "green", "blue"]
 crosseyed = [true, false]
@@ -49,6 +27,3 @@ var p2 = new Player(characters[char2])
 
 console.log(p1.get_character())
 console.log(p2.get_character())
-
-
-
