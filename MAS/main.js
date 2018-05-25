@@ -1,39 +1,16 @@
 var p1 = new Player();
 
+images = ["hb t2 cy.PNG", "hg t1 cn.PNG", "hr t0 cy.PNG", "hr t1 cn.PNG"];
 hair_colours = ["red", "green", "blue"]
-crosseyed = [true, false]
 teeth_quantities = [0, 1, 2]
+crosseyed = [true, false]
 
 characters = [];
-
-for(var i = 0; i < hair_colours.length; i++){
-	for(var j = 0; j < crosseyed.length; j++){
-		for(var k = 0; k < teeth_quantities.length; k++){
-			char = new Character(hair_colours[i], crosseyed[j], teeth_quantities[k]);
-			characters.push(char)
-		}
-	}
+for (var idx = 0; idx < images.length; ++idx){
+	characters.push(str2char(images[idx]));
 }
 
 setImages();
-function setImages(){
-	function char2str(char){
-		charname = "";
-		charname += "h" + char.hair.substr(0,1) + " ";
-		charname += "t" + String(char.teeth_quantity).substr(0,1) + " ";
-		charname += char.crosseyed ? "cy" : "cn";
-		return charname + ".PNG";
-	}
-
-	maxChars = 3;
-	for (var idx = 0; idx < Math.min(characters.length, maxChars); ++idx){
-		char = characters[idx];
-		charname = char2str(char);
-		console.log("dbg: " + "char" + String(idx+1));
-		console.log("dbg: " + charname);
-		document.getElementById("char" + String(idx+1)).src = "./res/" + charname;
-	}
-}
 
 console.log(characters)
 
