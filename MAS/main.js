@@ -29,5 +29,5 @@ char2 = characters[Math.floor((Math.random() * num_chars - 1) + 1)];
 var p1 = new Player(characters, char1, attributes);
 var p2 = new Player(characters, char2, attributes);
 
-console.log(p1.get_character());
-console.log(p2.get_character());
+console.log(p1.getCharacter());
+console.log(p2.getCharacter());
