@@ -40,12 +40,25 @@ class Knowledge {
 		return this.validateCharacters(this.knowledge, this.characters)
 	}
 
+	// Check for a character if it is consistent with the knowledge
+	checkCharacter(char, knowledge) {
+		for (var j = 0; j < char.length; j++) {
+			var attribute = char[j];
+			if (!knowledge.includes(attribute)) {
+				return false
+			}
+		}
+		return true
+	}
 
 	// Validates whether each character can be proven or refuted with set of knowledge
 	validateCharacters(knowledge, characters){
 		for (var i=0; i<this.characters.length; i++){
-			char = this.characters[i]
-			// TODO: check whether we have all knowledge to prove this character
+			char = this.characters[i];
+			if (this.checkCharacter(char, knowledge)) {
+				console.log("char found: " + char)
+				return char
+			}
 			// TODO: afterwards, check whether all char characteristics have been refuted in the knowledge (so we can cross off the char)
 		}
 		return null // TODO.

@@ -41,3 +41,7 @@ p1.addKnowledge("hair:red"); // NOTE: 'addKnowledge' can only add atoms like hai
 
 console.log("\nNow let's add 'crosseyed:false' for the opponent's avatar!")
 p1.addKnowledge("crosseyed:false");
+
+console.log("\nNow let's add 'teeth:1' for the opponent's avatar!")
+p1.addKnowledge("teeth:1");
+
