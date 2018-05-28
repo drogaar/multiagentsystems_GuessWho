@@ -8,7 +8,7 @@ function setImages(playerIdx = 0){
 
 		// if(players[playerIdx].possibleCharacters.indexOf(char) == -1)
 		if(true)
-			charname = charname.substr(0, charname.length-4) + "_not.PNG";
+			charname = charname.substr(0, charname.length-4) + "_ded.jpg";
 
 		document.getElementById(pname + "char" + String(idx+1)).src = "./res/" + charname;
 	}

@@ -1,6 +1,6 @@
 var p1 = new Player();
 
-images = ["hb t2 cy.PNG", "hg t1 cn.PNG", "hr t0 cy.PNG", "hr t1 cn.PNG"];
+images = ["hb t2 cy.jpg", "hg t1 cn.jpg", "hr t0 cy.jpg", "hr t1 cn.jpg"];
 hair_colours = ["red", "green", "blue"]
 teeth_quantities = [0, 1, 2]
 crosseyed = [true, false]
