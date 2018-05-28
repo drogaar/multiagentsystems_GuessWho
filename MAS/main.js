@@ -9,8 +9,9 @@ attributes["crosseyed"] = crosseyed
 attributes["teeth"] = teeth_quantities
 
 characters = [];
+names = ["li'l_timmy", "bob",  "peter", "fred",]
 for (var idx = 0; idx < images.length; ++idx){
-	characters.push(str2char(images[idx]));
+	characters.push(str2char(images[idx], names[idx]));
 }
 
 var turn = 0;
@@ -22,6 +23,8 @@ resetGame();
 
 console.log("P1's Avatar:", p1.getCharacter());
 console.log("P2's Avatar:", p2.getCharacter());
+
+knowledge = new Knowledge();
 
 
 // console.log("P1's Knowledge:", p1.getKnowledge());

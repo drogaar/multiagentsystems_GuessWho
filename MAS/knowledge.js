@@ -1,9 +1,8 @@
 class Knowledge {
 
 	constructor() {
-		this.knowledge = this.generateBaseKnowledge(attributes);
 		this.knowledge = [];
-		this.rules = this.generateBaseKnowledge(attributes);
+		this.rules = this.generateBaseKnowledge(attributes, characters);
 	}
 
 
@@ -24,9 +23,13 @@ class Knowledge {
 		// TODO.
 	}
 
+	generateAgentInfo(attributes) {
+		return ("hair:" + attributes[0] + "&" + "crosseyed:" + attributes[1]
+			+ "&" + "teeth:" + attributes[2] + "->" + attributes[3]);
 
+	}
 	// Returns the knowledge that corresponds with the set of rules for the game
-	generateBaseKnowledge(attributes){
+	generateBaseKnowledge(attributes, characters){
 		var base_knowledge = [];
 		
 		for (var attribute in attributes) {
@@ -49,9 +52,17 @@ class Knowledge {
 			}
 		}
 
+		// TODO: not hair green and not hair blue implies hair red
+
+		for (var character in characters) {
+			base_knowledge.push(this.generateAgentInfo(characters[character].getAttributes()));
+		}
+
 		console.log(base_knowledge)
 		return base_knowledge;
 	}
+
+
 
 	// Returns knowledge either as subset for an agent or as a whole
 	getKnowledge(agent=null){
