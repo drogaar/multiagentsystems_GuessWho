@@ -2,6 +2,8 @@ class Knowledge {
 
 	constructor() {
 		this.knowledge = this.generateBaseKnowledge(attributes);
+		this.knowledge = [];
+		this.rules = this.generateBaseKnowledge(attributes);
 	}
 
 
