@@ -2,7 +2,6 @@ class Knowledge {
 
 	constructor() {
 		this.knowledge = this.generateBaseKnowledge(attributes);
-		this.rules =
 	}
 
 
@@ -26,7 +25,30 @@ class Knowledge {
 
 	// Returns the knowledge that corresponds with the set of rules for the game
 	generateBaseKnowledge(attributes){
-		// TODO.
+		var base_knowledge = [];
+		
+		for (var attribute in attributes) {
+			var k = attribute + ":" + attributes[attribute][0];
+			for (var i = 1; i < attributes[attribute].length; i++) {
+				k += "|" + attribute + ":" + attributes[attribute][i];
+			}
+			base_knowledge.push(k);
+		}
+
+		for (var attribute in attributes) {
+			for (var i = 0; i < attributes[attribute].length; i++) {
+				for (var j = 0; j < attributes[attribute].length; j++) {
+					if (i != j) {
+						base_knowledge.push(
+							attribute + ":" + attributes[attribute][i] +
+							" -> !" + attribute + ":" + attributes[attribute][j])
+					}
+				}
+			}
+		}
+
+		console.log(base_knowledge)
+		return base_knowledge;
 	}
 
 	// Returns knowledge either as subset for an agent or as a whole
