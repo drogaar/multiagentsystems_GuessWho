@@ -24,12 +24,12 @@ function char2str(char){
 }
 
 // Return a character based on the name of a character-image
-function str2char(str){
+function str2char(str, name){
 	var hair_dict = {"r":"red", "g":"green", "b":"blue"};
 
 	var attrib_hair = hair_dict[str.substr(1,1)];
 	var attrib_teeth = parseInt(str.substr(4,1));
 	var attrib_cross = str.substr(7,1) == "y";
 
-	return new Character(attrib_hair, attrib_cross, attrib_teeth);
+	return new Character(attrib_hair, attrib_cross, attrib_teeth, name);
 }
