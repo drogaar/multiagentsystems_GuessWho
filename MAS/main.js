@@ -24,34 +24,30 @@ console.log("P1's Avatar:", p1.getCharacter());
 console.log("P2's Avatar:", p2.getCharacter());
 
 
+// console.log("P1's Knowledge:", p1.getKnowledge());
+//
+// console.log("\nLet's add 'hair:red' for the opponent's avatar!")
+// p1.addKnowledge("hair:red"); // NOTE: 'addKnowledge' can only add atoms like hair:red -- no implications or anything else
+//
+// console.log("\nNow let's add 'crosseyed:false' for the opponent's avatar!")
+// p1.addKnowledge("crosseyed:false");
+//
+// console.log("\nNow let's add 'teeth:1' for the opponent's avatar!")
+// p1.addKnowledge("teeth:1");
 
-// TODO: see 'Knowledge' class' 'generateBaseKnowledge()' method and its TODO and add the missing knowledge
+
+stepGame()
 
 
 
-// Testing part of the script:
-console.log("P1's Knowledge:", p1.getKnowledge());
-
-console.log("\nLet's add 'hair:red' for the opponent's avatar!")
-p1.addKnowledge("hair:red"); // NOTE: 'addKnowledge' can only add atoms like hair:red -- no implications or anything else
-
-console.log("\nNow let's add 'crosseyed:false' for the opponent's avatar!")
-p1.addKnowledge("crosseyed:false");
-
-console.log("\nNow let's add 'teeth:1' for the opponent's avatar!")
-p1.addKnowledge("teeth:1");
-
-// TODO: make this in a game loop
-p2.addKnowledge(p1.answerQuestion(p2.askQuestion()));
 
 // next turn!
 function stepGame(){
-	turn++;
 	var player = players[turn % 2];
 
   // the player should ask the question that gives him most information
   // and doesn't reveal his character to his enemy
-	var announcement = player.bestQuestion();
+	var announcement = player.askQuestion();
 
 	for (var playerIdx = 0; playerIdx < players.length; ++playerIdx){
     // asking the question gives information to both players and should
@@ -62,8 +58,11 @@ function stepGame(){
 		// based on the knowledge they have.
 		player.updateCharacters();
 	}
+
+	turn++;
 }
 
+// new game!
 function resetGame(){
   // uses global scope for now
 	var num_chars = characters.length;

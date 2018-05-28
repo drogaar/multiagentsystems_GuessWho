@@ -24,7 +24,7 @@ class Player{
 	}
 
 	// Answer a question
-	answerQuestion(question) {''
+	answerQuestion(question) {
 		var question_split = question.split(":")
 		if (this.own_character[question_split[0]] == question_split[1]) {
 			return question
