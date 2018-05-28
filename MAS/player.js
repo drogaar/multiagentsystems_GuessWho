@@ -1,20 +1,11 @@
 class Player{
-	constructor(name, own_char){
+	constructor(name, avatar){
 		this.name = name
-		this.own_character = own_char
+		this.avatar = avatar
 	}
 
-	getCharacter(){
-		return this.own_character
-	}
-
-	getKnowledge(){
-		return this.knowledge
-	}
-
-	// adds a string of knowledge to the player's knowledge base
-	addKnowledge(k){
-		this.knowledge.add(k)
+	getAvatar(){
+		return this.avatar
 	}
 
 	// Come up with a question to ask the other player
@@ -25,11 +16,14 @@ class Player{
 
 	// Answer a question
 	answerQuestion(ownKnowledge, question) {
-		var question_split = question.split(":")
-		if (this.own_character[question_split[0]] == question_split[1]) {
-			return question
-		} else {
-			return ("!" + question)
-		}
+		var property = question.split(":")[0]
+		var value = question.split(":")[1]
+		return (this.avatar[property] != value ? "!" : "") + this.name + "." + question
+
+		// if (this.ownCharacter[questionSplit[0]] == questionSplit[1]) {
+		// 	return question
+		// } else {
+		// 	return ("!" + question)
+		// }
 	}
 }

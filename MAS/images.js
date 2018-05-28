@@ -18,7 +18,7 @@ function setImages(playerIdx = 0){
 function char2str(char){
 	var charname = "";
 	charname += "h" + char.hair.substr(0,1) + " ";
-	charname += "t" + String(char.teeth_quantity).substr(0,1) + " ";
+	charname += "t" + String(char.teeth).substr(0,1) + " ";
 	charname += char.crosseyed ? "cy" : "cn";
 	return charname + ".PNG";
 }
