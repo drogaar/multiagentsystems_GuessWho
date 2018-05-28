@@ -13,16 +13,12 @@ for (var idx = 0; idx < images.length; ++idx){
 	characters.push(str2char(images[idx]));
 }
 
+var turn = 0;
+var players = [];
+
 setImages(0);
 setImages(1);
-
-num_chars = characters.length;
-
-char1 = characters[Math.floor((Math.random() * num_chars - 1) + 1)];
-char2 = characters[Math.floor((Math.random() * num_chars - 1) + 1)];
-
-var p1 = new Player("P1", characters, char1, attributes);
-var p2 = new Player("P2", characters, char2, attributes);
+resetGame();
 
 console.log("P1's Avatar:", p1.getCharacter());
 console.log("P2's Avatar:", p2.getCharacter());
@@ -47,3 +43,35 @@ p1.addKnowledge("teeth:1");
 
 // TODO: make this in a game loop
 p2.addKnowledge(p1.answerQuestion(p2.askQuestion()));
+
+// next turn!
+function stepGame(){
+	turn++;
+	var player = players[turn % 2];
+
+  // the player should ask the question that gives him most information
+  // and doesn't reveal his character to his enemy
+	var announcement = player.bestQuestion();
+
+	for (var playerIdx = 0; playerIdx < players.length; ++playerIdx){
+    // asking the question gives information to both players and should
+    // update the logics in the database.
+		player.updateData(announcement);
+
+    // Each player should update his, and his opponents list of characters
+		// based on the knowledge they have.
+		player.updateCharacters();
+	}
+}
+
+function resetGame(){
+  // uses global scope for now
+	var num_chars = characters.length;
+
+	char1 = characters[Math.floor((Math.random() * num_chars - 1) + 1)];
+	char2 = characters[Math.floor((Math.random() * num_chars - 1) + 1)];
+
+	p1 = new Player("P1", characters, char1, attributes);
+	p2 = new Player("P2", characters, char2, attributes);
+	players = [p1, p2];
+}
