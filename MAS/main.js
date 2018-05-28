@@ -45,3 +45,7 @@ p1.addKnowledge("crosseyed:false");
 console.log("\nNow let's add 'teeth:1' for the opponent's avatar!")
 p1.addKnowledge("teeth:1");
 
+// TODO: make this in a game loop
+p2.addKnowledge(p1.answerQuestion(p2.askQuestion()));
+
+
