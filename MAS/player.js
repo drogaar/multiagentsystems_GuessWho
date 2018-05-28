@@ -1,9 +1,7 @@
 class Player{
-	constructor(name, characters, own_char, attributes){
+	constructor(name, own_char){
 		this.name = name
 		this.own_character = own_char
-		this.characters = characters
-		this.knowledge = new Knowledge(characters, attributes, name)
 	}
 
 	getCharacter(){
@@ -25,7 +23,7 @@ class Player{
 		return "hair:red"
 	}
 
-	// Answer a question 
+	// Answer a question
 	answerQuestion(question) {''
 		var question_split = question.split(":")
 		if (this.own_character[question_split[0]] == question_split[1]) {
