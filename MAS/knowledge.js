@@ -43,14 +43,15 @@ class Knowledge {
 
 	// Returns string format for character attributes
 	generateCharInfo(attributes) {
-		return ("hair:" + attributes[0] + " ^ " + "crosseyed:" + attributes[1]
-			+ " ^ " + "teeth:" + attributes[2] + "->" + attributes[3]);
+		return ("(hair:" + attributes[0] + " ^ " + "crosseyed:" + attributes[1]
+			+ " ^ " + "teeth:" + attributes[2] + ") -> " + attributes[3]);
 
 	}
 	// Returns the knowledge that corresponds with the set of rules for the game
 	generateBaseKnowledge(attributes, characters){
 		var baseKnowledge = [];
 
+		// All possibilites with disjunction
 		for (var attribute in attributes) {
 			var k = attribute + ":" + attributes[attribute][0];
 			for (var i = 1; i < attributes[attribute].length; i++) {
@@ -59,6 +60,7 @@ class Knowledge {
 			baseKnowledge.push(k);
 		}
 
+		// Attribute implies not other attributes
 		for (var attribute in attributes) {
 			for (var i = 0; i < attributes[attribute].length; i++) {
 				for (var j = 0; j < attributes[attribute].length; j++) {
@@ -71,14 +73,31 @@ class Knowledge {
 			}
 		}
 
-		// TODO: not hair green and not hair blue implies hair red
-		// TODO: add/fix parentheses: (a ^ b) -> !c
+		// not attribute1 implies attribute2
+		for (var attribute in attributes) {
+			for (var i = 0; i < attributes[attribute].length; i++) {
+				var temp_str = "";
+				for (var j = 0; j < attributes[attribute].length; j++) {
+					if (i != j) {
+						temp_str += "!" + attribute + ":" + attributes[attribute][j] + " ^ ";
+					}
+				}
+				// remove last and
+				temp_str = temp_str.substring(0, temp_str.length - 3);
+				// add parentheses
+				if (attributes[attribute].length > 2) {
+					temp_str = "(" + temp_str + ")"
+				}
+				temp_str += " -> " + attribute + ":" + attributes[attribute][i];
+				baseKnowledge.push(temp_str)
+			}
+		}
 
 		for (var character in characters) {
 			baseKnowledge.push(this.generateCharInfo(characters[character].getAttributes()));
 		}
 
-		//console.log(baseKnowledge)
+		console.log(baseKnowledge)
 		return baseKnowledge;
 	}
 
