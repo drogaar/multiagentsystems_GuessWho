@@ -1,91 +1,129 @@
 class Knowledge {
 
-	constructor(characters, attributes, name) {
-		this.knowledge = this.generateBaseKnowledge(attributes);
-		this.name = name
-		// make character knowledge from character attributes
-		this.characters = []
-		for (var i=0; i<characters.length; i++){
-			var character = []
-			character.push("hair:" + characters[i].hair)
-			character.push("crosseyed:" + characters[i].crosseyed)
-			character.push("teeth:" + characters[i].teeth_quantity)
-			this.characters.push(character)
-		}
+	constructor() {
+		this.knowledge = [];
+		this.rules = this.generateBaseKnowledge(attributes, characters);
 	}
 
 
 	// Adds knowledge to the knowledge base and tries to prove new facts and characters from this
-	add(k, depth=0){
-		console.log("  ".repeat(depth), "ADDED KNOWLEDGE", k)
-		for (var i=0; i<this.knowledge.length; i++){
-			var piece = this.knowledge[i]
-			if (piece.includes(" -> ")) { // Implication found!
-				//console.log("  ".repeat(depth), "IMPLICATION", piece)
-				if (k == this.knowledge[i].split(" -> ")[0]) { // Modus ponens applies; add more knowledge!
-					var post = this.knowledge[i].split(" -> ")[1]
-					console.log("  ".repeat(depth), "MODUS PONENS", k, "YIELDS", post)
-					this.add(post, depth+1)
-				}
-				var post = this.knowledge[i].split(" -> ")[1]
-			} else if (depth==0) { // propositional atom found!
-				console.log("K("+this.name+")", this.knowledge[i])
+	addKnowledge(player, knowledge){
+		var playerNum = player + 1 // Note the difference between 'playerNum' and 'player'
+		var opponentNum = ((player) % 2) + 1
+
+		// Rephrase knowledge and add what can be proven for the player
+		var pre = this.knows(playerNum, knowledge)
+		var post = this.prove(playerNum, pre)
+		for (var i=0; i<post.length; ){
+			if (!this.knowledge.includes(post[i])){
+				this.knowledge.push(post[i])
 			}
 		}
-		// Add the new knowledge to the KB
-		this.knowledge.push(k) // add the knowledge
-		//console.log("K("+this.name+")", k) TODO: fix the fact that this print yields duplicate prints (note that the knowledge base is just fine, it's literally just an issue with printing) -- without this statement it just doesn't print the new knowledge until the next addition.
-
-		// Update knowledge about opponent's potential characters
-		return this.validateCharacters(this.knowledge, this.characters)
-	}
-
-	// Check for a character if it is consistent with the knowledge
-	checkCharacter(char, knowledge) {
-		for (var j = 0; j < char.length; j++) {
-			var attribute = char[j];
-			if (!knowledge.includes(attribute)) {
-				return false
-			}
+		if (!this.knowledge.includes(pre)){
+			this.knowledge.push(pre)
 		}
-		return true
+
+		// TODO: add K[other](K[agent](knowledge))
+		// TODO: with rules, add more knowledge
 	}
 
-	// Validates whether each character can be proven or refuted with set of knowledge
-	validateCharacters(knowledge, characters){
-		for (var i=0; i<this.characters.length; i++){
-			char = this.characters[i];
-			if (this.checkCharacter(char, knowledge)) {
-				console.log("char found: " + char)
-				return char
-			}
-			// TODO: afterwards, check whether all char characteristics have been refuted in the knowledge (so we can cross off the char)
-		}
-		return null // TODO.
+	// Adds to the knowledge base using latest information
+	prove(playerNum, pre){
+		// TODO: make recursive
+		var post = []
+		// TODO: figure out how the function should look based on what addKnowledge should do -->
+		// prove things that you know the opponent knows using K[player](K[opponent](...))???
+		return post
 	}
 
+	// Returns the string for someone knowing something (e.g. K1(p1.hair:red))
+	knows(player, knowledge){
+		return "K" + player + "(" + knowledge + ")"
+	}
 
+	// Returns string format for character attributes
+	generateCharInfo(attributes) {
+		return ("(hair:" + attributes[0] + " ^ " + "crosseyed:" + attributes[1]
+			+ " ^ " + "teeth:" + attributes[2] + ") -> " + attributes[3]);
+
+	}
 	// Returns the knowledge that corresponds with the set of rules for the game
-	generateBaseKnowledge(attributes){
+	generateBaseKnowledge(attributes, characters){
+		var baseKnowledge = [];
 
-		// TODO: missing type of knowledge:   <<  !hair:blue ^ !hair:green -> hair:red  >>
+		// All possibilites with disjunction
+		for (var attribute in attributes) {
+			var k = attribute + ":" + attributes[attribute][0];
+			for (var i = 1; i < attributes[attribute].length; i++) {
+				k += " v " + attribute + ":" + attributes[attribute][i];
+			}
+			baseKnowledge.push(k);
+		}
 
-		var base_knowledge = [];
+		// Attribute implies not other attributes
 		for (var attribute in attributes) {
 			for (var i = 0; i < attributes[attribute].length; i++) {
 				for (var j = 0; j < attributes[attribute].length; j++) {
 					if (i != j) {
-						base_knowledge.push(
+						baseKnowledge.push(
 							attribute + ":" + attributes[attribute][i] +
 							" -> !" + attribute + ":" + attributes[attribute][j])
 					}
 				}
 			}
 		}
-		return base_knowledge
+
+		// not attribute1 implies attribute2
+		for (var attribute in attributes) {
+			for (var i = 0; i < attributes[attribute].length; i++) {
+				var temp_str = "";
+				for (var j = 0; j < attributes[attribute].length; j++) {
+					if (i != j) {
+						temp_str += "!" + attribute + ":" + attributes[attribute][j] + " ^ ";
+					}
+				}
+				// remove last and
+				temp_str = temp_str.substring(0, temp_str.length - 3);
+				// add parentheses
+				if (attributes[attribute].length > 2) {
+					temp_str = "(" + temp_str + ")"
+				}
+				temp_str += " -> " + attribute + ":" + attributes[attribute][i];
+				baseKnowledge.push(temp_str)
+			}
+		}
+
+		for (var character in characters) {
+			baseKnowledge.push(this.generateCharInfo(characters[character].getAttributes()));
+		}
+
+		console.log(baseKnowledge)
+		return baseKnowledge;
 	}
 
 
+
+	// Returns knowledge either as subset for an agent or as a whole
+	getKnowledge(player=null){
+		if(player==null){
+			return this.knowledge.toString()
+		}
+		else{
+			// TODO: take subset of knowledge
+			var subset = []
+			for (var i=0; i<this.knowledge.length; i++){
+				var k = this.knowledge[i]
+				if(k.startsWith("K"+player+"(")){
+					k = k.substring(k.lastIndexOf("(")+1,k.lastIndexOf(")"))
+					//console.log("  Found: " + k)
+					subset.push(k)
+				}
+			}
+			return subset
+		}
+	}
+
+	// String representation should not include implications, since that's too much
 	toString(){
 		return String(this.knowledge)
 	}
