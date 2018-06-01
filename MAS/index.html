@@ -3,42 +3,95 @@
 <head>
   <style type="text/css">
     .bgimg {
-        background-image: url('./res/bg.jpg');
-        background-repeat:no-repeat;
-        background-size:100%;
-        height:666px;width:400px;
+      background-image: url('./res/bg.jpg');
+      background-repeat:no-repeat;
+      background-size:100%;
+      height:666px;width:400px;
+      margin: 0 auto;
     }
     div.playerchars_top {
-        position: relative;
-        left: 8%;
-        top: 20%;
-        /*border: 3px solid #73AD21;*/
+      position: relative;
+      left: 8%;
+      top: 20%;
+      /*border: 3px solid #73AD21;*/
     }
     div.playerchars_bottom {
-        position: relative;
-        left: 10%;
-        top: 39%;
-        /*border: 3px solid #73AD21;*/
+      position: relative;
+      left: 10%;
+      top: 39%;
+      /*border: 3px solid #73AD21;*/
+    }
+    body {
+      /*margin-left: 10em;*/
+      /*margin-right: 10em;*/
+      margin: 10em;
     }
   </style>
+
+  <h1 style="text-align:center";>Symmetric Guess who?</h1>
+  <br><br>
 </header>
 
 <body>
-  <div class="bgimg">
-      <div class="playerchars_top">
-        <img id="p0_char1" src="./res/hg t1 cn.PNG" width="100" height="100">
-        <img id="p0_char2" src="./res/hg t1 cn.PNG" width="100" height="100">
-        <img id="p0_char3" src="./res/hg t1 cn.PNG" width="100" height="100">
-      </div>
+  <p>In the game of guess who, two opposing players pick a character from a given
+  set of characters. The characters that players can choose have various
+  attributes such as the colour of hair or wearing glasses. It is up to players,
+  to guess what character his or her opponent has chosen in order to win the game.
+  Players may ask binary questions about the attributes in order to gain
+  informatiom on which characters the opponent may, or may not have chosen.</p>
 
-      <div class="playerchars_bottom">
-        <img id="p1_char1" src="./res/hg t1 cn.PNG" width="100" height="100">
-        <img id="p1_char2" src="./res/hg t1 cn.PNG" width="100" height="100">
-        <img id="p1_char3" src="./res/hg t1 cn.PNG" width="100" height="100">
-      </div>
+  <p> The variant that is analysed here is symmetric Guess who. Here, once a
+    player asks a question about an attribute, both players have to say whether
+    or not their character satisfies the mentioned attribute (truthfully).
+    The implications of the symmetric gameplay is that players may be unable to
+    ask direct questions when it would reveal which character they are playing
+    themselves. Thus, as a player, you need to have information on what your
+    opponent knows about your character. It may even help to know what your
+    opponent thinks you are going to do next.
+  </p>
+
+  <h2>Using epistemic logic:</h2>
+
+  <p>
+    The game is analysed here using epistemic logic. We use the knowledge operator
+    K to represent what knowledge is held by each player. A Kripke model in S5 is
+    shown below. Each world consists of a pair of characters such that each player
+    has chosen a character. Since each player knows what character they have,
+    they know which characters they do not have. Therefore, e.g. player 1 can only
+    access worlds where the character for player 1 is the same as the one he
+    chose. This means that worlds have connections to each other world where the
+    local state is preserved, much like the distributed systems used by ?????.
+
+
+  </p>
+
+  <!-- not centered yet -->
+  <img id="model"  style="margin: 0 auto; width:600px; height:450px;" src="./res/kripkemodel.jpg">
+
+
+  <p>
+   An interactive game is shown below:
+  </p>
+
+  <div>
+    <div class="bgimg">
+        <div class="playerchars_top">
+          <img id="p0_char1" src="./res/hg t1 cn.PNG" width="100" height="100">
+          <img id="p0_char2" src="./res/hg t1 cn.PNG" width="100" height="100">
+          <img id="p0_char3" src="./res/hg t1 cn.PNG" width="100" height="100">
+        </div>
+
+        <div class="playerchars_bottom">
+          <img id="p1_char1" src="./res/hg t1 cn.PNG" width="100" height="100">
+          <img id="p1_char2" src="./res/hg t1 cn.PNG" width="100" height="100">
+          <img id="p1_char3" src="./res/hg t1 cn.PNG" width="100" height="100">
+        </div>
+    </div>
+    <div style="text-align: center;">
+      <button type="button" onclick="stepGame()">Next step!</button>
+      <button type="button" onclick="resetGame()">Reset game</button>
+    </div>
   </div>
-  <button type="button" onclick="stepGame()">Next step!</button>
-  <button type="button" onclick="resetGame()">Reset game</button>
 
 <script src="character.js"></script>
 <script src="player.js"></script>
