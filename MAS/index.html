@@ -30,17 +30,49 @@
   <link rel="icon" href="res/favicon.ico" type="image/x-icon" />
   <link rel="shortcut icon" href="res/favicon.ico" type="image/x-icon" />
 
-  <h1 style="text-align:center";>Symmetric Guess who?</h1>
+  <h1 style="text-align:center";>Symmetric 'Guess Who?'</h1>
   <br><br>
 </header>
 
 <body>
-  <p>In the game of guess who, two opposing players pick a character from a given set of characters. The characters that players can choose have various
+
+	<!-- THE INTERACTIVE GAME -->
+	<div>
+      <div class="bgimg">
+          <div class="playerchars_top">
+            <img id="p0_char1" src="./res/hg t1 cn.PNG" width="100" height="100">
+            <img id="p0_char2" src="./res/hg t1 cn.PNG" width="100" height="100">
+            <img id="p0_char3" src="./res/hg t1 cn.PNG" width="100" height="100">
+          </div>
+
+          <div class="playerchars_bottom">
+            <img id="p1_char1" src="./res/hg t1 cn.PNG" width="100" height="100">
+            <img id="p1_char2" src="./res/hg t1 cn.PNG" width="100" height="100">
+            <img id="p1_char3" src="./res/hg t1 cn.PNG" width="100" height="100">
+          </div>
+      </div>
+      <div style="text-align: center;">
+        <button type="button" onclick="stepGame()">Next step</button>
+        <button type="button" onclick="resetGame()">Reset game</button>
+		<button type="button" onclick="help()">Help</button>
+      </div>
+    </div>
+
+  <script src="character.js"></script>
+  <script src="player.js"></script>
+  <script src="knowledge.js"></script>
+  <script src="images.js"></script>
+  <script src="main.js"></script>
+
+
+  <h2>The game</h2>
+
+  <p>In the game of <i>Guess Who?</i>, two opposing players pick a character from a given set of characters. The characters that players can choose have various
   attributes such as the colour of hair or wearing glasses. It is up to players,
   to guess what character his or her opponent has chosen in order to win the game. Players may ask binary questions about the attributes in order to gain
   informatiom on which characters the opponent may, or may not have chosen.</p>
 
-  <p> The variant that is analysed here is symmetric Guess who. Here, once a
+  <p> The variant that is analysed here is symmetric <i>Guess Who?</i>. Here, once a
     player asks a question about an attribute, both players have to say whether
     or not their character satisfies the mentioned attribute (truthfully).
     The implications of the symmetric gameplay is that players may be unable to
@@ -50,7 +82,8 @@
     opponent thinks you are going to do next.
   </p>
 
-  <h2>Using epistemic logic:</h2>
+
+  <h2>Using epistemic logic</h2>
 
   <p>
     The game is analysed here using epistemic logic. We use the knowledge
@@ -62,41 +95,18 @@
 
   <p>
     The system shown above uses double lines to indicate that every state along that line can be reached from any other state reached. Notably, states along these lines can make 'jumps' to another state along the same line. Given that players know which attributes their character has, players may only access states in which this chosen character is the same. Thus, there is a horizontal and vertical double line for player one and two respectively, in order to access the reachable states.
-    <br>
-    <br>
-    We have indicated the propositions that are true in a world by showing the avatar for each player. The avatars, here, forms a specification on propositions that are true and false by visualising the attributes of the characters, such as red hair and having two teeth. Then, the visualisation marks whether a given proposition is true or false.
+    <br><br>
+    We have indicated the propositions that are true in a world by showing the avatar for each player. The avatars, here, form a specification on propositions that are true and false by visualising the attributes of the characters, such as red hair and having two teeth. Then, the visualisation marks whether a given proposition is true or false.
   </p>
 
+  <br>
+  <h1 id="help"; style="text-align:center">Need help with the interactive game?</h1>
 
   <p>
-   An interactive game is shown below:
+	  At the top of the page you will find an interactive game of <i>Guess Who?</i>. By pressing 'next step', the game advances by one step, i.e. one player asking a question and both players answering this question with regards to their chosen avatar. Both players' knowledge will be updated as a result, and the general knowledge base tries to prove new propositions by the rules of the game.
+	  <br><br>
+	  Pressing 'reset game' will reset the players' knowledge and chosen avatars.
   </p>
-
-  <div>
-    <div class="bgimg">
-        <div class="playerchars_top">
-          <img id="p0_char1" src="./res/hg t1 cn.PNG" width="100" height="100">
-          <img id="p0_char2" src="./res/hg t1 cn.PNG" width="100" height="100">
-          <img id="p0_char3" src="./res/hg t1 cn.PNG" width="100" height="100">
-        </div>
-
-        <div class="playerchars_bottom">
-          <img id="p1_char1" src="./res/hg t1 cn.PNG" width="100" height="100">
-          <img id="p1_char2" src="./res/hg t1 cn.PNG" width="100" height="100">
-          <img id="p1_char3" src="./res/hg t1 cn.PNG" width="100" height="100">
-        </div>
-    </div>
-    <div style="text-align: center;">
-      <button type="button" onclick="stepGame()">Next step!</button>
-      <button type="button" onclick="resetGame()">Reset game</button>
-    </div>
-  </div>
-
-<script src="character.js"></script>
-<script src="player.js"></script>
-<script src="knowledge.js"></script>
-<script src="images.js"></script>
-<script src="main.js"></script>
 
 </body>
 </html>

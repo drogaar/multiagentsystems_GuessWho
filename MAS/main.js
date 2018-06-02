@@ -49,11 +49,11 @@ function stepGame(){
 	// Let each player answer the question in turn
 	answer = players[opponentIdx].answerQuestion(knowledgeBase.getKnowledge(playerIdx), question)
 	console.log("  " + players[opponentIdx].name + " answers: " + answer)
-	knowledgeBase.addKnowledge(opponentIdx, answer)
+	knowledgeBase.addKnowledge(playerIdx, answer)
 
 	answer = players[playerIdx].answerQuestion(knowledgeBase.getKnowledge(opponentIdx), question)
 	console.log("  " + players[playerIdx].name + " answers: " + answer)
-	knowledgeBase.addKnowledge(playerIdx, answer)
+	knowledgeBase.addKnowledge(opponentIdx, answer)
 
 	console.log("\n")
 
@@ -80,18 +80,23 @@ function resetGame(){
 	// I just spent an hour on this so I can't delete it right now :(
 
 	// add players' knowledge to KB
-	knowledgeBase.addKnowledge(0, "p1.hair:"+ p1.avatar.hair)
-	knowledgeBase.addKnowledge(0, "p1.crosseyed:"+ p1.avatar.crosseyed)
-	knowledgeBase.addKnowledge(0, "p1.teeth:"+ p1.avatar.teeth)
-	knowledgeBase.addKnowledge(0, "p1." + p1.avatar.name)
-
-	knowledgeBase.addKnowledge(1, "p2.hair:"+ p2.avatar.hair)
-	knowledgeBase.addKnowledge(1, "p2.crosseyed:"+ p2.avatar.crosseyed)
-	knowledgeBase.addKnowledge(1, "p2.teeth:"+ p2.avatar.teeth)
-	knowledgeBase.addKnowledge(1, "p2." + p2.avatar.name)
+	// knowledgeBase.addKnowledge(0, "p1.hair:"+ p1.avatar.hair)
+	// knowledgeBase.addKnowledge(0, "p1.crosseyed:"+ p1.avatar.crosseyed)
+	// knowledgeBase.addKnowledge(0, "p1.teeth:"+ p1.avatar.teeth)
+	// knowledgeBase.addKnowledge(0, "p1." + p1.avatar.name)
+	//
+	// knowledgeBase.addKnowledge(1, "p2.hair:"+ p2.avatar.hair)
+	// knowledgeBase.addKnowledge(1, "p2.crosseyed:"+ p2.avatar.crosseyed)
+	// knowledgeBase.addKnowledge(1, "p2.teeth:"+ p2.avatar.teeth)
+	// knowledgeBase.addKnowledge(1, "p2." + p2.avatar.name)
 
 	console.log("p1's Avatar:", p1.getAvatar())
 	console.log("p2's Avatar:", p2.getAvatar())
 	console.log("\nInitial knowledge: ")
 	console.log(knowledgeBase.knowledge)
+}
+
+// Jumps page to interactive game info
+function help(){
+	document.getElementById('help').scrollIntoView();
 }
