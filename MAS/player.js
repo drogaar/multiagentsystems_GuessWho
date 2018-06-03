@@ -11,7 +11,8 @@ class Player{
 	// Come up with a question to ask the other player
 	askQuestion(){
 		// TODO: ask smarter question
-		return "hair:red"
+		var randomQuestions = ["hair:red", "hair:green", "hair:blue", "teeth:0", "teeth:1", "teeth:2", "crosseyed:true", "crosseyed:false"]
+		return randomQuestions[Math.floor(Math.random()*randomQuestions.length)]
 	}
 
 	// Answer a question

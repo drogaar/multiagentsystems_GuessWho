@@ -1,7 +1,7 @@
 images = ["hb t2 cy.jpg", "hg t1 cn.jpg", "hr t0 cy.jpg", "hr t1 cn.jpg"]
 hairColours = ["red", "green", "blue"]
-teethQuantities = [0, 1, 2]
-crossEyed = [true, false]
+teethQuantities = ["0", "1", "2"]
+crossEyed = ["true", "false"]
 
 attributes = {}
 attributes["hair"] = hairColours
@@ -35,6 +35,8 @@ function stepGame(){
 	console.log("\n_____________ GAME STEP _____________")
 	var playerIdx = turn % 2
 	var opponentIdx = (turn+1) % 2
+	var playerNum = playerIdx + 1
+	var opponentNum = ((playerNum) % 2) + 1
 
   // the player should ask the question that gives him most information
   // and doesn't reveal his character to his enemy
@@ -47,18 +49,31 @@ function stepGame(){
 
 
 	// Let each player answer the question in turn
+	console.log("\n\n")
 	answer = players[opponentIdx].answerQuestion(knowledgeBase.getKnowledge(playerIdx), question)
 	console.log("  " + players[opponentIdx].name + " answers: " + answer)
-	knowledgeBase.addKnowledge(playerIdx, answer)
+	// Add K1(...) && K1(K2(...))
+	knowledgeBase.addKnowledge("K" + playerNum + "(" + answer + ")")
+	knowledgeBase.addKnowledge("K" + opponentNum + "(K" + playerNum + "(" + answer + "))")
 
+	console.log("\n\n")
 	answer = players[playerIdx].answerQuestion(knowledgeBase.getKnowledge(opponentIdx), question)
 	console.log("  " + players[playerIdx].name + " answers: " + answer)
-	knowledgeBase.addKnowledge(opponentIdx, answer)
+	// Add K2(...) && K2(K1(...))
+	knowledgeBase.addKnowledge("K" + opponentNum + "(" + answer + ")")
+	knowledgeBase.addKnowledge("K" + playerNum + "(K" + opponentNum + "(" + answer + "))")
 
-	console.log("\n")
+	// Log who knows what:
+	// console.log("\n")
+	// console.log(players[playerIdx].name + " knows: ")
+	// console.log(knowledgeBase.getKnowledge(playerIdx+1))
+	// console.log("\n")
+	// console.log(players[opponentIdx].name + " knows: ")
+	// console.log(knowledgeBase.getKnowledge(opponentIdx+1))
+	// console.log("\n")
 
-	console.log(players[playerIdx].name + " knows: " + knowledgeBase.getKnowledge(playerIdx+1))
-	console.log(players[opponentIdx].name + " knows: " + knowledgeBase.getKnowledge(opponentIdx+1))
+	// Log all knowledge at once:
+	console.log("\nCurrent Knowledge:\n\n" + knowledgeBase.knowledge.sort().join("\n"))
 
 	turn++
 }
@@ -76,8 +91,9 @@ function resetGame(){
 	players = [p1, p2]
 
 
-	// TODO: delete all of this because it actually isn't even relevant (and requires negations of literally everything else)
+	// The following lines of code contain player knowledge about their own character. Took me a while to realize it is actually irrelevant for proving things.
 	// I just spent an hour on this so I can't delete it right now :(
+	// TODO: would actually be better to put this in the knowledge base anyway for answering questions, as opposed to checking the avatar attribute of a player since it is knowledge that should be represented in the KB.
 
 	// add players' knowledge to KB
 	// knowledgeBase.addKnowledge(0, "p1.hair:"+ p1.avatar.hair)
@@ -92,8 +108,8 @@ function resetGame(){
 
 	console.log("p1's Avatar:", p1.getAvatar())
 	console.log("p2's Avatar:", p2.getAvatar())
-	console.log("\nInitial knowledge: ")
-	console.log(knowledgeBase.knowledge)
+	// console.log("\nInitial knowledge: ")
+	// console.log(knowledgeBase.knowledge)
 }
 
 // Jumps page to interactive game info

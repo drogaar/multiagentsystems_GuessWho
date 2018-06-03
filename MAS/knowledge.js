@@ -7,38 +7,117 @@ class Knowledge {
 
 
 	// Adds knowledge to the knowledge base and tries to prove new facts and characters from this
-	addKnowledge(player, knowledge){
-		var playerNum = player + 1 // Note the difference between 'playerNum' and 'player'
-		var opponentNum = ((player) % 2) + 1
+	// knowledge is like "K1K2(p1.hair:red)"
+	addKnowledge(knowledge){
 
-		// Rephrase knowledge and add what can be proven for the player
-		var pre = this.knows(playerNum, knowledge)
-		var post = this.prove(playerNum, pre)
-		for (var i=0; i<post.length; ){
-			if (!this.knowledge.includes(post[i])){
-				this.knowledge.push(post[i])
+		// Add the initial piece of knowledge
+		if (!this.knowledge.includes(knowledge)){
+			this.knowledge.push(knowledge)
+		}
+
+		// Prove new knowledge for the agents
+		var start = knowledge.substring(0, knowledge.lastIndexOf('(')+1) // start of logical string: ['K1(', 'K2K1(']
+		var avatar = knowledge.substring(knowledge.lastIndexOf('(')+1, knowledge.indexOf('.')+1) // avatar in logical string: ['p1.', '!p2.']
+		var bareKnowledge = knowledge.substring(knowledge.lastIndexOf(".")+1, knowledge.indexOf(")")); // the bare knowledge: [hair:red, bob, !crosseyed:true]
+		var end = knowledge.substring(knowledge.indexOf(')'), knowledge.length) // end of logical string [')', '))']
+
+		// Prove and add new knowledge
+		var newKnowledge = this.prove((avatar[0]=='!' ? '!' : '') + bareKnowledge, start) // prove e.g. '!crosseyed:true'
+		for (var i in newKnowledge){
+			var k = newKnowledge[i] // e.g. 'crosseyed:false'
+			console.log("    new: " + k)
+
+			// Put the proved proposition back into a logical string
+			if (k[0] == '!'){ // e.g. '!hair:blue'
+				if (avatar[0] == '!'){ // e.g. '!p2.!hair:blue'
+					k = (start + avatar + k + end).replace('!', '') // remove double negation
+				} else { // e.g. p1.!hair:blue
+					k = start + '!' + avatar + k.replace('!', '') + end // change position of the negation
+				}
+			} else {
+				k = start + avatar.replace('!', '') + k + end
+			}
+			// Add the new piece of knowledge
+			if (!this.knowledge.includes(k)){
+				this.addKnowledge(k)
 			}
 		}
-		if (!this.knowledge.includes(pre)){
-			this.knowledge.push(pre)
+		this.checkConsistency()
+	}
+
+	// Adds to the knowledge base using latest piece of knowledge
+	// Assumes that everything that could have been proven has been proven, except for the new piece of knowledge (recursive nature using addKnowledge() keeps this assumption true)
+	// <k> is a proposition ['hair:red', 'bob', ...]; <start> is the initial part of the proposition ['K1(', 'K1K2(', ...]
+	prove(k, start){
+		var newKnowledge = []
+		for (var i in this.rules){
+			var rule = this.rules[i]
+			var antecedent = rule.split(" -> ")[0]
+			var consequent = rule.split(" -> ")[1]
+
+			// Check conjunction
+			if (antecedent.includes(" ^ ")){
+				var conjuncts = antecedent.split(" ^ ")
+				var satisfied = true // whether all conjuncts are satisfied in the knowledge base
+				// loop through the conjuncts
+				for (var j in conjuncts){
+					var conjunct = conjuncts[j].replace('(', '').replace(')', '')
+					// loop through all knowledge items
+					for (var l in this.knowledge){
+						var subSatisfied = false // whether a single conjunct is satisfied
+						var item = this.knowledge[l] // e.g. 'K1(!p2.hair:red)'
+						if (item.startsWith(start)) { // item is knowledge of the appropriate player
+							var stripped = (item.includes('!') ? '!' : '') + item.substring(item.indexOf('.')+1, item.indexOf(')')) // turn 'K1(!p2.hair:red)' into '!hair:red'
+							if (stripped == conjunct){
+								subSatisfied = true
+								break
+							}
+						}
+					}
+					// conjunction is not satisfied if any conjunct is not satisfied
+					if (!subSatisfied){
+						satisfied = false
+						break
+					}
+				}
+				if (satisfied){
+					newKnowledge.push(consequent)
+				}
+
+			// Check simple implication
+			} else {
+				if (k == antecedent){
+					newKnowledge.push(consequent)
+				}
+			}
 		}
-
-		// TODO: add K[other](K[agent](knowledge))
-		// TODO: with rules, add more knowledge
+		return newKnowledge
 	}
 
-	// Adds to the knowledge base using latest information
-	prove(playerNum, pre){
-		// TODO: make recursive
-		var post = []
-		// TODO: figure out how the function should look based on what addKnowledge should do -->
-		// prove things that you know the opponent knows using K[player](K[opponent](...))???
-		return post
-	}
-
-	// Returns the string for someone knowing something (e.g. K1(p1.hair:red))
-	knows(player, knowledge){
-		return "K" + player + "(" + knowledge + ")"
+	// Prints a warning as soon as the knowledge base contains a contradiction
+	checkConsistency(){
+		for (var i in this.knowledge){
+			var a = [this.knowledge[i]]
+			if (a.toString().includes('!')){
+				a[0] = a[0].replace('!', '')
+				a.push(true)
+			} else {
+				a.push(false)
+			}
+			for (var j in this.knowledge){
+				var b = [this.knowledge[j]]
+				if (b.toString().includes('!')){
+					b[0] = b[0].replace('!', '')
+					b.push(true)
+				} else {
+					b.push(false)
+				}
+				//console.log(a + "   " + b)
+				if (a[0] == b[0] && a[1] != b[1]){
+					console.warn("WARNING: contradiction in KB.\n" + this.knowledge[i] + "\n" + this.knowledge[j])
+				}
+			}
+		}
 	}
 
 	// Returns string format for character attributes
@@ -51,14 +130,14 @@ class Knowledge {
 	generateBaseKnowledge(attributes, characters){
 		var baseKnowledge = [];
 
-		// All possibilites with disjunction
-		for (var attribute in attributes) {
-			var k = attribute + ":" + attributes[attribute][0];
-			for (var i = 1; i < attributes[attribute].length; i++) {
-				k += " v " + attribute + ":" + attributes[attribute][i];
-			}
-			baseKnowledge.push(k);
-		}
+		// All possibilites with disjunction -- unused, for now
+		// for (var attribute in attributes) {
+		// 	var k = attribute + ":" + attributes[attribute][0];
+		// 	for (var i = 1; i < attributes[attribute].length; i++) {
+		// 		k += " v " + attribute + ":" + attributes[attribute][i];
+		// 	}
+		// 	baseKnowledge.push(k);
+		// }
 
 		// Attribute implies not other attributes
 		for (var attribute in attributes) {
@@ -97,7 +176,7 @@ class Knowledge {
 			baseKnowledge.push(this.generateCharInfo(characters[character].getAttributes()));
 		}
 
-		console.log(baseKnowledge)
+		//console.log(baseKnowledge)
 		return baseKnowledge;
 	}
 
@@ -123,9 +202,9 @@ class Knowledge {
 		}
 	}
 
-	// String representation should not include implications, since that's too much
+	// Print only the obtained knowledge, not the rules / implications
 	toString(){
-		return String(this.knowledge)
+		return this.knowledge.join(" ^ ")
 	}
 
 }
