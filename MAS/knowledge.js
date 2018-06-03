@@ -25,7 +25,7 @@ class Knowledge {
 		var newKnowledge = this.prove((avatar[0]=='!' ? '!' : '') + bareKnowledge, start) // prove e.g. '!crosseyed:true'
 		for (var i in newKnowledge){
 			var k = newKnowledge[i] // e.g. 'crosseyed:false'
-			console.log("    new: " + k)
+			console.log("    newly proven: " + k)
 
 			// Put the proved proposition back into a logical string
 			if (k[0] == '!'){ // e.g. '!hair:blue'
@@ -124,8 +124,8 @@ class Knowledge {
 	generateCharInfo(attributes) {
 		return ("(hair:" + attributes[0] + " ^ " + "crosseyed:" + attributes[1]
 			+ " ^ " + "teeth:" + attributes[2] + ") -> " + attributes[3]);
-
 	}
+
 	// Returns the knowledge that corresponds with the set of rules for the game
 	generateBaseKnowledge(attributes, characters){
 		var baseKnowledge = [];
@@ -172,15 +172,38 @@ class Knowledge {
 			}
 		}
 
+		// hair:red and crosseyed:true and teeth:0 implies peter
 		for (var character in characters) {
 			baseKnowledge.push(this.generateCharInfo(characters[character].getAttributes()));
+		}
+
+		// Not hair:red -> not bob
+		for (var character in characters) {
+			attributes = characters[character].getAttributes()
+			baseKnowledge.push("!hair:" + attributes[0] + " -> !" + attributes[3])
+			baseKnowledge.push("!crosseyed:" + attributes[1] + " -> !" + attributes[3])
+			baseKnowledge.push("!teeth:" + attributes[2] + " -> !" + attributes[3])
+		}
+
+		// not char1 and not char2 and not char3 implies char4
+		for (var i = 0; i < characters.length; i++) {
+			var temp_str = "";
+			for (var j = 0; j < characters.length; j++) {
+				if (i != j) {
+					temp_str += "!" + characters[j].getAttributes()[3] + " ^ "
+				}
+			}
+			// remove last and
+			temp_str = temp_str.substring(0, temp_str.length - 3);
+			// add parentheses
+			temp_str = "(" + temp_str + ")"
+			temp_str += " -> " + characters[i].getAttributes()[3]
+			baseKnowledge.push(temp_str)
 		}
 
 		//console.log(baseKnowledge)
 		return baseKnowledge;
 	}
-
-
 
 	// Returns knowledge either as subset for an agent or as a whole
 	getKnowledge(player=null){
