@@ -108,8 +108,8 @@ function resetGame(){
 
 	console.log("p1's Avatar:", p1.getAvatar())
 	console.log("p2's Avatar:", p2.getAvatar())
-	// console.log("\nInitial knowledge: ")
-	// console.log(knowledgeBase.knowledge)
+	console.log("\nGame rules:")
+	console.log(knowledgeBase.rules)
 }
 
 // Jumps page to interactive game info

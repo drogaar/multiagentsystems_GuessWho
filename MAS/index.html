@@ -54,7 +54,7 @@
       <div style="text-align: center;">
         <button type="button" onclick="stepGame()">Next step</button>
         <button type="button" onclick="resetGame()">Reset game</button>
-		<button type="button" onclick="help()">Help</button>
+		<button type="button" onclick="help()">Help me</button>
       </div>
     </div>
 
@@ -111,9 +111,15 @@
   <h1 id="help"; style="text-align:center">Need help with the interactive game?</h1>
 
   <p>
-	  At the top of the page you will find the interactive game of <i>Guess Who</i>. By pressing 'next step', the game advances by one step, i.e. one player asks a question and each players answers this question with regard to their chosen avatar. Both players' knowledge about their opponent's avatar will be updated, and the knowledge base tries to prove new propositions using the rules of the game.
+	  At the top of the page you will find the interactive game of <i>Guess Who</i>. By pressing 'next step', the game advances by one step, i.e. one player asks a question and each players answers this question with regard to their chosen avatar. Both players' knowledge about their opponent's avatar will be updated, and the knowledge base tries to prove new propositions using the rules of the game. Note that pressing 'reset game' will reset all knowledge and chosen avatars, and 'help me' will bring you to this section.
+  </p>
+  <br><br><br>
+
+  <h1 style="text-align:center">Project implementation & status</h2>
+  <p>
+	  The game in its current state is not yet finished.
 	  <br><br>
-	  Pressing 'reset game' will reset all knowledge and chosen avatars.
+	  The game currently asks a random question (which might have been answered already). It keeps track of each agent's knowledge, a part of which can be seen by opening the browser's debugging console (on Chrome, right click -> inspect -> check the console tab) under 'Current Knowledge'. A custom logic prover is implemented which takes the rules of the game, as seen in the console, and proves new knowledge per agent once a question is answered. It seems only relevant that a player knows something about their opponent's avatar, and that a player knows that the opponent knows about their own avatar. To make the knowledge base more clear, only this is implemented as knowledge and not a player's knowledge about its own avatar (although it could be argued that this should be present for making a decision as to which question to ask the opponent, making sure that the opponent does not find out what your avatar is). The knowledge is represented as e.g. "K1(K2(p1.hair:red))", which means that "player 1 knows that player 2 knows that the avatar of player 1 has red hair". The goal of the game is to ask questions such that a piece of knowledge will be proven that looks like "K1(p2.bob)", which means that "player 1 knows that the avatar of player 2 is Bob". There are four characters in this game (of which only three are currently shown) named {"Fred", "Li'l Timmy", "Bob", "Peter"}. A legend as to which character belongs to whom will be posted in the near future. If, at any point, the knowledge base contains a contradiction, the system will notify us of this in the console. It is expected that the final version will never contain contradictions since both players are perfect logical reasoners and perfectly truthful, but it does show that currently there is still a small bug in the prover that accidentally adds contradicting knowledge. To see this, try refreshing the page a few times with the console open. Finally, the question "crosseyed:false" seems to always be answered as "!pn.crosseyed:false". Whoops...
   </p>
 
 </body>

@@ -25,7 +25,7 @@ class Knowledge {
 		var newKnowledge = this.prove((avatar[0]=='!' ? '!' : '') + bareKnowledge, start) // prove e.g. '!crosseyed:true'
 		for (var i in newKnowledge){
 			var k = newKnowledge[i] // e.g. 'crosseyed:false'
-			console.log("    newly proven: " + k)
+			//console.log("    newly proven: " + k)
 
 			// Put the proved proposition back into a logical string
 			if (k[0] == '!'){ // e.g. '!hair:blue'
