@@ -50,18 +50,14 @@ function stepGame(){
 
 	// Let each player answer the question in turn
 	console.log("\n\n")
-	answer = players[opponentIdx].answerQuestion(knowledgeBase.getKnowledge(playerIdx), question)
+	answer = players[opponentIdx].answerQuestion(knowledgeBase.getKnowledge(opponentIdx), question)
 	console.log("  " + players[opponentIdx].name + " answers: " + answer)
-	// Add K1(...) && K1(K2(...))
-	knowledgeBase.addKnowledge("K" + playerNum + "(" + answer + ")")
-	knowledgeBase.addKnowledge("K" + opponentNum + "(K" + playerNum + "(" + answer + "))")
+	knowledgeBase.addKnowledge(answer)
 
 	console.log("\n\n")
-	answer = players[playerIdx].answerQuestion(knowledgeBase.getKnowledge(opponentIdx), question)
+	answer = players[playerIdx].answerQuestion(knowledgeBase.getKnowledge(playerIdx), question)
 	console.log("  " + players[playerIdx].name + " answers: " + answer)
-	// Add K2(...) && K2(K1(...))
-	knowledgeBase.addKnowledge("K" + opponentNum + "(" + answer + ")")
-	knowledgeBase.addKnowledge("K" + playerNum + "(K" + opponentNum + "(" + answer + "))")
+	knowledgeBase.addKnowledge(answer)
 
 	// Log who knows what:
 	// console.log("\n")
