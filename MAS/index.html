@@ -6,6 +6,7 @@
       background-image: url('./res/bg.jpg');
       background-repeat:no-repeat;
       background-size:100%;
+      float: left;
       height:666px;width:400px;
       margin: 0 auto;
     }
@@ -26,6 +27,11 @@
       /*margin-right: 10em;*/
       margin: 10em;
     }
+    textarea {
+        resize: none;
+        height: 666px;
+        width: 400px;
+    }
   </style>
   <meta charset="utf-8"/>
   <link rel="icon" href="res/favicon.ico" type="image/x-icon" />
@@ -39,7 +45,7 @@
 <body>
 
 	<!-- THE INTERACTIVE GAME -->
-	<div>
+	<div style="float:center; margin: auto; ">
       <div class="bgimg">
           <div class="playerchars_top">
             <img id="p0_char1" src="./res/hg t1 cn.jpg" width="100" height="100">
@@ -53,6 +59,7 @@
             <img id="p1_char3" src="./res/hg t1 cn.jpg" width="100" height="100">
           </div>
       </div>
+      <textarea id="outConsole" rows="50" cols="50" disabled></textarea>
       <div style="text-align: center;">
         <button type="button" onclick="stepGame()">Next step</button>
         <button type="button" onclick="resetGame()">Reset game</button>
@@ -60,12 +67,16 @@
       </div>
     </div>
 
+  <!-- Evaluate this statement: <input type="text" id="propMaker" onchange="evaluateProp()"> -->
   <script src="character.js"></script>
   <script src="player.js"></script>
   <script src="knowledge.js"></script>
   <script src="images.js"></script>
-  <script src="kripkemodel.js"></script>
   <script src="main.js"></script>
+
+  <script>
+    document.getElementById('outConsole').value = "Hello World!";
+  </script>
 
 
 	<!-- TODO: write about the following, in the report:
