@@ -9,6 +9,7 @@ class Knowledge {
 	// Adds knowledge to the knowledge base and tries to prove new facts and characters from this
 	// knowledge is like "p1.hair:red"
 	addKnowledge(knowledge){
+		//console.log("")
 
 		// Add the initial piece of knowledge
 		if (!this.knowledge.includes(knowledge)){
@@ -20,7 +21,7 @@ class Knowledge {
 
 
 		// Prove and add new knowledge
-		var newKnowledge = this.prove((avatar[0]=='!' ? '!' : '') + bareKnowledge) // prove e.g. '!crosseyed:true'
+		var newKnowledge = this.prove((avatar[0]=='!' ? '!' : '') + bareKnowledge, avatar) // prove e.g. '!crosseyed:true'
 		for (var i in newKnowledge){
 			var k = newKnowledge[i] // e.g. 'crosseyed:false'
 			//console.log("    newly proven: " + k)
@@ -47,7 +48,7 @@ class Knowledge {
 	// Adds to the knowledge base using latest piece of knowledge
 	// Assumes that everything that could have been proven has been proven, except for the new piece of knowledge (recursive nature using addKnowledge() keeps this assumption true)
 	// <k> is a proposition ['hair:red', 'bob', ...]; <start> is the initial part of the proposition ['K1(', 'K1K2(', ...]
-	prove(k){
+	prove(k, avatar){
 		var newKnowledge = []
 		for (var i in this.rules){
 			// console.log("--------------")
@@ -67,9 +68,10 @@ class Knowledge {
 					// loop through all knowledge items
 					for (var l in this.knowledge){
 						var subSatisfied = false // whether a single conjunct is satisfied
-						var item = this.knowledge[l] // e.g. 'K1(!p2.hair:red)'
-						var stripped = (item.includes('!') ? '!' : '') + item.substring(item.indexOf('.')+1, item.indexOf(')')) // turn 'K1(!p2.hair:red)' into '!hair:red'
-						if (stripped == conjunct){
+						var item = this.knowledge[l] // e.g. '!p2.hair:red'
+
+						// if item matches conjunct and truth value ('!') matches, then it is found
+						if ((item == (avatar + conjunct)) && ((item[0] != '!' && conjunct[0] != '!') || (item[0] == '!' && conjunct[0] == '!'))){
 							subSatisfied = true
 							break
 						}
@@ -81,6 +83,7 @@ class Knowledge {
 					}
 				}
 				if (satisfied){
+					//console.log("Satisfied: " + rule)
 					newKnowledge.push(consequent)
 				}
 
@@ -216,22 +219,7 @@ class Knowledge {
 
 	// Returns knowledge either as subset for an agent or as a whole
 	getKnowledge(player=null){
-		if(player==null){
-			return this.knowledge.toString()
-		}
-		else{
-			// TODO: take subset of knowledge
-			var subset = []
-			for (var i=0; i<this.knowledge.length; i++){
-				var k = this.knowledge[i]
-				if(k.startsWith("K"+player+"(")){
-					k = k.substring(k.lastIndexOf("(")+1,k.lastIndexOf(")"))
-					//console.log("  Found: " + k)
-					subset.push(k)
-				}
-			}
-			return subset
-		}
+		return this.knowledge
 	}
 
 	// Print only the obtained knowledge, not the rules / implications

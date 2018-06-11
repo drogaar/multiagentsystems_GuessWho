@@ -27,7 +27,7 @@ resetGame()
 
 
 // TODO: for debugging only
-//stepGame()
+stepGame()
 
 
 
@@ -51,18 +51,16 @@ function stepGame(){
 
 
 		// Let each player answer the question in turn
-		answer = players[opponentIdx].answerQuestion(knowledgeBase.getKnowledge(opponentIdx), question)
+		answer = players[opponentIdx].answerQuestion(question)
 		log(players[opponentIdx].name + " answers:\n  " + answer)
-		result = knowledgeBase.addKnowledge(answer)
-		if (result){
-			endGame()
-		}
+		knowledgeBase.addKnowledge(answer)
 
-		answer = players[playerIdx].answerQuestion(knowledgeBase.getKnowledge(playerIdx), question)
+		answer = players[playerIdx].answerQuestion(question)
 		log(players[playerIdx].name + " answers:\n  " + answer)
 		result = knowledgeBase.addKnowledge(answer)
 		if (result){
 			endGame()
+			return
 		}
 
 		// Log who knows what:
@@ -121,6 +119,7 @@ function resetGame(){
 // stop game!
 function endGame(){
 	log("The game has ended!\n_____________________________________")
+	log("\nCurrent Knowledge:\n\n" + knowledgeBase.knowledge.sort().join("\n"))
 	ended = true
 }
 
