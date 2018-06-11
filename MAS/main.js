@@ -10,6 +10,8 @@ attributes["teeth"] = teethQuantities
 
 characters = []
 names = ["lil_timmy", "bob", "peter", "fred"]
+
+// Define possible characters, based on which ones we have drawings for
 for (var i = 0; i < images.length; i++){
 	characters.push(str2char(images[i], names[i]))
 }
@@ -18,9 +20,6 @@ var turn = 0
 var players = []
 var knowledgeBase
 var ended = false // whether the game has ended
-
-setImages(0)
-setImages(1)
 
 // Start game
 resetGame()
@@ -75,6 +74,10 @@ function stepGame(){
 		// Log all knowledge at once:
 		log("\nCurrent Knowledge:\n\n" + knowledgeBase.knowledge.sort().join("\n"))
 
+		// Update images for possible characters
+		setImages(0, knowledgeBase);
+		setImages(1, knowledgeBase);
+
 		turn++
 	}
 }
@@ -84,15 +87,19 @@ function resetGame(){
 	ended = false
 	clearlog()
 
-	var numChars = characters.length
-	knowledgeBase = new Knowledge(characters, attributes)
+	var numChars = characters.length;
+	knowledgeBase = new Knowledge(characters, attributes);
 
-	char1 = characters[Math.floor((Math.random() * numChars - 1) + 1)]
-	char2 = characters[Math.floor((Math.random() * numChars - 1) + 1)]
+  // Update images for possible characters
+	setImages(0, knowledgeBase);
+	setImages(1, knowledgeBase);
 
-	p1 = new Player("p1", char1)
-	p2 = new Player("p2", char2)
-	players = [p1, p2]
+	char1 = characters[Math.floor((Math.random() * numChars - 1) + 1)];
+	char2 = characters[Math.floor((Math.random() * numChars - 1) + 1)];
+
+	p1 = new Player("p1", char1);
+	p2 = new Player("p2", char2);
+	players = [p1, p2];
 
 
 	// The following lines of code contain player knowledge about their own character. Took me a while to realize it is actually irrelevant for proving things.
