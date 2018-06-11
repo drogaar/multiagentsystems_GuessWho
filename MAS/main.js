@@ -19,62 +19,72 @@ for (var i = 0; i < images.length; i++){
 var turn = 0
 var players = []
 var knowledgeBase
+var ended = false // whether the game has ended
 
 // Start game
 resetGame()
 
 
 // TODO: for debugging only
-stepGame()
+//stepGame()
 
 
 
 // next turn!
 function stepGame(){
-	console.log("\n_____________ GAME STEP _____________")
-	var playerIdx = turn % 2
-	var opponentIdx = (turn+1) % 2
-	var playerNum = playerIdx + 1
-	var opponentNum = ((playerNum) % 2) + 1
+	if (!ended){
+		log("\n_____________ GAME STEP _____________")
+		var playerIdx = turn % 2
+		var opponentIdx = (turn+1) % 2
+		var playerNum = playerIdx + 1
+		var opponentNum = ((playerNum) % 2) + 1
 
-  // the player should ask the question that gives him most information
-  // and doesn't reveal his character to his enemy
-	var question = players[playerIdx].askQuestion()
-	console.log("Player " + (playerIdx+1) + " asks: " + question)
-
-
-	// TODO: check if the question is a name. If so, the game is over :-)
-	// (if a human player is added, it needs another check to see if it is actually in the KB)
+	  // the player should ask the question that gives him most information
+	  // and doesn't reveal his character to his enemy
+		var question = players[playerIdx].askQuestion()
+		log("Player " + (playerIdx+1) + " asks:\n  " + question + "?\n")
 
 
-	// Let each player answer the question in turn
-	console.log("\n\n")
-	answer = players[opponentIdx].answerQuestion(knowledgeBase.getKnowledge(opponentIdx), question)
-	console.log("  " + players[opponentIdx].name + " answers: " + answer)
-	knowledgeBase.addKnowledge(answer)
+		// TODO: check if the question is a name. If so, the game is over :-)
+		// (if a human player is added, it needs another check to see if it is actually in the KB)
 
-	console.log("\n\n")
-	answer = players[playerIdx].answerQuestion(knowledgeBase.getKnowledge(playerIdx), question)
-	console.log("  " + players[playerIdx].name + " answers: " + answer)
-	knowledgeBase.addKnowledge(answer)
 
-	// Log who knows what:
-	// console.log("\n")
-	// console.log(players[playerIdx].name + " knows: ")
-	// console.log(knowledgeBase.getKnowledge(playerIdx+1))
-	// console.log("\n")
-	// console.log(players[opponentIdx].name + " knows: ")
-	// console.log(knowledgeBase.getKnowledge(opponentIdx+1))
-	// console.log("\n")
+		// Let each player answer the question in turn
+		answer = players[opponentIdx].answerQuestion(knowledgeBase.getKnowledge(opponentIdx), question)
+		log(players[opponentIdx].name + " answers:\n  " + answer)
+		result = knowledgeBase.addKnowledge(answer)
+		if (result){
+			endGame()
+		}
 
-	// Log all knowledge at once:
-	console.log("\nCurrent Knowledge:\n\n" + knowledgeBase.knowledge.sort().join("\n"))
+		answer = players[playerIdx].answerQuestion(knowledgeBase.getKnowledge(playerIdx), question)
+		log(players[playerIdx].name + " answers:\n  " + answer)
+		result = knowledgeBase.addKnowledge(answer)
+		if (result){
+			endGame()
+		}
 
-	turn++
+		// Log who knows what:
+		// console.log("\n")
+		// console.log(players[playerIdx].name + " knows: ")
+		// console.log(knowledgeBase.getKnowledge(playerIdx+1))
+		// console.log("\n")
+		// console.log(players[opponentIdx].name + " knows: ")
+		// console.log(knowledgeBase.getKnowledge(opponentIdx+1))
+		// console.log("\n")
+
+		// Log all knowledge at once:
+		log("\nCurrent Knowledge:\n\n" + knowledgeBase.knowledge.sort().join("\n"))
+
+		turn++
+	}
 }
 
 // start game!
 function resetGame(){
+	ended = false
+	clearlog()
+
 	var numChars = characters.length;
 	knowledgeBase = new Knowledge(characters, attributes);
 
@@ -105,13 +115,29 @@ function resetGame(){
 	// knowledgeBase.addKnowledge(1, "p2.teeth:"+ p2.avatar.teeth)
 	// knowledgeBase.addKnowledge(1, "p2." + p2.avatar.name)
 
-	console.log("p1's Avatar:", p1.getAvatar())
-	console.log("p2's Avatar:", p2.getAvatar())
-	console.log("\nGame rules:")
-	console.log(knowledgeBase.rules)
+	log("p1's Avatar:\n" + p1.getAvatar())
+	log("\np2's Avatar:\n" + p2.getAvatar())
+	// console.log("\nGame rules:")
+	// console.log(knowledgeBase.rules)
+}
+
+// stop game!
+function endGame(){
+	log("The game has ended!\n_____________________________________")
+	ended = true
 }
 
 // Jumps page to interactive game info
 function help(){
 	document.getElementById('help').scrollIntoView();
+}
+
+// outConsole logging
+function log(s){
+	document.getElementById('outConsole').value += (s + "\n")
+	document.getElementById("outConsole").scrollTop = document.getElementById("outConsole").scrollHeight
+}
+
+function clearlog(){
+	document.getElementById('outConsole').value = ""
 }

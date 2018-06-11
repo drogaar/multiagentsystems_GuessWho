@@ -7,7 +7,7 @@ class Knowledge {
 
 
 	// Adds knowledge to the knowledge base and tries to prove new facts and characters from this
-	// knowledge is like "K1K2(p1.hair:red)"
+	// knowledge is like "p1.hair:red"
 	addKnowledge(knowledge){
 
 		// Add the initial piece of knowledge
@@ -23,7 +23,7 @@ class Knowledge {
 		var newKnowledge = this.prove((avatar[0]=='!' ? '!' : '') + bareKnowledge) // prove e.g. '!crosseyed:true'
 		for (var i in newKnowledge){
 			var k = newKnowledge[i] // e.g. 'crosseyed:false'
-			console.log("    newly proven: " + k)
+			//console.log("    newly proven: " + k)
 
 			// Put the proved proposition back into a logical string
 			if (k[0] == '!'){ // e.g. '!hair:blue'
@@ -41,6 +41,7 @@ class Knowledge {
 			}
 		}
 		this.checkConsistency()
+		return this.checkEndGame()
 	}
 
 	// Adds to the knowledge base using latest piece of knowledge
@@ -70,7 +71,7 @@ class Knowledge {
 						var stripped = (item.includes('!') ? '!' : '') + item.substring(item.indexOf('.')+1, item.indexOf(')')) // turn 'K1(!p2.hair:red)' into '!hair:red'
 						if (stripped == conjunct){
 							subSatisfied = true
-							break	
+							break
 						}
 					}
 					// conjunction is not satisfied if any conjunct is not satisfied
@@ -91,6 +92,15 @@ class Knowledge {
 			}
 		}
 		return newKnowledge
+	}
+
+	checkEndGame(){
+		for (var i in this.knowledge){
+			if (!this.knowledge[i].includes(':') && !this.knowledge[i].includes('!')){
+				return true
+			}
+		}
+		return false
 	}
 
 	// Prints a warning as soon as the knowledge base contains a contradiction
