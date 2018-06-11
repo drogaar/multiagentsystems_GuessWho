@@ -34,7 +34,7 @@ resetGame()
 // next turn!
 function stepGame(){
 	if (!ended){
-		console.log("\n_____________ GAME STEP _____________")
+		log("\n_____________ GAME STEP _____________")
 		var playerIdx = turn % 2
 		var opponentIdx = (turn+1) % 2
 		var playerNum = playerIdx + 1
@@ -43,7 +43,7 @@ function stepGame(){
 	  // the player should ask the question that gives him most information
 	  // and doesn't reveal his character to his enemy
 		var question = players[playerIdx].askQuestion()
-		console.log("Player " + (playerIdx+1) + " asks: " + question)
+		log("Player " + (playerIdx+1) + " asks:\n  " + question + "?\n")
 
 
 		// TODO: check if the question is a name. If so, the game is over :-)
@@ -51,17 +51,15 @@ function stepGame(){
 
 
 		// Let each player answer the question in turn
-		console.log("\n\n")
 		answer = players[opponentIdx].answerQuestion(knowledgeBase.getKnowledge(opponentIdx), question)
-		console.log("  " + players[opponentIdx].name + " answers: " + answer)
+		log(players[opponentIdx].name + " answers:\n  " + answer)
 		result = knowledgeBase.addKnowledge(answer)
 		if (result){
 			endGame()
 		}
 
-		console.log("\n\n")
 		answer = players[playerIdx].answerQuestion(knowledgeBase.getKnowledge(playerIdx), question)
-		console.log("  " + players[playerIdx].name + " answers: " + answer)
+		log(players[playerIdx].name + " answers:\n  " + answer)
 		result = knowledgeBase.addKnowledge(answer)
 		if (result){
 			endGame()
@@ -77,7 +75,7 @@ function stepGame(){
 		// console.log("\n")
 
 		// Log all knowledge at once:
-		console.log("\nCurrent Knowledge:\n\n" + knowledgeBase.knowledge.sort().join("\n"))
+		log("\nCurrent Knowledge:\n\n" + knowledgeBase.knowledge.sort().join("\n"))
 
 		turn++
 	}
@@ -85,8 +83,10 @@ function stepGame(){
 
 // start game!
 function resetGame(){
-	var numChars = characters.length
 	ended = false
+	clearlog()
+
+	var numChars = characters.length
 	knowledgeBase = new Knowledge(characters, attributes)
 
 	char1 = characters[Math.floor((Math.random() * numChars - 1) + 1)]
@@ -112,19 +112,29 @@ function resetGame(){
 	// knowledgeBase.addKnowledge(1, "p2.teeth:"+ p2.avatar.teeth)
 	// knowledgeBase.addKnowledge(1, "p2." + p2.avatar.name)
 
-	console.log("p1's Avatar:", p1.getAvatar())
-	console.log("p2's Avatar:", p2.getAvatar())
+	log("p1's Avatar:\n" + p1.getAvatar())
+	log("\np2's Avatar:\n" + p2.getAvatar())
 	// console.log("\nGame rules:")
 	// console.log(knowledgeBase.rules)
 }
 
 // stop game!
 function endGame(){
-	console.log("The game has ended!\n_____________________________________")
+	log("The game has ended!\n_____________________________________")
 	ended = true
 }
 
 // Jumps page to interactive game info
 function help(){
 	document.getElementById('help').scrollIntoView();
+}
+
+// outConsole logging
+function log(s){
+	document.getElementById('outConsole').value += (s + "\n")
+	document.getElementById("outConsole").scrollTop = document.getElementById("outConsole").scrollHeight
+}
+
+function clearlog(){
+	document.getElementById('outConsole').value = ""
 }

@@ -12,7 +12,7 @@ class Character {
 
 	toString() {
 		//return this.name + ": " + ", ".join()
-		return this.name + this.getAttributes()
+		return this.name + " (" + "hair:"+this.hair + ", crosseyed:"+this.crosseyed + ", teeth:"+this.teeth + ")"
 	}
 
 	equal(character){
