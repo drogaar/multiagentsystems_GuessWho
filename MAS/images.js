@@ -7,7 +7,6 @@ function arrContains(arr, element){
 
 // Populate the images on site with the chosen characters
 function setImages(playerIdx = 0, database){
-	maxChars = 3;
 	for (var idx = 0; idx < characters.length; ++idx){
 		char = characters[idx];
 		charname = char2str(char);
@@ -19,8 +18,13 @@ function setImages(playerIdx = 0, database){
 
     // form image name
 		charname = charname.substr(0, charname.length);
-		if(arrContains(database.knowledge, propositionfalse)){
+		if(arrContains(database.knowledge, propositionfalse))
 			charname = charname.substr(0, charname.length-4) + "_ded.jpg";
+
+		// A player has won
+		if(arrContains(database.knowledge, propositiontrue)){
+			var bg_string = './res/bg_win' + (playerIdx + 1) + '.jpg';
+			document.getElementById("arena").style.backgroundImage = "url(" + bg_string + ")";
 		}
 
 		document.getElementById(pname + "char" + String(idx+1)).src = "./res/" + charname;
