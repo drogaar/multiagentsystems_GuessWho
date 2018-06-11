@@ -19,7 +19,7 @@ function char2str(char){
 	var charname = "";
 	charname += "h" + char.hair.substr(0,1) + " ";
 	charname += "t" + String(char.teeth).substr(0,1) + " ";
-	charname += char.crosseyed ? "cy" : "cn";
+	charname += char.crosseyed == "true" ? "cy" : "cn";
 	return charname + ".PNG";
 }
 
@@ -29,7 +29,7 @@ function str2char(str, name){
 
 	var attrib_hair = hair_dict[str.substr(1,1)];
 	var attrib_teeth = parseInt(str.substr(4,1));
-	var attrib_cross = str.substr(7,1) == "y";
+	var attrib_cross = str.substr(7,1) == "y" ? "true" : "false";
 
 	return new Character(attrib_hair, attrib_cross, attrib_teeth, name);
 }
