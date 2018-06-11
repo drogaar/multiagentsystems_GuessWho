@@ -14,17 +14,19 @@ function setImages(playerIdx = 0, database){
 		pname = "p" + String(playerIdx) + "_";
 
     // proposition: either lil_timmy, peter or ..
-		var propositiontrue = "p" + playerIdx.toString() + "." + char.name;
-		var propositionfalse = "p" + playerIdx.toString() + ".!" + char.name;
+		var propositiontrue = "p" + (playerIdx + 1).toString() + "." + char.name;
+		var propositionfalse = "p" + (playerIdx + 1).toString() + ".!" + char.name;
 
     // form image name
-		charname = "notfound.jpg";
-		if(arrContains(database.getKnowledge(playerIdx), propositiontrue))
-			console.log("check prop: " + proposition);
-			charname = charname.substr(0, charname.length);
-		if(arrContains(database.getKnowledge(playerIdx), propositionfalse))
+		charname = charname.substr(0, charname.length);
+		console.log("current kb: ");
+		console.log(database.knowledge);
+		console.log(database);
+		console.log("charname0: " + charname);
+		if(arrContains(database.knowledge, propositionfalse)){
 			console.log("check prop: " + propositionfalse);
 			charname = charname.substr(0, charname.length-4) + "_ded.jpg";
+		}
 
 		console.log("charname: " + charname);
 		document.getElementById(pname + "char" + String(idx+1)).src = "./res/" + charname;

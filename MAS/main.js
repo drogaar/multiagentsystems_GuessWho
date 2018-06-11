@@ -76,6 +76,10 @@ function stepGame(){
 		// Log all knowledge at once:
 		log("\nCurrent Knowledge:\n\n" + knowledgeBase.knowledge.sort().join("\n"))
 
+		// Update images for possible characters
+		setImages(0, knowledgeBase);
+		setImages(1, knowledgeBase);
+
 		turn++
 	}
 }
