@@ -16,7 +16,7 @@ class Player{
 	}
 
 	// Answer a question
-	answerQuestion(ownKnowledge, question) {
+	answerQuestion(question) {
 		var property = question.split(":")[0]
 		var value = question.split(":")[1]
 		return (this.avatar[property] != value ? "!" : "") + this.name + "." + question
