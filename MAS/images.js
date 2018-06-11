@@ -8,27 +8,21 @@ function arrContains(arr, element){
 // Populate the images on site with the chosen characters
 function setImages(playerIdx = 0, database){
 	maxChars = 3;
-	for (var idx = 0; idx < Math.min(characters.length, maxChars); ++idx){
+	for (var idx = 0; idx < characters.length; ++idx){
 		char = characters[idx];
 		charname = char2str(char);
 		pname = "p" + String(playerIdx) + "_";
 
-    // proposition: either lil_timmy, peter or ..
+    // proposition: either p1.lil_timmy, p1.!peter or ..
 		var propositiontrue = "p" + (playerIdx + 1).toString() + "." + char.name;
 		var propositionfalse = "p" + (playerIdx + 1).toString() + ".!" + char.name;
 
     // form image name
 		charname = charname.substr(0, charname.length);
-		console.log("current kb: ");
-		console.log(database.knowledge);
-		console.log(database);
-		console.log("charname0: " + charname);
 		if(arrContains(database.knowledge, propositionfalse)){
-			console.log("check prop: " + propositionfalse);
 			charname = charname.substr(0, charname.length-4) + "_ded.jpg";
 		}
 
-		console.log("charname: " + charname);
 		document.getElementById(pname + "char" + String(idx+1)).src = "./res/" + charname;
 	}
 }
