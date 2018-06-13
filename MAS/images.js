@@ -18,7 +18,8 @@ function whoWon(knowledge){
 				if(playerWhoWon != 0)
 					return 3;
 
-				playerWhoWon = playerIdx + 1;
+        // If an avatar is proven, the opposing player wins
+				playerWhoWon = 3 - playerIdx + 1;
 			}
 		}
 
@@ -30,18 +31,24 @@ function setPlayerImages(playerIdx = 0, knowledge){
 	for (var idx = 0; idx < characters.length; ++idx){
 		char = characters[idx];
 		charname = char2str(char);
-		pname = "p" + String(playerIdx) + "_";
+		elementName = "p" + String(playerIdx) + "_char" + String(idx+1);
 
     // proposition: either p1.lil_timmy, p1.!peter or ..
-		var propositiontrue = "p" + (playerIdx + 1).toString() + "." + char.name;
-		var propositionfalse = "!p" + (playerIdx + 1).toString() + "." + char.name;
+		var notPossible = "!p" + (playerIdx + 1).toString() + "." + char.name;
 
-    // form image name
+    // image name, depending on whether this character is still possible
 		charname = charname.substr(0, charname.length);
-		if(arrContains(knowledge, propositionfalse))
+		if(arrContains(knowledge, notPossible))
 			charname = charname.substr(0, charname.length-4) + "_ded.jpg";
 
-		document.getElementById(pname + "char" + String(idx+1)).src = "./res/" + charname;
+    // Draw proper characters and add border if its the players chosen avatar
+		document.getElementById(elementName).src = "./res/" + charname;
+		if(char === players[playerIdx].getAvatar()){
+			document.getElementById(elementName).style.border = "1px solid rgb(0,0,0)";
+			document.getElementById(elementName).style.borderRadius = "25%";
+		}
+		else
+			document.getElementById(elementName).style.border = "";
 	}
 }
 
