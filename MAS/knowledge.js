@@ -249,7 +249,7 @@ class Knowledge {
 	getPossibleCharacters(player) {
 		var possibleChars = [];
 		for (var i in characters) {
-			if (this.knowledge.indexOf(player + "." + "!" + characters[i]["name"]) < 0) {
+			if (this.knowledge.indexOf("!" + player + "." + characters[i]["name"]) < 0) {
 				possibleChars.push(characters[i])
 			}
 		}
