@@ -121,6 +121,16 @@ class Knowledge {
 		return false
 	}
 
+	// Returns the first avatar that has been proven (requires the game to not be a tie)
+	getLosingAvatar(){
+		for (var i in this.knowledge){
+			// losing avatar found when a char is found and it is not a negation
+			if (!this.knowledge[i].includes(':') && !this.knowledge[i].includes('!'))
+				return this.knowledge[i].split('.')[1]
+		}
+		return null // no winning character found
+	}
+
 	// Prints a warning as soon as the knowledge base contains a contradiction
 	checkConsistency(){
 		for (var i in this.knowledge){
@@ -268,7 +278,7 @@ class Knowledge {
 		}
 
 		// alternative:
-		//return this.knowledge.sort().join("\n")
+		return this.knowledge.sort().join("\n")
 
 		// alternative:
 		//return this.knowledge.join(" ^ ")
