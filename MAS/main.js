@@ -47,13 +47,8 @@ function stepGame(){
 		log("\n  Player " + (playerIdx+1) + " answers:\n    \"" + answer + "\"")
 		result = knowledgeBase.addKnowledge(answer)
 
-<<<<<<< HEAD
-		setImages(0, knowledgeBase);
-		setImages(1, knowledgeBase);
-=======
     // update game view
 		setView(knowledgeBase.knowledge);
->>>>>>> cac550d355f7385fd2aa134ecdfcdbc1a82cde0b
 
 		if (result){
 			endGame()
