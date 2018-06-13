@@ -258,7 +258,22 @@ class Knowledge {
 
 	// Print only the obtained knowledge, not the rules / implications
 	toString(){
-		return this.knowledge.join(" ^ ")
+		var printableKnowledge = []
+		for (var i in this.knowledge){
+			var k = this.knowledge[i]
+			printableKnowledge.push("K1(" + k + ")")
+			printableKnowledge.push("K2(" + k + ")")
+			printableKnowledge.push("K1(K2(" + k + "))")
+			printableKnowledge.push("K2(K1(" + k + "))")
+		}
+
+		// alternative:
+		//return this.knowledge.sort().join("\n")
+
+		// alternative:
+		//return this.knowledge.join(" ^ ")
+
+		return printableKnowledge.sort().join("\n")
 	}
 
 }
