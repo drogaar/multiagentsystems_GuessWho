@@ -8,4 +8,5 @@
 - [x] add visible tie when the game results in a tie
 - [ ] add image of who's who (in terms of the characters): "Meet the contestants!"
 - [ ] finalize the report
+- [ ] check if/how announcement restrictions impact question choosing/ knowledge acquired.
 - [ ] OPTIONAL: interactive game
