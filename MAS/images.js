@@ -19,7 +19,7 @@ function whoWon(knowledge){
 					return 3;
 
         // If an avatar is proven, the opposing player wins
-				playerWhoWon = 3 - playerIdx + 1;
+				playerWhoWon = 3 - (playerIdx + 1);
 			}
 		}
 
