@@ -24,16 +24,10 @@ var ended = false // whether the game has ended
 // Start game
 resetGame()
 
-
-// TODO: for debugging only
-stepGame()
-
-
-
 // next turn!
 function stepGame(){
 	if (!ended){
-		log("\n_____________ GAME STEP _____________")
+		log("\n\n> Turn " + (turn+1))
 		var playerIdx = turn % 2
 		var opponentIdx = (turn+1) % 2
 		var playerNum = playerIdx + 1
@@ -42,20 +36,15 @@ function stepGame(){
 	  // the player should ask the question that gives him most information
 	  // and doesn't reveal his character to his enemy
 		var question = players[playerIdx].askQuestion(knowledgeBase)
-		log("Player " + (playerIdx+1) + " asks:\n  " + question + "?\n")
-
-
-		// TODO: check if the question is a name. If so, the game is over :-)
-		// (if a human player is added, it needs another check to see if it is actually in the KB)
-
+		log("\n  Player " + (playerIdx+1) + " asks:\n    \"" + question + "?\"")
 
 		// Let each player answer the question in turn
 		answer = players[opponentIdx].answerQuestion(question)
-		log(players[opponentIdx].name + " answers:\n  " + answer)
+		log("\n  Player " + (opponentIdx+1) + " answers:\n    \"" + answer + "\"")
 		knowledgeBase.addKnowledge(answer)
 
 		answer = players[playerIdx].answerQuestion(question)
-		log(players[playerIdx].name + " answers:\n  " + answer)
+		log("\n  Player " + (playerIdx+1) + " answers:\n    \"" + answer + "\"")
 		result = knowledgeBase.addKnowledge(answer)
 
 		setImages(0, knowledgeBase);
@@ -66,17 +55,8 @@ function stepGame(){
 			return
 		}
 
-		// Log who knows what:
-		// console.log("\n")
-		// console.log(players[playerIdx].name + " knows: ")
-		// console.log(knowledgeBase.getKnowledge(playerIdx+1))
-		// console.log("\n")
-		// console.log(players[opponentIdx].name + " knows: ")
-		// console.log(knowledgeBase.getKnowledge(opponentIdx+1))
-		// console.log("\n")
-
 		// Log all knowledge at once:
-		log("\nCurrent Knowledge:\n\n" + knowledgeBase.knowledge.sort().join("\n"))
+		log("\n" + "Current knowledge:\n\n" + knowledgeBase.knowledge.sort().join("\n"), 'knowledgeConsole')
 
 		// Update images for possible characters
 
@@ -88,7 +68,9 @@ function stepGame(){
 // start game!
 function resetGame(){
 	ended = false
-	clearlog()
+	document.getElementById("stepButton").disabled = false;
+	clearlog('outConsole')
+	clearlog('knowledgeConsole')
 
 	var numChars = characters.length;
 	knowledgeBase = new Knowledge(characters, attributes);
@@ -104,34 +86,20 @@ function resetGame(){
 	p2 = new Player("p2", char2, true);
 	players = [p1, p2];
 
-
-	// The following lines of code contain player knowledge about their own character. Took me a while to realize it is actually irrelevant for proving things.
-	// I just spent an hour on this so I can't delete it right now :(
-	// TODO: would actually be better to put this in the knowledge base anyway for answering questions, as opposed to checking the avatar attribute of a player since it is knowledge that should be represented in the KB.
-
-	// add players' knowledge to KB
-	// knowledgeBase.addKnowledge(0, "p1.hair:"+ p1.avatar.hair)
-	// knowledgeBase.addKnowledge(0, "p1.crosseyed:"+ p1.avatar.crosseyed)
-	// knowledgeBase.addKnowledge(0, "p1.teeth:"+ p1.avatar.teeth)
-	// knowledgeBase.addKnowledge(0, "p1." + p1.avatar.name)
-	//
-	// knowledgeBase.addKnowledge(1, "p2.hair:"+ p2.avatar.hair)
-	// knowledgeBase.addKnowledge(1, "p2.crosseyed:"+ p2.avatar.crosseyed)
-	// knowledgeBase.addKnowledge(1, "p2.teeth:"+ p2.avatar.teeth)
-	// knowledgeBase.addKnowledge(1, "p2." + p2.avatar.name)
-
-	log("p1's Avatar:\n" + p1.getAvatar())
-	log("\np2's Avatar:\n" + p2.getAvatar())
+	log("p1's avatar:    " + p1.getAvatar().name + "\n" + p1.getAvatar())
+	log("\np2's avatar:    " + p2.getAvatar().name + "\n" + p2.getAvatar())
+	log("\n________________")
 	// console.log("\nGame rules:")
 	// console.log(knowledgeBase.rules)
 }
 
 // stop game!
 function endGame(){
-	log("The game has ended!")
-	log("\nCurrent Knowledge:\n\n" + knowledgeBase.knowledge.sort().join("\n"))
-	log("\n_____________________________________")
 	ended = true
+	turn = 0
+	log("\n________________")
+	log("\n" + "Final knowledge:\n\n" + knowledgeBase.knowledge.sort().join("\n"), 'knowledgeConsole')
+	document.getElementById("stepButton").disabled = true;
 }
 
 // Jumps page to interactive game info
@@ -140,11 +108,15 @@ function help(){
 }
 
 // outConsole logging
-function log(s){
-	document.getElementById('outConsole').value += (s + "\n")
-	document.getElementById("outConsole").scrollTop = document.getElementById("outConsole").scrollHeight
+function log(s, cons='outConsole'){
+	if (cons == 'knowledgeConsole'){
+		clearlog('knowledgeConsole')
+	}
+	document.getElementById(cons).value += (s + "\n")
+	document.getElementById(cons).scrollTop = document.getElementById(cons).scrollHeight
 }
 
-function clearlog(){
-	document.getElementById('outConsole').value = ""
+// clear a log
+function clearlog(logId){
+	document.getElementById(logId).value = "\n"
 }
