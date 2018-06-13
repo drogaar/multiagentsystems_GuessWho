@@ -31,7 +31,8 @@ function setPlayerImages(playerIdx = 0, knowledge){
 	for (var idx = 0; idx < characters.length; ++idx){
 		char = characters[idx];
 		charname = char2str(char);
-		elementName = "p" + String(playerIdx) + "_char" + String(idx+1);
+    // inverted, because players reason about their opponent
+		elementName = "p" + (1 - playerIdx).toString() + "_char" + String(idx+1);
 
     // proposition: either p1.lil_timmy, p1.!peter or ..
 		var notPossible = "!p" + (playerIdx + 1).toString() + "." + char.name;
@@ -45,7 +46,7 @@ function setPlayerImages(playerIdx = 0, knowledge){
 		document.getElementById(elementName).src = "./res/chars/" + charname;
 		if(char === players[playerIdx].getAvatar()){
 			document.getElementById(elementName).style.border = "1px solid rgb(0,0,0)";
-			document.getElementById(elementName).style.borderRadius = "25%";
+			document.getElementById(elementName).style.borderRadius = "50%";
 		}
 		else
 			document.getElementById(elementName).style.border = "";
