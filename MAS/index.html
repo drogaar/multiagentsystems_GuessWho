@@ -6,37 +6,53 @@
       background-image: url('./res/bg.jpg');
       background-repeat:no-repeat;
       background-size:100%;
-      float: left;
-      height:433px;width:650px;
-      margin: 0 auto;
+      width: 100%;
+      padding-bottom: 33%; /*use img's aspect ratio*/
+      background-color: green;
+      /*float: left;*/
+      /*height:433px;width:650px;*/
+      /*margin: 0 auto;*/
     }
-    div.playerchars_top {
+    /*div.playerchars_top {
       position: relative;
       left: 30%;
       top: 12%;
-      /*border: 3px solid #73AD21;*/
-    }
-    div.playerchars_bottom {
+      width: 100%;
+    }*/
+    /*div.playerchars_bottom {
       position: relative;
       left: 32%;
       top: 39%;
-      /*border: 3px solid #73AD21;*/
-    }
+    }*/
     body {
       /*margin-left: 10em;*/
       /*margin-right: 10em;*/
       margin: 10em;
     }
-    textarea {
+    /*textarea {
         float: right;
         resize: none;
         height: 433px;
         width: 300px;
+    }*/
+    myclass {
+      width: auto;
+      height: auto;
+      max-width: 100%;
+      max-height: 100%;
+    }
+
+    avatar {
+      width:100;
+      height:100;
     }
   </style>
   <meta charset="utf-8"/>
   <link rel="icon" href="res/favicon.ico" type="image/x-icon" />
   <link rel="shortcut icon" href="res/favicon.ico" type="image/x-icon" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
   <h1 style="text-align:center">Symmetric 'Guess Who?'</h1>
   <h3 style="text-align:center">Danny Rogaar<br>Jan Willem de Wit<br>Herman Groenbroek</h3>
@@ -46,29 +62,61 @@
 <body>
 
 	<!-- THE INTERACTIVE GAME -->
-	<div style="float:center; margin: auto; ">
-      <div class="bgimg" id="arena">
-          <div class="playerchars_top">
-            <img id="p0_char4" src="./res/hg t1 cn.jpg" width="100" height="100">
-            <img id="p0_char1" src="./res/hg t1 cn.jpg" width="100" height="100">
-            <img id="p0_char2" src="./res/hg t1 cn.jpg" width="100" height="100">
-            <img id="p0_char3" src="./res/hg t1 cn.jpg" width="100" height="100">
-          </div>
+	<div class="container">
+      <div class="row">
+        <div class="bgimg col-sm-6 h-100" id="arena">
+            <!-- class="playerchars_top"-->
+              <!-- <img class = "w-25" id="p0_char4" src="./res/hg t1 cn.jpg" width="100" height="100">
+              <img class = "w-25" id="p0_char1" src="./res/hg t1 cn.jpg" width="100" height="100">
+              <img class = "w-25" id="p0_char2" src="./res/hg t1 cn.jpg" width="100" height="100">
+              <img class = "w-25" id="p0_char3" src="./res/hg t1 cn.jpg" width="100" height="100"> -->
+              <!-- <div class = "col-xs-1"></div> -->
+              <!-- <img class = "col-xs-2" id="p0_char4" src="./res/hg t1 cn.jpg" style="position:absolute; top=12%; left=30%; width=100px; height=100px;"> -->
+              <!-- <img class = "col-xs-2" id="p0_char1" src="./res/hg t1 cn.jpg" style="position:absolute; top=12%; left=40%; width=100px; height=100px;"> -->
+              <!-- <img class = "col-xs-2" id="p0_char2" src="./res/hg t1 cn.jpg" style="position:absolute; top=12%; left=50%; width=100px; height=100px;"> -->
+              <!-- <img class = "col-xs-2" id="p0_char3" src="./res/hg t1 cn.jpg" style="position:absolute; top=12%; left=60%; width=100px; height=100px;"> -->
+              <!-- w-25 -->
+              <!-- <div class = "col-xs-2"></div>
+              <img class="avatar col-xs-1" id="p0_char4" src="./res/hg t1 cn.jpg" width="100" height="100">
+              <img class="avatar col-xs-1" id="p0_char1" src="./res/hg t1 cn.jpg" width="100" height="100">
+              <img class="avatar col-xs-1" id="p0_char2" src="./res/hg t1 cn.jpg" width="100" height="100">
+              <img class="avatar col-xs-1" id="p0_char3" src="./res/hg t1 cn.jpg" width="100" height="100"> -->
+              <div class="row" style="position:absolute; top:15%;">
+                <div class = "col-xs-4"></div>
+                <img class="avatar col-xs-2" id="p0_char4" src="./res/hg t1 cn.jpg" width="100" height="100">
+                <img class="avatar col-xs-2" id="p0_char1" src="./res/hg t1 cn.jpg" width="100" height="100">
+                <img class="avatar col-xs-2" id="p0_char2" src="./res/hg t1 cn.jpg" width="100" height="100">
+                <img class="avatar col-xs-2" id="p0_char3" src="./res/hg t1 cn.jpg" width="100" height="100">
+              </div>
 
-          <div class="playerchars_bottom">
-            <img id="p1_char4" src="./res/hg t1 cn.jpg" width="100" height="100">
-            <img id="p1_char1" src="./res/hg t1 cn.jpg" width="100" height="100">
-            <img id="p1_char2" src="./res/hg t1 cn.jpg" width="100" height="100">
-            <img id="p1_char3" src="./res/hg t1 cn.jpg" width="100" height="100">
-          </div>
-      </div>
-      <textarea id="outConsole" rows="50" cols="50" disabled></textarea>
-      <div style="text-align: center">
-        <button type="button" onclick="stepGame()">Next step</button>
-        <button type="button" onclick="resetGame()">Reset game</button>
-		<button type="button" onclick="help()">Help me</button>
+              <!-- img-responsive myclass
+              img-responsive myclass
+              img-responsive myclass
+              img-responsive myclass  -->
+
+              <div class="row" style="position:absolute; top:65%;">
+                <div class = "col-xs-4"></div>
+                <img class="avatar col-xs-2" id="p1_char4" src="./res/hg t1 cn.jpg" width="100" height="100">
+                <img class="avatar col-xs-2" id="p1_char1" src="./res/hg t1 cn.jpg" width="100" height="100">
+                <img class="avatar col-xs-2" id="p1_char2" src="./res/hg t1 cn.jpg" width="100" height="100">
+                <img class="avatar col-xs-2" id="p1_char3" src="./res/hg t1 cn.jpg" width="100" height="100">
+              </div>
+              <!-- <div class = "col-xs-2"></div>
+              <img class="avatar col-xs-1" id="p1_char4" src="./res/hg t1 cn.jpg" width="100" height="100">
+              <img class="avatar col-xs-1" id="p1_char1" src="./res/hg t1 cn.jpg" width="100" height="100">
+              <img class="avatar col-xs-1" id="p1_char2" src="./res/hg t1 cn.jpg" width="100" height="100">
+              <img class="avatar col-xs-1" id="p1_char3" src="./res/hg t1 cn.jpg" width="100" height="100"> -->
+        </div>
+        <textarea class = "col-sm-6" id="outConsole" rows="25" cols="50" disabled></textarea>
       </div>
     </div>
+
+    <div class="row" style="text-align: center">
+      <button type="button" onclick="stepGame()">Next step</button>
+      <button type="button" onclick="resetGame()">Reset game</button>
+      <button type="button" onclick="help()">Help me</button>
+    </div>
+  </div>
 
   <!-- Evaluate this statement: <input type="text" id="propMaker" onchange="evaluateProp()"> -->
   <script src="character.js"></script>
