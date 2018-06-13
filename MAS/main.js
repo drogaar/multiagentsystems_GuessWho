@@ -47,9 +47,9 @@ function stepGame(){
 		log("\n  Player " + (playerIdx+1) + " answers:\n    \"" + answer + "\"")
 		result = knowledgeBase.addKnowledge(answer)
 
-		setImages(0, knowledgeBase);
-		setImages(1, knowledgeBase);
-		
+    // update game view
+		setView(knowledgeBase.knowledge);
+
 		if (result){
 			endGame()
 			return
@@ -75,16 +75,15 @@ function resetGame(){
 	var numChars = characters.length;
 	knowledgeBase = new Knowledge(characters, attributes);
 
-  // Update images for possible characters
-	setImages(0, knowledgeBase);
-	setImages(1, knowledgeBase);
-
 	char1 = characters[Math.floor((Math.random() * numChars - 1) + 1)];
 	char2 = characters[Math.floor((Math.random() * numChars - 1) + 1)];
 
 	p1 = new Player("p1", char1, true);
 	p2 = new Player("p2", char2, true);
 	players = [p1, p2];
+
+	// update game view
+	setView(knowledgeBase.knowledge);
 
 	log("p1's avatar:    " + p1.getAvatar().name + "\n" + p1.getAvatar())
 	log("\np2's avatar:    " + p2.getAvatar().name + "\n" + p2.getAvatar())

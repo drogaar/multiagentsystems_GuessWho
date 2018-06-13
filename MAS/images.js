@@ -1,13 +1,32 @@
+// check if an array contains given element
 function arrContains(arr, element){
-	for(var i=0; i != arr.length; ++i)
+	for(var i=0; i < arr.length; ++i)
 		if(arr[i] === element)
 			return true;
 	return false;
 }
 
-// Populate the images on site with the chosen characters
-function setImages(playerIdx = 0, database){
-	console.log("hello")
+// 0: noone won. 1: player 1 won. 2: player 2 won. 3:both players won.
+function whoWon(knowledge){
+	var playerWhoWon = 0;
+
+	for(var playerIdx = 0; playerIdx != players.length; ++playerIdx)
+		for(let char of characters){
+			var provenCharacter = "p" + (playerIdx + 1).toString() + "." + char.name;
+			if(arrContains(knowledge, provenCharacter)){
+				// someone already won. It is a tie.
+				if(playerWhoWon != 0)
+					return 3;
+
+				playerWhoWon = playerIdx + 1;
+			}
+		}
+
+	return playerWhoWon;
+}
+
+// Populate the images for a player with the possible characters
+function setPlayerImages(playerIdx = 0, knowledge){
 	for (var idx = 0; idx < characters.length; ++idx){
 		char = characters[idx];
 		charname = char2str(char);
@@ -19,17 +38,32 @@ function setImages(playerIdx = 0, database){
 
     // form image name
 		charname = charname.substr(0, charname.length);
-		if(arrContains(database.knowledge, propositionfalse))
+		if(arrContains(knowledge, propositionfalse))
 			charname = charname.substr(0, charname.length-4) + "_ded.jpg";
-
-		// A player has won
-		if(arrContains(database.knowledge, propositiontrue)){
-			var bg_string = './res/bg_win' + (playerIdx + 1) + '.jpg';
-			document.getElementById("arena").style.backgroundImage = "url(" + bg_string + ")";
-		}
 
 		document.getElementById(pname + "char" + String(idx+1)).src = "./res/" + charname;
 	}
+}
+
+// update the game view
+function setView(knowledge){
+	// show proper characters/avatars.
+	for(var playerIdx = 0; playerIdx != players.length; ++playerIdx)
+		setPlayerImages(playerIdx, knowledge)
+
+	// change field as someone won
+	winningPlayer = whoWon(knowledge);
+	if(!winningPlayer)
+		document.getElementById("arena").style.backgroundImage = "url(./res/bg.jpg)";
+
+	if(winningPlayer == 3)
+		document.getElementById("arena").style.backgroundImage = "url(./res/bgtie.jpg)";
+
+	if(winningPlayer){
+		var bg_string = './res/bg_win' + winningPlayer + '.jpg';
+		document.getElementById("arena").style.backgroundImage = "url(" + bg_string + ")";
+	}
+
 }
 
 // Return the name of a character-image based on a given character
