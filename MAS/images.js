@@ -7,6 +7,7 @@ function arrContains(arr, element){
 
 // Populate the images on site with the chosen characters
 function setImages(playerIdx = 0, database){
+	console.log("hello")
 	for (var idx = 0; idx < characters.length; ++idx){
 		char = characters[idx];
 		charname = char2str(char);
@@ -14,7 +15,7 @@ function setImages(playerIdx = 0, database){
 
     // proposition: either p1.lil_timmy, p1.!peter or ..
 		var propositiontrue = "p" + (playerIdx + 1).toString() + "." + char.name;
-		var propositionfalse = "p" + (playerIdx + 1).toString() + ".!" + char.name;
+		var propositionfalse = "!p" + (playerIdx + 1).toString() + "." + char.name;
 
     // form image name
 		charname = charname.substr(0, charname.length);

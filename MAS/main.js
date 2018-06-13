@@ -57,6 +57,10 @@ function stepGame(){
 		answer = players[playerIdx].answerQuestion(question)
 		log(players[playerIdx].name + " answers:\n  " + answer)
 		result = knowledgeBase.addKnowledge(answer)
+
+		setImages(0, knowledgeBase);
+		setImages(1, knowledgeBase);
+		
 		if (result){
 			endGame()
 			return
@@ -75,8 +79,7 @@ function stepGame(){
 		log("\nCurrent Knowledge:\n\n" + knowledgeBase.knowledge.sort().join("\n"))
 
 		// Update images for possible characters
-		setImages(0, knowledgeBase);
-		setImages(1, knowledgeBase);
+
 
 		turn++
 	}
