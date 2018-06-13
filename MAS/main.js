@@ -125,8 +125,9 @@ function resetGame(){
 
 // stop game!
 function endGame(){
-	log("The game has ended!\n_____________________________________")
+	log("The game has ended!")
 	log("\nCurrent Knowledge:\n\n" + knowledgeBase.knowledge.sort().join("\n"))
+	log("\n_____________________________________")
 	ended = true
 }
 

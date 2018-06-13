@@ -6,8 +6,8 @@ class Knowledge {
 	}
 
 
-	// Adds knowledge to the knowledge base and tries to prove new facts and characters from this
-	// knowledge is like "p1.hair:red"
+	// Adds knowledge to the knowledge base and tries to prove new facts from this
+	// knowledge is like "!p1.hair:red"
 	addKnowledge(knowledge){
 		//console.log("")
 
@@ -16,26 +16,33 @@ class Knowledge {
 			this.knowledge.push(knowledge)
 		}
 
+		var negation = false // truth value of input knowledge; used for separation
 		var avatar = knowledge.split(".")[0] + ".";
-		var bareKnowledge = knowledge.split(".")[1];
+		if (knowledge.includes('!')){
+			negation = !negation
+			avatar = avatar.substring(1, avatar.length)
+		}
+		var bareKnowledge = knowledge.split(".")[1]
 
+		//console.log("\n" + knowledge)
+		//console.log(bareKnowledge)
+
+		var toProve = (negation ? '!' : '') + bareKnowledge
 
 		// Prove and add new knowledge
-		var newKnowledge = this.prove((avatar[0]=='!' ? '!' : '') + bareKnowledge, avatar) // prove e.g. '!crosseyed:true'
+		var newKnowledge = this.prove(toProve, avatar) // prove e.g. '!crosseyed:true'
 		for (var i in newKnowledge){
-			var k = newKnowledge[i] // e.g. 'crosseyed:false'
-			//console.log("    newly proven: " + k)
+			var k = newKnowledge[i] // e.g. '!hair:red'
 
-			// Put the proved proposition back into a logical string
-			if (k[0] == '!'){ // e.g. '!hair:blue'
-				if (avatar[0] == '!'){ // e.g. '!p2.!hair:blue'
-					k = (avatar + k).replace('!', '') // remove double negation
-				} else { // e.g. p1.!hair:blue
-					k = '!' + avatar + k.replace('!', '') // change position of the negation
-				}
-			} else {
-				k = avatar.replace('!', '') + k
+			if (k.includes('!')){ // proved item contains a negation: place it appropriately before the avatar indicator
+				k = k.replace('!', '')
+				k = '!' + avatar +  k
+			} else { // no negation: simply place avatar before item
+				k = avatar + k
 			}
+
+			console.log("    proven: " + knowledge + " -> " + k)
+
 			// Add the new piece of knowledge
 			if (!this.knowledge.includes(k)){
 				this.addKnowledge(k)
@@ -56,41 +63,57 @@ class Knowledge {
 			// console.log(rule)
 			var antecedent = rule.split(" -> ")[0]
 			var consequent = rule.split(" -> ")[1]
-			// console.log(antecedent + ", " + consequent)
 
-			// Check conjunction
-			if (antecedent.includes(" ^ ")){
-				var conjuncts = antecedent.split(" ^ ")
-				var satisfied = true // whether all conjuncts are satisfied in the knowledge base
-				// loop through the conjuncts
-				for (var j in conjuncts){
-					var conjunct = conjuncts[j].replace('(', '').replace(')', '')
-					// loop through all knowledge items
-					for (var l in this.knowledge){
-						var subSatisfied = false // whether a single conjunct is satisfied
-						var item = this.knowledge[l] // e.g. '!p2.hair:red'
+			// only check rules where the consequent are not yet in the knowledge base
+			if (!this.knowledge.includes(avatar + consequent)){
 
-						// if item matches conjunct and truth value ('!') matches, then it is found
-						if ((item == (avatar + conjunct)) && ((item[0] != '!' && conjunct[0] != '!') || (item[0] == '!' && conjunct[0] == '!'))){
-							subSatisfied = true
+				// check conjunction
+				if (antecedent.includes(" ^ ")){
+					var conjuncts = antecedent.split(" ^ ")
+					var satisfied = true // whether all conjuncts are satisfied in the knowledge base
+					// loop through the conjuncts
+					for (var j in conjuncts){
+						var conjunct = conjuncts[j].replace('(', '').replace(')', '')
+						// loop through all knowledge items
+						for (var l in this.knowledge){
+							var subSatisfied = false // whether a single conjunct is satisfied
+							var item = this.knowledge[l] // e.g. '!p2.hair:red'
+
+							// if item matches conjunct and truth value ('!') matches, then it is found
+							// TODO: fix potential issues with the following:
+
+							// change '!p2.hair:red' to '!hair:red'
+							var avatarCheck = null
+							if (item[0]=='!'){
+								avatarCheck = item.substring(1, 4)
+								item = '!' + item.split('.')[1]
+							} else {
+								avatarCheck = item.substring(0, 3)
+								item = item.split('.')[1]
+							}
+
+							if (avatar == avatarCheck && item == conjunct){
+								console.log("      found true: " + conjunct)
+								subSatisfied = true
+								break
+							}
+						}
+						// conjunction is not satisfied if any conjunct is not satisfied
+						if (!subSatisfied){
+							satisfied = false
 							break
 						}
 					}
-					// conjunction is not satisfied if any conjunct is not satisfied
-					if (!subSatisfied){
-						satisfied = false
-						break
+					if (satisfied){
+						console.log("Satisfied: " + rule)
+						newKnowledge.push(consequent)
 					}
-				}
-				if (satisfied){
-					//console.log("Satisfied: " + rule)
-					newKnowledge.push(consequent)
-				}
 
-			// Check simple implication
-			} else {
-				if (k == antecedent){
-					newKnowledge.push(consequent)
+				// Check simple implication
+				} else {
+					if (k == antecedent){
+						newKnowledge.push(consequent)
+					}
 				}
 			}
 		}
