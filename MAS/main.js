@@ -1,4 +1,5 @@
-images = ["hb t2 cy.jpg", "hg t1 cn.jpg", "hr t0 cy.jpg", "hr t1 cn.jpg"]
+images = ["hb t1 cy.png", "hb t2 cy.png", "hg t1 cn.png", "hg t2 cn.png",
+					"hr t0 cn.png", "hr t0 cy.png", "hr t1 cn.png", "hr t1 cy.png"]
 hairColours = ["red", "green", "blue"]
 teethQuantities = ["0", "1", "2"]
 crossEyed = ["true", "false"]
@@ -9,7 +10,7 @@ attributes["crosseyed"] = crossEyed
 attributes["teeth"] = teethQuantities
 
 characters = []
-names = ["lil_timmy", "bob", "peter", "fred"]
+names = ["wooba", "lil_timmy", "bob", "johnny", "spike", "kiki", "fred", "peter"]
 
 // Define possible characters, based on which ones we have drawings for
 for (var i = 0; i < images.length; i++){
