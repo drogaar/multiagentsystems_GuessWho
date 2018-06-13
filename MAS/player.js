@@ -25,8 +25,6 @@ class Player{
 			}
 			var opponentKnowledge = knowledge.getKnowledge(opponent)
 			var possibleChars = knowledge.getPossibleCharacters(opponent)
-			console.log("Possibilities left for " + opponent)
-			console.log(possibleChars)
 
 			var bestScore = 0;
 			var bestScoreQ = 0;
@@ -43,9 +41,12 @@ class Player{
 				knowledgeCopyNot.knowledge = knowledge.knowledge.slice()
 				knowledgeCopySelf.knowledge = knowledge.knowledge.slice()
 
-				// TODO: don't add contradictions
-				knowledgeCopy.addKnowledge(opponent + "." + question);
-				knowledgeCopyNot.addKnowledge("!" + opponent + "." + question)
+				if (knowledgeCopy.knowledge.indexOf("!" + opponent + "." + question) == -1) {
+					knowledgeCopy.addKnowledge(opponent + "." + question);
+				}
+				if (knowledgeCopyNot.knowledge.indexOf(opponent + "." + question) == -1) {
+					knowledgeCopyNot.addKnowledge("!" + opponent + "." + question)
+				}
 				knowledgeCopySelf.addKnowledge(this.answerQuestion(question))
 
 				var opponentLeft1 = knowledgeCopy.getPossibleCharacters(opponent).length
