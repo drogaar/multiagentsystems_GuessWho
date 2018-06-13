@@ -97,7 +97,7 @@ function resetGame(){
 	char1 = characters[Math.floor((Math.random() * numChars - 1) + 1)];
 	char2 = characters[Math.floor((Math.random() * numChars - 1) + 1)];
 
-	p1 = new Player("p1", char1, false);
+	p1 = new Player("p1", char1, true);
 	p2 = new Player("p2", char2, true);
 	players = [p1, p2];
 

@@ -3,15 +3,12 @@ class Knowledge {
 	constructor() {
 		this.knowledge = [];
 		this.rules = this.generateBaseKnowledge(attributes, characters);
-		// console.log(this.rules)
 	}
 
 
 	// Adds knowledge to the knowledge base and tries to prove new facts from this
 	// knowledge is like "!p1.hair:red"
 	addKnowledge(knowledge){
-		//console.log("")
-
 		// Add the initial piece of knowledge
 		if (!this.knowledge.includes(knowledge)){
 			this.knowledge.push(knowledge)
@@ -24,10 +21,6 @@ class Knowledge {
 			avatar = avatar.substring(1, avatar.length)
 		}
 		var bareKnowledge = knowledge.split(".")[1]
-
-		//console.log("\n" + knowledge)
-		//console.log(bareKnowledge)
-
 		var toProve = (negation ? '!' : '') + bareKnowledge
 
 		// Prove and add new knowledge
@@ -42,7 +35,7 @@ class Knowledge {
 				k = avatar + k
 			}
 
-			console.log("    proven: " + knowledge + " -> " + k)
+			//console.log("    proven: " + knowledge + " -> " + k)
 
 			// Add the new piece of knowledge
 			if (!this.knowledge.includes(k)){
@@ -59,9 +52,7 @@ class Knowledge {
 	prove(k, avatar){
 		var newKnowledge = []
 		for (var i in this.rules){
-			// console.log("--------------")
 			var rule = this.rules[i]
-			// console.log(rule)
 			var antecedent = rule.split(" -> ")[0]
 			var consequent = rule.split(" -> ")[1]
 
@@ -94,7 +85,7 @@ class Knowledge {
 							}
 
 							if (avatar == avatarCheck && item == conjunct){
-								console.log("      found true: " + conjunct)
+								//console.log("      found true: " + conjunct)
 								subSatisfied = true
 								break
 							}
@@ -106,7 +97,7 @@ class Knowledge {
 						}
 					}
 					if (satisfied){
-						console.log("Satisfied: " + rule)
+						//console.log("Satisfied: " + rule)
 						newKnowledge.push(consequent)
 					}
 
@@ -148,7 +139,6 @@ class Knowledge {
 				} else {
 					b.push(false)
 				}
-				//console.log(a + "   " + b)
 				if (a[0] == b[0] && a[1] != b[1]){
 					console.warn("WARNING: contradiction in KB.\n" + this.knowledge[i] + "\n" + this.knowledge[j])
 				}
@@ -237,13 +227,12 @@ class Knowledge {
 			baseKnowledge.push(temp_str)
 		}
 
-		//console.log(baseKnowledge)
 		return baseKnowledge;
 	}
 
 	// Returns knowledge either as subset for an agent or as a whole
 	getKnowledge(player=null){
-		if (player==null) { 
+		if (player==null) {
 			return this.knowledge
 		}
 		else {
