@@ -100,15 +100,17 @@ function endGame(){
 	log("________________")
 
 	// Log the winner
-	// winner = whoWon()
-	// if (winner == 0){
-	// 	console.warn("Warning: no one won according to function 'whoWon()' (images.js), but knowledge base found a winner!")
-	// 	log("\n\nWarning: no one won according to function 'whoWon()' (images.js), but knowledge base found a winner!")
-	// } else if (winner == 3){
-	// 	log("\nIt's a tie!")
-	// } else {
-	// 	log("\nPlayer " + winner + " won!")
-	// }
+	winner = whoWon(knowledgeBase.knowledge)
+	loser = 3 - winner // switcheroo~
+	if (winner == 0){
+		console.warn("Warning: no one won according to function 'whoWon()' (images.js), but knowledge base found a winner!")
+		log("\n\nWarning: no one won according to function 'whoWon()' (images.js), but knowledge base found a winner!")
+	} else if (winner == 3){
+		log("\nIt's a tie!")
+	} else {
+		//log("\nPlayer " + winner + " won!")
+		log("\n  Player " + winner + " asks:\n    \"are you " + knowledgeBase.getLosingAvatar() + "?\"\n\n  Player " + loser + " answers:\n    \"yes\"\n\nPlayer " + winner + ", congratulations!")
+	}
 
 	log("\nFinal Knowledge:\n" + knowledgeBase.toString(), 'knowledgeConsole')
 	//log("\n" + "Final knowledge:\n\n" + knowledgeBase.knowledge.sort().join("\n"), 'knowledgeConsole')
