@@ -56,14 +56,13 @@ function setView(knowledge){
 	if(!winningPlayer)
 		document.getElementById("arena").style.backgroundImage = "url(./res/bg.jpg)";
 
-	if(winningPlayer == 3)
-		document.getElementById("arena").style.backgroundImage = "url(./res/bgtie.jpg)";
+	else if (winningPlayer == 3)
+		document.getElementById("arena").style.backgroundImage = "url(./res/bg_tie.jpg)";
 
-	if(winningPlayer){
+	else if (winningPlayer){
 		var bg_string = './res/bg_win' + winningPlayer + '.jpg';
 		document.getElementById("arena").style.backgroundImage = "url(" + bg_string + ")";
 	}
-
 }
 
 // Return the name of a character-image based on a given character
