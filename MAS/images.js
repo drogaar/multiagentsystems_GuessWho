@@ -39,10 +39,10 @@ function setPlayerImages(playerIdx = 0, knowledge){
     // image name, depending on whether this character is still possible
 		charname = charname.substr(0, charname.length);
 		if(arrContains(knowledge, notPossible))
-			charname = charname.substr(0, charname.length-4) + "_ded.jpg";
+			charname = charname.substr(0, charname.length-4) + "_ded.png";
 
     // Draw proper characters and add border if its the players chosen avatar
-		document.getElementById(elementName).src = "./res/" + charname;
+		document.getElementById(elementName).src = "./res/chars/" + charname;
 		if(char === players[playerIdx].getAvatar()){
 			document.getElementById(elementName).style.border = "1px solid rgb(0,0,0)";
 			document.getElementById(elementName).style.borderRadius = "25%";
@@ -78,7 +78,7 @@ function char2str(char){
 	charname += "h" + char.hair.substr(0,1) + " ";
 	charname += "t" + String(char.teeth).substr(0,1) + " ";
 	charname += char.crosseyed == "true" ? "cy" : "cn";
-	return charname + ".jpg";
+	return charname + ".png";
 }
 
 function str2char(str, name){
