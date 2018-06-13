@@ -7,7 +7,7 @@
       background-repeat:no-repeat;
       background-size:100%;
       width: 100%;
-      padding-bottom: 33.3333%; /*use img's aspect ratio*/
+      padding-bottom: 44.5%;
       background-color: green;
     }
     body {
@@ -63,26 +63,27 @@
     </p>
 
     <!-- THE INTERACTIVE GAME -->
+    <br><br>
     <div class="container">
         <div class="row">
-            <div class="bgimg col-sm-6 h-100" id="arena">
-                  <div class="row" style="position:absolute; left: 45%; top:15%;">
-                    <img class="avatar col-xs-2" id="p0_char4" src="./res/hg t1 cn.jpg" width="100" height="100">
-                    <img class="avatar col-xs-2" id="p0_char1" src="./res/hg t1 cn.jpg" width="100" height="100">
-                    <img class="avatar col-xs-2" id="p0_char2" src="./res/hg t1 cn.jpg" width="100" height="100">
-                    <img class="avatar col-xs-2" id="p0_char3" src="./res/hg t1 cn.jpg" width="100" height="100">
+            <div class="bgimg col-sm-8 h-100" id="arena">
+                  <div class="row" style="position:absolute; left: 30%; top:15%;">
+                    <img class="avatar col-xs-3" id="p0_char4" src="./res/hg t1 cn.jpg" width="100" height="100">
+                    <img class="avatar col-xs-3" id="p0_char1" src="./res/hg t1 cn.jpg" width="100" height="100">
+                    <img class="avatar col-xs-3" id="p0_char2" src="./res/hg t1 cn.jpg" width="100" height="100">
+                    <img class="avatar col-xs-3" id="p0_char3" src="./res/hg t1 cn.jpg" width="100" height="100">
                   </div>
 
-                  <div class="row" style="position:absolute; left: 45%; top:65%;">
-                    <img class="avatar col-xs-2" id="p1_char4" src="./res/hg t1 cn.jpg" width="75" height="75">
-                    <img class="avatar col-xs-2" id="p1_char1" src="./res/hg t1 cn.jpg" width="75" height="75">
-                    <img class="avatar col-xs-2" id="p1_char2" src="./res/hg t1 cn.jpg" width="75" height="75">
-                    <img class="avatar col-xs-2" id="p1_char3" src="./res/hg t1 cn.jpg" width="75" height="75">
+                  <div class="row" style="position:absolute; left: 30%; top:65%;">
+                    <img class="avatar col-xs-3" id="p1_char4" src="./res/hg t1 cn.jpg" width="100" height="100">
+                    <img class="avatar col-xs-3" id="p1_char1" src="./res/hg t1 cn.jpg" width="100" height="100">
+                    <img class="avatar col-xs-3" id="p1_char2" src="./res/hg t1 cn.jpg" width="100" height="100">
+                    <img class="avatar col-xs-3" id="p1_char3" src="./res/hg t1 cn.jpg" width="100" height="100">
                   </div>
             </div>
-            <textarea class = "col-sm-6" id="outConsole" rows="19" cols="50" disabled></textarea>
+            <textarea class = "col-sm-4" id="outConsole" rows="25" cols="50" disabled></textarea>
         </div>
-
+        <br>
         <div class="row" style="text-align: center">
           <button type="button" onclick="stepGame()">Next step</button>
           <button type="button" onclick="resetGame()">Reset game</button>
