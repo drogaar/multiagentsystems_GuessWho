@@ -1,8 +1,8 @@
 # TODO
 
+- [ ] implement the four new characters in /res/chars
 - [ ] 'answer question' function requires explanations in report
 - [ ] solver requires explanations in report
-- [ ] add four new character designs and implement
 - [ ] add image of who's who (in terms of the characters): "Meet the contestants!"
 - [ ] finalize the report
 - [ ] check if/how announcement restrictions impact question choosing/ knowledge acquired.
