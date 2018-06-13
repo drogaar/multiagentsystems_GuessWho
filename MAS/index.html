@@ -50,14 +50,15 @@
                 <img class="avatar col-xs-2" id="p1_char3" src="./res/hg t1 cn.jpg" width="75" height="75">
               </div>
         </div>
-        <textarea class = "col-sm-6" id="outConsole" rows="19" cols="50" disabled></textarea>
+        <textarea class = "col-sm-2" id="outConsole" rows="19" cols="25" disabled></textarea>
+				<textarea class = "col-sm-2" id="knowledgeConsole" rows="19" cols="25" disabled></textarea>
       </div>
     </div>
 
     <div class="row" style="text-align: center">
-      <button type="button" onclick="stepGame()">Next step</button>
-      <button type="button" onclick="resetGame()">Reset game</button>
-      <button type="button" onclick="help()">Help me</button>
+      <button type="button" id="stepButton" onclick="stepGame()">Next step</button>
+      <button type="button" id="resetButton" onclick="resetGame()">Reset game</button>
+      <button type="button" id="helpButton" onclick="help()">Help me</button>
     </div>
   </div>
 
