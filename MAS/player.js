@@ -1,7 +1,8 @@
 class Player{
-	constructor(name, avatar){
+	constructor(name, avatar, random=true){
 		this.name = name
 		this.avatar = avatar
+		this.random = random
 	}
 
 	getAvatar(){
@@ -9,10 +10,58 @@ class Player{
 	}
 
 	// Come up with a question to ask the other player
-	askQuestion(){
+	askQuestion(knowledge){
 		// TODO: ask smarter question
-		var randomQuestions = ["hair:red", "hair:green", "hair:blue", "teeth:0", "teeth:1", "teeth:2", "crosseyed:true", "crosseyed:false"]
-		return randomQuestions[Math.floor(Math.random()*randomQuestions.length)]
+		var questions = ["hair:red", "hair:green", "hair:blue", "teeth:0", "teeth:1", "teeth:2", "crosseyed:true", "crosseyed:false"];
+		if (this.random) {
+			return questions[Math.floor(Math.random()*questions.length)];
+		}
+		else {
+			if (this.name == "p1") {
+				var opponent = "p2";
+			}
+			else {
+				var opponent = "p1";
+			}
+			var opponentKnowledge = knowledge.getKnowledge(opponent)
+			var possibleChars = knowledge.getPossibleCharacters(opponent)
+
+			var bestScore = 0;
+			var bestScoreQ = 0;
+
+			for (var i in questions){
+				var question = questions[i]
+				// console.log("QUESTION: " + question)
+
+				var knowledgeCopy = new Knowledge()
+				var knowledgeCopyNot = new Knowledge()
+				var knowledgeCopySelf = new Knowledge
+
+				knowledgeCopy.knowledge = knowledge.knowledge.slice()
+				knowledgeCopyNot.knowledge = knowledge.knowledge.slice()
+				knowledgeCopySelf.knowledge = knowledge.knowledge.slice()
+
+				if (knowledgeCopy.knowledge.indexOf("!" + opponent + "." + question) == -1) {
+					knowledgeCopy.addKnowledge(opponent + "." + question);
+				}
+				if (knowledgeCopyNot.knowledge.indexOf(opponent + "." + question) == -1) {
+					knowledgeCopyNot.addKnowledge("!" + opponent + "." + question)
+				}
+				knowledgeCopySelf.addKnowledge(this.answerQuestion(question))
+
+				var opponentLeft1 = knowledgeCopy.getPossibleCharacters(opponent).length
+				var opponentLeft2 = knowledgeCopyNot.getPossibleCharacters(opponent).length
+				var playerLeft = knowledgeCopySelf.getPossibleCharacters(this.name).length
+
+				var score = playerLeft - Math.abs(opponentLeft1 - opponentLeft2)
+				if (score > bestScore) {
+					bestScore = score;
+					bestScoreQ = i;
+				}
+			}
+
+			return questions[bestScoreQ];
+		}
 	}
 
 	// Answer a question

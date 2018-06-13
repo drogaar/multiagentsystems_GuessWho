@@ -3,6 +3,7 @@ class Knowledge {
 	constructor() {
 		this.knowledge = [];
 		this.rules = this.generateBaseKnowledge(attributes, characters);
+		// console.log(this.rules)
 	}
 
 
@@ -242,7 +243,28 @@ class Knowledge {
 
 	// Returns knowledge either as subset for an agent or as a whole
 	getKnowledge(player=null){
-		return this.knowledge
+		if (player==null) { 
+			return this.knowledge
+		}
+		else {
+			var subset = []
+			for (var i in this.knowledge) {
+				if (this.knowledge[i].includes(player)) {
+					subset.push(this.knowledge[i])
+				}
+			}
+			return subset
+		}
+	}
+
+	getPossibleCharacters(player) {
+		var possibleChars = [];
+		for (var i in characters) {
+			if (this.knowledge.indexOf(player + "." + "!" + characters[i]["name"]) < 0) {
+				possibleChars.push(characters[i])
+			}
+		}
+		return possibleChars
 	}
 
 	// Print only the obtained knowledge, not the rules / implications
