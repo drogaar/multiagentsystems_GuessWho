@@ -56,7 +56,8 @@ function stepGame(){
 		}
 
 		// Log all knowledge at once:
-		log("\n" + "Current knowledge:\n\n" + knowledgeBase.knowledge.sort().join("\n"), 'knowledgeConsole')
+		//log("\n" + "Current knowledge:\n\n" + knowledgeBase.knowledge.sort().join("\n"), 'knowledgeConsole')
+		log("\nCurrent Knowledge:\n" + knowledgeBase.toString(), 'knowledgeConsole')
 
 		// Update images for possible characters
 
@@ -78,8 +79,8 @@ function resetGame(){
 	char1 = characters[Math.floor((Math.random() * numChars - 1) + 1)];
 	char2 = characters[Math.floor((Math.random() * numChars - 1) + 1)];
 
-	p1 = new Player("p1", char1, true);
-	p2 = new Player("p2", char2, true);
+	p1 = new Player("p1", char1, random=true);
+	p2 = new Player("p2", char2, random=true);
 	players = [p1, p2];
 
 	// update game view
@@ -87,7 +88,7 @@ function resetGame(){
 
 	log("p1's avatar:    " + p1.getAvatar().name + "\n" + p1.getAvatar())
 	log("\np2's avatar:    " + p2.getAvatar().name + "\n" + p2.getAvatar())
-	log("\n________________")
+	log("________________")
 	// console.log("\nGame rules:")
 	// console.log(knowledgeBase.rules)
 }
@@ -96,8 +97,23 @@ function resetGame(){
 function endGame(){
 	ended = true
 	turn = 0
-	log("\n________________")
-	log("\n" + "Final knowledge:\n\n" + knowledgeBase.knowledge.sort().join("\n"), 'knowledgeConsole')
+	log("________________")
+
+	// Log the winner
+	// winner = whoWon()
+	// if (winner == 0){
+	// 	console.warn("Warning: no one won according to function 'whoWon()' (images.js), but knowledge base found a winner!")
+	// 	log("\n\nWarning: no one won according to function 'whoWon()' (images.js), but knowledge base found a winner!")
+	// } else if (winner == 3){
+	// 	log("\nIt's a tie!")
+	// } else {
+	// 	log("\nPlayer " + winner + " won!")
+	// }
+
+	log("\nFinal Knowledge:\n" + knowledgeBase.toString(), 'knowledgeConsole')
+	//log("\n" + "Final knowledge:\n\n" + knowledgeBase.knowledge.sort().join("\n"), 'knowledgeConsole')
+
+
 	document.getElementById("stepButton").disabled = true;
 }
 
