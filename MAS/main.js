@@ -15,6 +15,7 @@ names = ["lil_timmy", "bob", "peter", "fred"]
 for (var i = 0; i < images.length; i++){
 	characters.push(str2char(images[i], names[i]))
 }
+console.log(characters)
 
 var turn = 0
 var players = []
@@ -41,7 +42,7 @@ function stepGame(){
 
 	  // the player should ask the question that gives him most information
 	  // and doesn't reveal his character to his enemy
-		var question = players[playerIdx].askQuestion()
+		var question = players[playerIdx].askQuestion(knowledgeBase)
 		log("Player " + (playerIdx+1) + " asks:\n  " + question + "?\n")
 
 
@@ -97,8 +98,8 @@ function resetGame(){
 	char1 = characters[Math.floor((Math.random() * numChars - 1) + 1)];
 	char2 = characters[Math.floor((Math.random() * numChars - 1) + 1)];
 
-	p1 = new Player("p1", char1);
-	p2 = new Player("p2", char2);
+	p1 = new Player("p1", char1, true);
+	p2 = new Player("p2", char2, true);
 	players = [p1, p2];
 
 
