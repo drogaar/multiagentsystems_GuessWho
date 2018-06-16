@@ -31,6 +31,7 @@ class Player{
 
 			for (var i in questions){
 				var question = questions[i]
+				var score = 0;
 				// console.log("QUESTION: " + question)
 
 				var knowledgeCopy = new Knowledge()
@@ -41,19 +42,32 @@ class Player{
 				knowledgeCopyNot.knowledge = knowledge.knowledge.slice()
 				knowledgeCopySelf.knowledge = knowledge.knowledge.slice()
 
-				if (knowledgeCopy.knowledge.indexOf("!" + opponent + "." + question) == -1) {
+				if (knowledgeCopy.knowledge.indexOf("!" + opponent + "." + question) == -1 && knowledgeCopy.knowledge.indexOf(opponent + "." + question) == -1) {
 					knowledgeCopy.addKnowledge(opponent + "." + question);
+					if (!knowledgeCopy.checkConsistency()) {
+						score = -9999999999;
+					}
+				} else {
+					score = -9999999999;
 				}
-				if (knowledgeCopyNot.knowledge.indexOf(opponent + "." + question) == -1) {
+				
+				if (knowledgeCopyNot.knowledge.indexOf(opponent + "." + question) == -1 && knowledgeCopyNot.knowledge.indexOf("!" + opponent + "." + question) == -1) {
 					knowledgeCopyNot.addKnowledge("!" + opponent + "." + question)
+					if (!knowledgeCopyNot.checkConsistency()) {
+						score = -9999999999;
+					}
+				} else {
+					score = -9999999999;
 				}
+				
 				knowledgeCopySelf.addKnowledge(this.answerQuestion(question))
 
 				var opponentLeft1 = knowledgeCopy.getPossibleCharacters(opponent).length
 				var opponentLeft2 = knowledgeCopyNot.getPossibleCharacters(opponent).length
 				var playerLeft = knowledgeCopySelf.getPossibleCharacters(this.name).length
 
-				var score = playerLeft - Math.abs(opponentLeft1 - opponentLeft2)
+				score += playerLeft - Math.abs(opponentLeft1 - opponentLeft2)
+				console.log("QUESTION: " + question + " SCORE: " + score)
 				if (score > bestScore) {
 					bestScore = score;
 					bestScoreQ = i;

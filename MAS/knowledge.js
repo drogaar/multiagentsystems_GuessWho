@@ -151,9 +151,11 @@ class Knowledge {
 				}
 				if (a[0] == b[0] && a[1] != b[1]){
 					console.warn("WARNING: contradiction in KB.\n" + this.knowledge[i] + "\n" + this.knowledge[j])
+					return false
 				}
 			}
 		}
+		return true
 	}
 
 	// Returns string format for character attributes
