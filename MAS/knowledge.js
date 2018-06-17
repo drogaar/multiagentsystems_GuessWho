@@ -251,6 +251,7 @@ class Knowledge {
 		}
 	}
 
+	// Get the characters which have not been refuted
 	getPossibleCharacters(player) {
 		var possibleChars = [];
 		for (var i in characters) {
@@ -261,6 +262,7 @@ class Knowledge {
 		return possibleChars
 	}
 
+	// Get printable agent knowledge
 	getAgentKnowledge(){
 		var agentKnowledge = []
 		for (var i in this.knowledge){
@@ -273,8 +275,10 @@ class Knowledge {
 		return agentKnowledge.sort().join("\n")
 	}
 
+	// Get printable common knowledge
 	getCommonKnowledge(){
-		return this.knowledge.sort().join("\n")
+		//sorted: return this.knowledge.sort().join("\n")
+		return this.knowledge.join("\n")
 	}
 
 	// Print only the obtained knowledge, not the rules / implications
