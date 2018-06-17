@@ -60,38 +60,66 @@
     <div class="container">
         <div class="row">
             <div class="bgimg col-sm-8 h-100" id="arena">
-                  <div class="row" style="position:absolute; left: 38%; top:10%;">
-                    <img class="avatar col-xs-3" id="p0_char4" src="./res/chars/hg t1 cn.png" height="70">
-                    <img class="avatar col-xs-3" id="p0_char1" src="./res/chars/hg t1 cn.png" height="70">
-                    <img class="avatar col-xs-3" id="p0_char2" src="./res/chars/hg t1 cn.png" height="70">
-                    <img class="avatar col-xs-3" id="p0_char3" src="./res/chars/hg t1 cn.png" height="70">
-                  </div><div class="row" style="position:absolute; left: 38%; top:25%;">
-                    <img class="avatar col-xs-3" id="p0_char5" src="./res/chars/hg t1 cn.png" height="70">
-                    <img class="avatar col-xs-3" id="p0_char6" src="./res/chars/hg t1 cn.png" height="70">
-                    <img class="avatar col-xs-3" id="p0_char7" src="./res/chars/hg t1 cn.png" height="70">
-                    <img class="avatar col-xs-3" id="p0_char8" src="./res/chars/hg t1 cn.png" height="70">
+                  <div class="row" style="position:absolute; left: 36%; top:10%;">
+                    <img class="avatar col-xs-2" id="p0_char4" src="./res/chars/hg t1 cn.png" height="60">
+					<div class="col-xs-1"></div>
+                    <img class="avatar col-xs-2" id="p0_char1" src="./res/chars/hg t1 cn.png" height="60">
+					<div class="col-xs-1"></div>
+                    <img class="avatar col-xs-2" id="p0_char2" src="./res/chars/hg t1 cn.png" height="60">
+					<div class="col-xs-1"></div>
+                    <img class="avatar col-xs-2" id="p0_char3" src="./res/chars/hg t1 cn.png" height="60">
+				</div><div class="row" style="position:absolute; left: 36%; top:25%;">
+                    <img class="avatar col-xs-2" id="p0_char5" src="./res/chars/hg t1 cn.png" height="60">
+					<div class="col-xs-1"></div>
+                    <img class="avatar col-xs-2" id="p0_char6" src="./res/chars/hg t1 cn.png" height="60">
+					<div class="col-xs-1"></div>
+                    <img class="avatar col-xs-2" id="p0_char7" src="./res/chars/hg t1 cn.png" height="60">
+					<div class="col-xs-1"></div>
+                    <img class="avatar col-xs-2" id="p0_char8" src="./res/chars/hg t1 cn.png" height="60">
                   </div>
 
-                  <div class="row" style="position:absolute; left: 38%; top:60%;">
-                    <img class="avatar col-xs-3" id="p1_char4" src="./res/chars/hg t1 cn.png" height="70">
-                    <img class="avatar col-xs-3" id="p1_char1" src="./res/chars/hg t1 cn.png" height="70">
-                    <img class="avatar col-xs-3" id="p1_char2" src="./res/chars/hg t1 cn.png" height="70">
-                    <img class="avatar col-xs-3" id="p1_char3" src="./res/chars/hg t1 cn.png" height="70">
-                  </div><div class="row" style="position:absolute; left: 38%; top:75%;">
-                    <img class="avatar col-xs-3" id="p1_char5" src="./res/chars/hg t1 cn.png" height="70">
-                    <img class="avatar col-xs-3" id="p1_char6" src="./res/chars/hg t1 cn.png" height="70">
-                    <img class="avatar col-xs-3" id="p1_char7" src="./res/chars/hg t1 cn.png" height="70">
-                    <img class="avatar col-xs-3" id="p1_char8" src="./res/chars/hg t1 cn.png" height="70">
+				  <div class="row"><br></div>
+
+                  <div class="row" style="position:absolute; left: 36%; top:60%;">
+                    <img class="avatar col-xs-2" id="p1_char4" src="./res/chars/hg t1 cn.png" height="60">
+					<div class="col-xs-1"></div>
+                    <img class="avatar col-xs-2" id="p1_char1" src="./res/chars/hg t1 cn.png" height="60">
+					<div class="col-xs-1"></div>
+                    <img class="avatar col-xs-2" id="p1_char2" src="./res/chars/hg t1 cn.png" height="60">
+					<div class="col-xs-1"></div>
+                    <img class="avatar col-xs-2" id="p1_char3" src="./res/chars/hg t1 cn.png" height="60">
+				</div><div class="row" style="position:absolute; left: 36%; top:75%;">
+                    <img class="avatar col-xs-2" id="p1_char5" src="./res/chars/hg t1 cn.png" height="60">
+					<div class="col-xs-1"></div>
+                    <img class="avatar col-xs-2" id="p1_char6" src="./res/chars/hg t1 cn.png" height="60">
+					<div class="col-xs-1"></div>
+                    <img class="avatar col-xs-2" id="p1_char7" src="./res/chars/hg t1 cn.png" height="60">
+					<div class="col-xs-1"></div>
+                    <img class="avatar col-xs-2" id="p1_char8" src="./res/chars/hg t1 cn.png" height="60">
                   </div>
             </div>
-            <textarea class = "col-sm-2" id="outConsole" rows="25" cols="25" disabled></textarea>
-    				<textarea class = "col-sm-2" id="knowledgeConsole" rows="25" cols="25" disabled></textarea>
+			<div class="col-sm-1" id="empty_width"></div>
+			<div class="col-sm-3" id="consoleArea">
+				<div class="form-group">
+					<div class="radio">
+						<label class="radio"><input type="radio" name="consoleType" onchange="consoleChange()" id="QnA" checked="checked">Q & A</label>
+						<label class="radio"><input type="radio" name="consoleType" onchange="consoleChange()" id="commonKnowledge">Common Knowledge</label>
+						<label class="radio"><input type="radio" name="consoleType" onchange="consoleChange()" id="agentKnowledge">Agent Knowledge</label>
+					</div>
+				    <textarea class="form-control rounded-0" id="console" rows="23" cols="25" disabled></textarea>
+				</div>
+				<!--<textarea class="form-group" id="console" rows="25" cols="25" disabled></textarea>-->
+
+            	<!--<textarea class = "col-sm-2" id="outConsole" rows="25" cols="25" disabled></textarea>
+				<textarea class = "col-sm-2" id="knowledgeConsole" rows="25" cols="25" disabled></textarea>-->
+				</div>
+			</div>
         </div>
         <br>
         <div class="row" style="text-align: center">
-            <button type="button" id="stepButton" onclick="stepGame()">Next step</button>
-            <button type="button" id="resetButton" onclick="resetGame()">Reset game</button>
-            <button type="button" id="helpButton" onclick="help()">Help me</button>
+            <button type="button" class="btn btn-default" id="stepButton" onclick="stepGame()">Next step</button>
+            <button type="button" class="btn btn-default" id="resetButton" onclick="resetGame()">Reset game</button>
+            <button type="button" class="btn btn-info" id="helpButton" onclick="help()">Help me</button>
         </div>
   </div>
 

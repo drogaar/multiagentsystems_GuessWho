@@ -21,6 +21,7 @@ var turn = 0
 var players = []
 var knowledgeBase
 var ended = false // whether the game has ended
+var consoleText = {"QnA": "", "commonKnowledge": "", "agentKnowledge": ""}
 
 // Start game
 resetGame()
@@ -49,19 +50,16 @@ function stepGame(){
 		result = knowledgeBase.addKnowledge(answer)
 
     // update game view
-		setView(knowledgeBase.knowledge);
+		setView(knowledgeBase.knowledge)
 
 		if (result){
 			endGame()
 			return
 		}
 
-		// Log all knowledge at once:
-		//log("\n" + "Current knowledge:\n\n" + knowledgeBase.knowledge.sort().join("\n"), 'knowledgeConsole')
-		log("\nCurrent Knowledge:\n" + knowledgeBase.toString(), 'knowledgeConsole')
-
-		// Update images for possible characters
-
+		// Log the knowledge
+		log(knowledgeBase.getCommonKnowledge(), "commonKnowledge")
+		log(knowledgeBase.getAgentKnowledge(), "agentKnowledge")
 
 		turn++
 	}
@@ -70,28 +68,29 @@ function stepGame(){
 // start game!
 function resetGame(){
 	ended = false
-	document.getElementById("stepButton").disabled = false;
-	clearlog('outConsole')
-	clearlog('knowledgeConsole')
+	turn = 0
+	document.getElementById("stepButton").disabled = false
+	clearlog()
 
-	var numChars = characters.length;
-	knowledgeBase = new Knowledge(characters, attributes);
+	var numChars = characters.length
+	knowledgeBase = new Knowledge(characters, attributes)
 
-	char1 = characters[Math.floor((Math.random() * numChars - 1) + 1)];
-	char2 = characters[Math.floor((Math.random() * numChars - 1) + 1)];
+	char1 = characters[Math.floor((Math.random() * numChars - 1) + 1)]
+	char2 = characters[Math.floor((Math.random() * numChars - 1) + 1)]
 
-	p1 = new Player("p1", char1, random=true);
-	p2 = new Player("p2", char2, random=true);
-	players = [p1, p2];
+	p1 = new Player("p1", char1, random=false)
+	p2 = new Player("p2", char2, random=false)
+	players = [p1, p2]
 
 	// update game view
-	setView(knowledgeBase.knowledge);
+	setView(knowledgeBase.knowledge)
 
 	log("p1's avatar:    " + p1.getAvatar().name + "\n" + p1.getAvatar())
 	log("\np2's avatar:    " + p2.getAvatar().name + "\n" + p2.getAvatar())
 	log("________________")
-	// console.log("\nGame rules:")
-	// console.log(knowledgeBase.rules)
+
+	log("There is no common knowledge yet.", "commonKnowledge")
+	log("There is no agent knowledge yet.", "agentKnowledge")
 }
 
 // stop game!
@@ -104,8 +103,8 @@ function endGame(){
 	winner = whoWon(knowledgeBase.knowledge)
 	loser = 3 - winner // switcheroo~
 	if (winner == 0){
-		console.warn("Warning: no one won according to function 'whoWon()' (images.js), but knowledge base found a winner!")
-		log("\n\nWarning: no one won according to function 'whoWon()' (images.js), but knowledge base found a winner!")
+		console.warn("Warning: no one won according to function 'whoWon()' (images.js), but knowledge base found a winner... :T")
+		log("\n\nWarning: no one won according to function 'whoWon()' (images.js), but knowledge base found a winner... :T")
 	} else if (winner == 3){
 		log("\nIt's a tie!")
 	} else {
@@ -113,28 +112,47 @@ function endGame(){
 		log("\n  Player " + winner + " asks:\n    \"are you " + knowledgeBase.getLosingAvatar() + "?\"\n\n  Player " + loser + " answers:\n    \"yes\"\n\nPlayer " + winner + ", congratulations!")
 	}
 
-	log("\nFinal Knowledge:\n" + knowledgeBase.toString(), 'knowledgeConsole')
+	log("\nFinal common knowledge:\n" + knowledgeBase.getCommonKnowledge(), 'commonKnowledge')
+	log("\nFinal agent knowledge:\n" + knowledgeBase.getAgentKnowledge(), 'agentKnowledge')
 	//log("\n" + "Final knowledge:\n\n" + knowledgeBase.knowledge.sort().join("\n"), 'knowledgeConsole')
 
 
-	document.getElementById("stepButton").disabled = true;
+	document.getElementById("stepButton").disabled = true
 }
 
 // Jumps page to interactive game info
 function help(){
-	document.getElementById('help').scrollIntoView();
+	document.getElementById('help').scrollIntoView()
 }
 
-// outConsole logging
-function log(s, cons='outConsole'){
-	if (cons == 'knowledgeConsole'){
-		clearlog('knowledgeConsole')
+// A text or radio button change will update the console
+function consoleChange(){
+	var cons = 0
+	consoles = ["QnA", "commonKnowledge", "agentKnowledge"]
+	for (var i in consoles){
+		if (document.getElementById(consoles[i]).checked){
+			document.getElementById("console").value = consoleText[consoles[i]]
+		}
 	}
-	document.getElementById(cons).value += (s + "\n")
-	document.getElementById(cons).scrollTop = document.getElementById(cons).scrollHeight
+	document.getElementById("console").scrollTop = document.getElementById("console").scrollHeight
 }
 
-// clear a log
-function clearlog(logId){
-	document.getElementById(logId).value = "\n"
+// console logging
+function log(s, consoleName="QnA"){
+	if (consoleName != "QnA"){
+		clearlog(consoleName)
+	}
+	consoleText[consoleName] += (s + "\n")
+	consoleChange()
+}
+
+// console clearing
+function clearlog(consoleName=null){
+	if (consoleName == null){
+		clearlog("QnA")
+		clearlog("commonKnowledge")
+		clearlog("agentKnowledge")
+	}
+	consoleText[consoleName] = "\n"
+	consoleChange()
 }

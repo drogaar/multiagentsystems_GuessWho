@@ -31,21 +31,22 @@ function setPlayerImages(playerIdx = 0, knowledge){
 	for (var idx = 0; idx < characters.length; ++idx){
 		char = characters[idx];
 		charname = char2str(char);
-    // inverted, because players reason about their opponent
+    	// inverted, because players reason about their opponent
 		elementName = "p" + (1 - playerIdx).toString() + "_char" + String(idx+1);
 
-    // proposition: either p1.lil_timmy, p1.!peter or ..
+    	// proposition: either p1.lil_timmy, p1.!peter or ..
 		var notPossible = "!p" + (playerIdx + 1).toString() + "." + char.name;
 
-    // image name, depending on whether this character is still possible
+    	// image name, depending on whether this character is still possible
 		charname = charname.substr(0, charname.length);
 		if(arrContains(knowledge, notPossible))
 			charname = charname.substr(0, charname.length-4) + "_ded.png";
 
-    // Draw proper characters and add border if its the players chosen avatar
 		document.getElementById(elementName).src = "./res/chars/" + charname;
+
+    	// Draw proper characters and add border if its the players chosen avatar
 		if(char === players[playerIdx].getAvatar()){
-			document.getElementById(elementName).style.border = "1px solid rgb(0,0,0)";
+			document.getElementById(elementName).style.border = "1px dashed rgb(155, 155, 155)";
 			document.getElementById(elementName).style.borderRadius = "50%";
 		}
 		else

@@ -1,21 +1,21 @@
 class Knowledge {
 
 	constructor() {
-		this.knowledge = [];
-		this.rules = this.generateBaseKnowledge(attributes, characters);
+		this.knowledge = []
+		this.rules = this.generateBaseKnowledge(attributes, characters)
 	}
 
 
 	// Adds knowledge to the knowledge base and tries to prove new facts from this
 	// knowledge is like "!p1.hair:red"
-	addKnowledge(knowledge){
+	addKnowledge(knowledge, warnConsole=true){
 		// Add the initial piece of knowledge
 		if (!this.knowledge.includes(knowledge)){
 			this.knowledge.push(knowledge)
 		}
 
 		var negation = false // truth value of input knowledge; used for separation
-		var avatar = knowledge.split(".")[0] + ".";
+		var avatar = knowledge.split(".")[0] + "."
 		if (knowledge.includes('!')){
 			negation = !negation
 			avatar = avatar.substring(1, avatar.length)
@@ -42,7 +42,7 @@ class Knowledge {
 				this.addKnowledge(k)
 			}
 		}
-		this.checkConsistency()
+		this.checkConsistency(warnConsole)
 		return this.checkEndGame()
 	}
 
@@ -132,7 +132,7 @@ class Knowledge {
 	}
 
 	// Prints a warning as soon as the knowledge base contains a contradiction
-	checkConsistency(){
+	checkConsistency(warnConsole=false){
 		for (var i in this.knowledge){
 			var a = [this.knowledge[i]]
 			if (a.toString().includes('!')){
@@ -150,7 +150,9 @@ class Knowledge {
 					b.push(false)
 				}
 				if (a[0] == b[0] && a[1] != b[1]){
-					console.warn("WARNING: contradiction in KB.\n" + this.knowledge[i] + "\n" + this.knowledge[j])
+					if (warnConsole){
+						console.warn("WARNING: contradiction in KB.\n" + this.knowledge[i] + "\n" + this.knowledge[j])
+					}
 					return false
 				}
 			}
@@ -161,21 +163,12 @@ class Knowledge {
 	// Returns string format for character attributes
 	generateCharInfo(attributes) {
 		return ("(hair:" + attributes[0] + " ^ " + "crosseyed:" + attributes[1]
-			+ " ^ " + "teeth:" + attributes[2] + ") -> " + attributes[3]);
+			+ " ^ " + "teeth:" + attributes[2] + ") -> " + attributes[3])
 	}
 
 	// Returns the knowledge that corresponds with the set of rules for the game
 	generateBaseKnowledge(attributes, characters){
-		var baseKnowledge = [];
-
-		// All possibilites with disjunction -- unused, for now
-		// for (var attribute in attributes) {
-		// 	var k = attribute + ":" + attributes[attribute][0];
-		// 	for (var i = 1; i < attributes[attribute].length; i++) {
-		// 		k += " v " + attribute + ":" + attributes[attribute][i];
-		// 	}
-		// 	baseKnowledge.push(k);
-		// }
+		var baseKnowledge = []
 
 		// Attribute implies not other attributes
 		for (var attribute in attributes) {
@@ -193,26 +186,26 @@ class Knowledge {
 		// not attribute1 implies attribute2
 		for (var attribute in attributes) {
 			for (var i = 0; i < attributes[attribute].length; i++) {
-				var temp_str = "";
+				var temp_str = ""
 				for (var j = 0; j < attributes[attribute].length; j++) {
 					if (i != j) {
-						temp_str += "!" + attribute + ":" + attributes[attribute][j] + " ^ ";
+						temp_str += "!" + attribute + ":" + attributes[attribute][j] + " ^ "
 					}
 				}
 				// remove last and
-				temp_str = temp_str.substring(0, temp_str.length - 3);
+				temp_str = temp_str.substring(0, temp_str.length - 3)
 				// add parentheses
 				if (attributes[attribute].length > 2) {
 					temp_str = "(" + temp_str + ")"
 				}
-				temp_str += " -> " + attribute + ":" + attributes[attribute][i];
+				temp_str += " -> " + attribute + ":" + attributes[attribute][i]
 				baseKnowledge.push(temp_str)
 			}
 		}
 
 		// hair:red and crosseyed:true and teeth:0 implies peter
 		for (var character in characters) {
-			baseKnowledge.push(this.generateCharInfo(characters[character].getAttributes()));
+			baseKnowledge.push(this.generateCharInfo(characters[character].getAttributes()))
 		}
 
 		// Not hair:red -> not bob
@@ -225,21 +218,21 @@ class Knowledge {
 
 		// not char1 and not char2 and not char3 implies char4
 		for (var i = 0; i < characters.length; i++) {
-			var temp_str = "";
+			var temp_str = ""
 			for (var j = 0; j < characters.length; j++) {
 				if (i != j) {
 					temp_str += "!" + characters[j].getAttributes()[3] + " ^ "
 				}
 			}
 			// remove last and
-			temp_str = temp_str.substring(0, temp_str.length - 3);
+			temp_str = temp_str.substring(0, temp_str.length - 3)
 			// add parentheses
 			temp_str = "(" + temp_str + ")"
 			temp_str += " -> " + characters[i].getAttributes()[3]
 			baseKnowledge.push(temp_str)
 		}
 
-		return baseKnowledge;
+		return baseKnowledge
 	}
 
 	// Returns knowledge either as subset for an agent or as a whole
@@ -268,24 +261,30 @@ class Knowledge {
 		return possibleChars
 	}
 
-	// Print only the obtained knowledge, not the rules / implications
-	toString(){
-		var printableKnowledge = []
+	getAgentKnowledge(){
+		var agentKnowledge = []
 		for (var i in this.knowledge){
 			var k = this.knowledge[i]
-			printableKnowledge.push("K1(" + k + ")")
-			printableKnowledge.push("K2(" + k + ")")
-			printableKnowledge.push("K1(K2(" + k + "))")
-			printableKnowledge.push("K2(K1(" + k + "))")
+			agentKnowledge.push("K1(" + k + ")")
+			agentKnowledge.push("K2(" + k + ")")
+			agentKnowledge.push("K1(K2(" + k + "))")
+			agentKnowledge.push("K2(K1(" + k + "))")
 		}
+		return agentKnowledge.sort().join("\n")
+	}
 
-		// alternative:
+	getCommonKnowledge(){
+		return this.knowledge.sort().join("\n")
+	}
+
+	// Print only the obtained knowledge, not the rules / implications
+	toString(){
 		return this.knowledge.sort().join("\n")
 
-		// alternative:
+		// alternative representation (CNF of the above):
 		//return this.knowledge.join(" ^ ")
 
-		return printableKnowledge.sort().join("\n")
+
 	}
 
 }

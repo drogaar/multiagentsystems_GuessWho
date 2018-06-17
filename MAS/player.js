@@ -18,20 +18,20 @@ class Player{
 		}
 		else {
 			if (this.name == "p1") {
-				var opponent = "p2";
+				var opponent = "p2"
 			}
 			else {
-				var opponent = "p1";
+				var opponent = "p1"
 			}
 			var opponentKnowledge = knowledge.getKnowledge(opponent)
 			var possibleChars = knowledge.getPossibleCharacters(opponent)
 
-			var bestScore = 0;
-			var bestScoreQ = 0;
+			var bestScore = 0
+			var bestScoreQ = 0
 
 			for (var i in questions){
 				var question = questions[i]
-				var score = 0;
+				var score = 0
 				// console.log("QUESTION: " + question)
 
 				var knowledgeCopy = new Knowledge()
@@ -43,38 +43,38 @@ class Player{
 				knowledgeCopySelf.knowledge = knowledge.knowledge.slice()
 
 				if (knowledgeCopy.knowledge.indexOf("!" + opponent + "." + question) == -1 && knowledgeCopy.knowledge.indexOf(opponent + "." + question) == -1) {
-					knowledgeCopy.addKnowledge(opponent + "." + question);
-					if (!knowledgeCopy.checkConsistency()) {
-						score = -9999999999;
+					knowledgeCopy.addKnowledge(opponent + "." + question, false)
+					if (!knowledgeCopy.checkConsistency(false)) {
+						score = -9999999999
 					}
 				} else {
-					score = -9999999999;
+					score = -9999999999
 				}
-				
+
 				if (knowledgeCopyNot.knowledge.indexOf(opponent + "." + question) == -1 && knowledgeCopyNot.knowledge.indexOf("!" + opponent + "." + question) == -1) {
-					knowledgeCopyNot.addKnowledge("!" + opponent + "." + question)
-					if (!knowledgeCopyNot.checkConsistency()) {
-						score = -9999999999;
+					knowledgeCopyNot.addKnowledge("!" + opponent + "." + question, false)
+					if (!knowledgeCopyNot.checkConsistency(false)) {
+						score = -9999999999
 					}
 				} else {
-					score = -9999999999;
+					score = -9999999999
 				}
-				
-				knowledgeCopySelf.addKnowledge(this.answerQuestion(question))
+
+				knowledgeCopySelf.addKnowledge(this.answerQuestion(question), false)
 
 				var opponentLeft1 = knowledgeCopy.getPossibleCharacters(opponent).length
 				var opponentLeft2 = knowledgeCopyNot.getPossibleCharacters(opponent).length
 				var playerLeft = knowledgeCopySelf.getPossibleCharacters(this.name).length
 
 				score += playerLeft - Math.abs(opponentLeft1 - opponentLeft2)
-				console.log("QUESTION: " + question + " SCORE: " + score)
+				//console.log("QUESTION: " + question + " SCORE: " + score)
 				if (score > bestScore) {
-					bestScore = score;
-					bestScoreQ = i;
+					bestScore = score
+					bestScoreQ = i
 				}
 			}
 
-			return questions[bestScoreQ];
+			return questions[bestScoreQ]
 		}
 	}
 
