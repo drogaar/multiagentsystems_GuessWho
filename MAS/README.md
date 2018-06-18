@@ -1,11 +1,14 @@
 # TODO
 
+- [ ] add image of who's who (in terms of the characters): "Meet the contestants!"
+
+- [ ] check if/how announcement restrictions impact question choosing / knowledge acquired.
 - [ ] 'answer question' function requires explanations in report
 - [ ] solver requires explanations in report
-- [ ] add image of who's who (in terms of the characters): "Meet the contestants!"
 - [ ] finalize the report
-- [ ] check if/how announcement restrictions impact question choosing/ knowledge acquired.
+
 - [ ] OPTIONAL: make the game interactive
+
 - [x] implement the four new characters in /res/chars
 - [x] show in text who won
 - [x] add visible tie when the game results in a tie

@@ -263,8 +263,20 @@ class Knowledge {
 	}
 
 	// Get printable agent knowledge
-	getAgentKnowledge(){
+	getAgentKnowledge(players){
 		var agentKnowledge = []
+
+		// Own avatar knowledge
+		for (var p in players){
+			var props = players[p].getAvatar().getAttributes()
+			var player = parseInt(p)+1 // dammit javascript
+			agentKnowledge.push("K" + player + "(p" + player + "." + "hair:" + props[0] + ")")
+			agentKnowledge.push("K" + player + "(p" + player + "." + "crosseyed:" + props[1] + ")")
+			agentKnowledge.push("K" + player + "(p" + player + "." + "teeth:" + props[2] + ")")
+			agentKnowledge.push("K" + player + "(p" + player + "." + props[3] + ")")
+		}
+
+		// All common knowledge as agent knowledge
 		for (var i in this.knowledge){
 			var k = this.knowledge[i]
 			agentKnowledge.push("K1(" + k + ")")
