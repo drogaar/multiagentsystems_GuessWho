@@ -209,29 +209,53 @@
 			<!-- PROJECT IMPLEMENTATION -->
 
 	      <h1>Project implementation</h1>
+				<h3>The idea</h3>
 	      <p>
 	        We implemented the game in javascript. We create two players that both select a random character. We use a knowledge class to represent all the knowledge about the characters. This knowledge base contains rules that are known beforehand to the player, for instance that if a character does not have red or green hair, it must have blue hair. It also contains information about which of the characters has which attributes, for example: red hair, crosseyed and 0 teeth imply that the character is peter. In each game step, one of the players can ask a question. This can be done randomly, but we also implemented a strategy that selects a question in a smart way.
+				</p>
 
-	        <br><br>
+        <br>
 
+				<h3>Asking a question</h3>
+				<p>
 	        When asking a question, a player has to take into account that they have to answer their own question as well. Because of this, they need to ask a question that does not reveal their own character. At the same time, the question should not be too specific. For example, there could be only one character left that has green hair but many others that do not. If you ask if the opponent's character has green hair and you get lucky, the answer is yes and you now know the answer; but most likely, this will not be the case and you can only cross out one character. Therefore, it is better to ask questions where you can cross out many characters regardless of the answer. It is best to ask the question where half of the characters can be crossed out if the answer is yes, and the other half if the answer is no. To implement this, we let the agent reason about each of the possible questions and calculate a score based on this. The formula for this score is the following:
+				</p>
 
+        <br>
 
-	        <br><br>
-
+				<p>
 	        Score_q = <b>A</b> - abs(<b>B</b> - <b>C</b>)
 	        <br>
-	        where <br>
+	          where <br>
 	        <b>A</b> = possible characters left for player after asking question q <br>
 	        <b>B</b> = possible characters left for opponent if answer of opponent is “yes” <br>
 	        <b>C</b> = possible characters left for opponent if answer of opponent is “no” <br><br>
 
 	        The more characters that are left for the player after asking this question, the higher the score. The smaller the difference between possible characters between the answers (yes or no), the higher the score. The player ends up asking the question with the highest score.
-
-	        <br><br>
-
-	        When a question is asked, both players answer the question and the new knowledge is added to the knowledge base. We implemented our own logic prover that now tries to infer additional facts based on the old knowledge and the newly added information. For example, if we already knew that the hair of the character was not blue and we now have the new information that the hair is also not red, our logic prover will use one of the rules to infer that the hair must be blue. INSERT MORE EXPLANATION ABOUT SOLVER HERE. This continues until one or both of the players knows which character the opponent had chosen.
 				</p>
+
+        <br>
+
+				<h3>The knowledge prover</h3>
+				<p>
+	        Whenever a question is asked, both players answer the question and the new knowledge is added to the knowledge base. We implemented our own logic prover that now tries to infer additional facts based on the old knowledge and the newly added information. For example, if we already knew that the hair of the character was not blue and we now have the new information that the hair is also not green, our logic prover will use one of the rules to infer that the hair is therefore red. How it works internally is as follows:
+
+					<ol>
+						<li> A player answers a question and the resulting knowledge will be fed to the knowledge base
+						<li> The knowledge base adds this to the knowledge if it is <i>new</i> knowledge
+						<li> The knowledge base tries to prove new knowledge based on this obtained piece of knowledge
+						<ul>
+							<li> The prover checks each rule where the consequent is not yet in the knowledge base
+							<li> The prover checks for each antecedent whether it is satisfied in the knowledge base
+							<li> The prover keeps track of all knowledge that can now be proven
+							<li> All newly proven knowledge is fed to the knowledge base again, GOTO '2.'
+						</ul>
+					</ol>
+
+					This asking and answering of questions, and updating of the knowledge base, continues until one or both of the players knows which avatar the opponent picked.
+				</p>
+
+				<br><br>
 			</div>
     </div>
   </body>
