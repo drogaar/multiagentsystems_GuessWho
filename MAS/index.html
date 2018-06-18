@@ -44,7 +44,7 @@
 
   <div class="container">
 		<div class="col-md-8 col-md-offset-2">
-	    <h2>The game</h2>
+	    <h2>An interactive game</h2>
 
 	    <p>In the game of <i>Guess Who?</i>, two opposing players pick an avatar from a given set of characters. The characters that players can choose have various
 	    attributes such as their hair colour, or whether they are wearing glasses. It is up to the players to guess what character their opponent has chosen in order to win the game. Players may ask binary questions about the attributes in order to gain
@@ -156,22 +156,20 @@
 		  </p>
 
 	    <h2> Simulating a game </h2>
-	    If we run a number of <i>Guess Who?</i> games, we can get results on the best strategy for a player. Below, you can press the simulate button to see the resulting score for each player.
+	    If we run a number of <i>Guess Who?</i> games, we can get results on the strategies for a player. Below, you can press the 'simulate n games' button to see the resulting score for each player.
 	    <p>
 	      <div class="input-group">
 	          <div class="input-group-btn">
-	            <button class="btn btn-default" onclick="playManyGames() ">Simulate n games: </button>
+	            <button class="btn btn-primary" onclick="playManyGames()">Simulate n games</button>
 	          </div>
-	          <input type="text" id="nGames" class="form-control" value="n" />
+	          <input type="text" id="nGames" class="form-control" placeholder="20" />
 	          <span class="input-group-btn" style="width:0px;"></span>
-	          <input type="text" id="simulationOutput" class="form-control" value="output" disabled/>
-	          <!-- nGames = document.getElementById("nGames").value -->
-	          <!-- document.getElementById("simulationOutput").value = "output" -->
+	          <input type="text" id="simulationOutput" class="form-control" value="no output yet" disabled/>
 	      </div>
 	    </p>
 
 		  <br>
-			<h1 id="help">Need help?</h1>
+			<h2 id="help">Need help?</h2>
 
 			<p>
 				At the top of the page you will find the interactive game of <i>Guess Who</i>. By pressing 'next step', the game advances by one step, i.e. one player asks a question and each players answers this question with regard to their chosen avatar. Both players' knowledge about their opponent's avatar will be updated, and the knowledge base tries to prove new propositions using the rules of the game. Note that pressing 'reset game' will reset all knowledge and chosen avatars. Pressing 'help me' should bring you to this section.
@@ -186,7 +184,7 @@
 			</p>
 			<br><br>
 
-		  <h1>Project implementation & status</h1>
+		  <h2>Project implementation</h2>
 		  <p>
 		  	In the game, two players compete with each other. Player 1 tries to ask questions in a smart way by using the available knowledge. Player 2 does not take the knowledge into account and asks random questions. A custom logic prover is implemented which takes the rules of the game, as seen in the console, and proves new knowledge per agent once a question is answered. The knowledge is implemented in a simplified way. Because questions are announced publicly, both of the players know the answers. They also know that the other player knows the same things, etc. Essentially, all knowledge in the game is common knowledge. Therefore, we don't use the K operators in representing the knowledge. This makes the prover less complex. When reasoning about what decision to take, a player takes each possible question and reasons about what the result of the possible answers (true or false) will be on the possible characters that are left. It tries to find the question that will eliminate as many characters as possible regardless of whether the answer is true or false, but it also takes into account how many characters are left for the player itself after answering its own question.
 		</div>
