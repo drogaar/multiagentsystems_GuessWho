@@ -148,14 +148,18 @@
 	  </p>
 
     <h2> Simulating a game </h2>
+    If we run a number of <i>Guess Who?</i> games, we can get results on the bests strategy for a player. Below, you can press the simulate button to see the resulting score for each player.
     <p>
-     <div class="input-group">
-       <div class="input-group-btn">
-         <button class="btn btn-default" onclick="playManyGames() ">Simulate n games: </button>
-       </div>
-       <!-- e.g. document.getElementById("simulationOutput").value = "7 - 1" -->
-       <input type="text" id="simulationOutput" class="form-control" placeholder="Search" disabled>
-     </div>
+      <div class="input-group">
+          <div class="input-group-btn">
+            <button class="btn btn-default" onclick="playManyGames() ">Simulate n games: </button>
+          </div>
+          <input type="text" id="nGames" class="form-control" value="n" />
+          <span class="input-group-btn" style="width:0px;"></span>
+          <input type="text" id="simulationOutput" class="form-control" value="output" disabled/>
+          <!-- nGames = document.getElementById("nGames").value -->
+          <!-- document.getElementById("simulationOutput").value = "output" -->
+      </div>
     </p>
 
 	  <br>
