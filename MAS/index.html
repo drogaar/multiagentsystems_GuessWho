@@ -131,56 +131,64 @@
   <script src="main.js"></script>
 
 	<div class="container">
-	  <h2>Using epistemic logic</h2>
+    	  <h2>Using epistemic logic</h2>
 
-	  <p>
-	    The game is analysed here using epistemic logic. We use the knowledge
-	    operator K to represent what knowledge is held by each player. A Kripke model in S5 is shown below. Each world consists of a pair of characters such that each player has chosen a character. Since each player knows what character they have, they know which characters they do not have. Therefore, e.g. player 1 can only access worlds where the character for player 1 is the same as the one he chose. This means that worlds have connections to each other world where the local state is preserved, much like the distributed systems used in chapt. 1.8, "Epistemic Logic for AI and Computer Science" by Meyer and van der Hoek (1995).
-	  </p>
+    	  <p>
+    	    The game is analysed here using epistemic logic. We use the knowledge
+    	    operator K to represent what knowledge is held by each player. A Kripke model in S5 is shown below. Each world consists of a pair of characters such that each player has chosen a character. Since each player knows what character they have, they know which characters they do not have. Therefore, e.g. player 1 can only access worlds where the character for player 1 is the same as the one he chose. This means that worlds have connections to each other world where the local state is preserved, much like the distributed systems used in chapt. 1.8, "Epistemic Logic for AI and Computer Science" by Meyer and van der Hoek (1995).
+    	  </p>
 
-	  <!-- not centered yet -->
-	  <img id="model"  style="display: block; width:600px; height:450px; margin: 0 auto;" src="./res/kripkemodel.jpg">
+    	  <!-- not centered yet -->
+    	  <img id="model"  style="display: block; width:600px; height:450px; margin: 0 auto;" src="./res/kripkemodel.jpg">
 
-	  <p>
-	    The system shown above uses double lines to indicate that every state along that line can be reached from any other state reached. Notably, states along these lines can make 'jumps' to another state along the same line. Given that players know which attributes their character has, players may only access states in which this chosen character is the same. Thus, there is a horizontal and vertical double line for player one and two respectively, in order to access the reachable states.
-	    <br><br>
-	    We have indicated the propositions that are true in a world by showing the avatar for each player. The avatars, here, form a specification on propositions that are true and false by visualising the attributes of the characters, such as red hair and having two teeth. Then, the visualisation marks whether a given proposition is true or false.
-	  </p>
+    	  <p>
+    	    The system shown above uses double lines to indicate that every state along that line can be reached from any other state reached. Notably, states along these lines can make 'jumps' to another state along the same line. Given that players know which attributes their character has, players may only access states in which this chosen character is the same. Thus, there is a horizontal and vertical double line for player one and two respectively, in order to access the reachable states.
+    	    <br><br>
+    	    We have indicated the propositions that are true in a world by showing the avatar for each player. The avatars, here, form a specification on propositions that are true and false by visualising the attributes of the characters, such as red hair and having two teeth. Then, the visualisation marks whether a given proposition is true or false.
+          <br><br>
+          Given that players have access to the local states in the above Kripke model, indeed, players have knowledge about the avatar that they have themselves. However, relations for a local state exists to all of the worlds that have verying avatars for the opponent. So, players do not know which avatar their opponent has until they have asked questions.
+    	  </p>
 
-    <h2> Simulating a game </h2>
-    If we run a number of <i>Guess Who?</i> games, we can get results on the bests strategy for a player. Below, you can press the simulate button to see the resulting score for each player.
-    <p>
-      <div class="input-group">
-          <div class="input-group-btn">
-            <button class="btn btn-default" onclick="playManyGames() ">Simulate n games: </button>
+        <h2> Announcement logic</h2>
+        <p>
+          So, what happens when a player asks a question? That is, a player makes a statement that from that moment on, should be true. To account for this, announcement logic is used. This logic introduces restrictions on the Kripke model such that any (truthful) answer players give to a question will be true in the Kripke model. For example, when a players asks whether an avatars hair is red on both players answer no, the Kripke model is restricted to only the worlds where both player's avatar is not red. Any relations agents have to the worlds with red hair are also not considered. Using this logic, a game of Guess Who? becomes a series of resitrictions on the Kripke model until a player has access to only one world and thereby knows his opponent's avatar.
+        </p>
+
+        <h2> Asking questions</h2>
+        <p> Given the logic and Kripke model, then, what is the best question an agent can ask? We find that new questions can decrease the number of avatars an opponent could possibly have. For a player, a question is intended to gain the most information about his opponent's avatar while giving away the least amount of information about his own avatar. We implement this strategy by counting the possible world in the restricted Kripke model, following the question that have been asked. That is, the most informative question about the opponent is the one that has the largest reduction in possible avatars of the opponent after restricting the model to the given question. Similarly, the safest question for you has the smallest reduction in worlds that you believe the opponent holds possible for you.
+
+        <h2> Simulating a game </h2>
+        If we run a number of <i>Guess Who?</i> games, we can get results on the bests strategy for a player. Below, you can press the simulate button to see the resulting score for each player. To show the effect of strategy, we have one player asking random questions about avatars, and the other agent using the strategy described earlier.
+        <p>
+          <div class="input-group">
+              <div class="input-group-btn">
+                <button class="btn btn-default" onclick="playManyGames() ">Simulate n games: </button>
+              </div>
+              <input type="text" id="nGames" class="form-control" value="n" />
+              <span class="input-group-btn" style="width:0px;"></span>
+              <input type="text" id="simulationOutput" class="form-control" value="output" disabled/>
+              <!-- nGames = document.getElementById("nGames").value -->
+              <!-- document.getElementById("simulationOutput").value = "output" -->
           </div>
-          <input type="text" id="nGames" class="form-control" value="n" />
-          <span class="input-group-btn" style="width:0px;"></span>
-          <input type="text" id="simulationOutput" class="form-control" value="output" disabled/>
-          <!-- nGames = document.getElementById("nGames").value -->
-          <!-- document.getElementById("simulationOutput").value = "output" -->
-      </div>
-    </p>
+        </p>
 
-	  <br>
-	  <h1 id="help">Need help with the interactive game?</h1>
+    	  <br>
+    	  <h1 id="help">Need help with the interactive game?</h1>
 
-	  <p>
-		  At the top of the page you will find the interactive game of <i>Guess Who</i>. By pressing 'next step', the game advances by one step, i.e. one player asks a question and each players answers this question with regard to their chosen avatar. Both players' knowledge about their opponent's avatar will be updated, and the knowledge base tries to prove new propositions using the rules of the game. Note that pressing 'reset game' will reset all knowledge and chosen avatars. Pressing 'help me' should bring you to this section.
-	  </p>
-	  <br><br>
+    	  <p>
+    		  At the top of the page you will find the interactive game of <i>Guess Who</i>. By pressing 'next step', the game advances by one step, i.e. one player asks a question and each players answers this question with regard to their chosen avatar. Both players' knowledge about their opponent's avatar will be updated, and the knowledge base tries to prove new propositions using the rules of the game. Note that pressing 'reset game' will reset all knowledge and chosen avatars. Pressing 'help me' should bring you to this section.
+    	  </p>
+    	  <br><br>
 
-	  <h1>Project implementation & status</h1>
-	  <p>
-	  	In the game, two players compete with each other. Player 1 tries to ask questions in a smart way by using the available knowledge. Player 2 does not take the knowledge into account and asks random questions. A custom logic prover is implemented which takes the rules of the game, as seen in the console, and proves new knowledge per agent once a question is answered. The knowledge is implemented in a simplified way. Because questions are announced publicly, both of the players know the answers. They also know that the other player knows the same things, etc. Essentially, all knowledge in the game is common knowledge. Therefore, we don't use the K operators in representing the knowledge. This makes the prover less complex. When reasoning about what decision to take, a player takes each possible question and reasons about what the result of the possible answers (true or false) will be on the possible characters that are left. It tries to find the question that will eliminate as many characters as possible regardless of whether the answer is true or false, but it also takes into account how many characters are left for the player itself after answering its own question.
+    	  <h1>Project implementation & status</h1>
+    	  <p>
+    	  	In the game, two players compete with each other. Player 1 tries to ask questions in a smart way by using the available knowledge. Player 2 does not take the knowledge into account and asks random questions. A custom logic prover is implemented which takes the rules of the game, as seen in the console, and proves new knowledge per agent once a question is answered. The knowledge is implemented in a simplified way. Because questions are announced publicly, both of the players know the answers. They also know that the other player knows the same things, etc. Essentially, all knowledge in the game is common knowledge. Therefore, we don't use the K operators in representing the knowledge. This makes the prover less complex. When reasoning about what decision to take, a player takes each possible question and reasons about what the result of the possible answers (true or false) will be on the possible characters that are left. It tries to find the question that will eliminate as many characters as possible regardless of whether the answer is true or false, but it also takes into account how many characters are left for the player itself after answering its own question.
+        </p>
 	</div>
 
-<!-- 	  The game in its current state is not yet finished.
-	  <br><br>
-	  The game currently asks a random question (which might have been answered already). It keeps track of each agent's knowledge, a part of which can be seen by opening the browser's debugging console (on Chrome, right click -> inspect -> check the console tab) under 'Current Knowledge'. A custom logic prover is implemented which takes the rules of the game, as seen in the console, and proves new knowledge per agent once a question is answered. It seems only relevant that a player knows something about their opponent's avatar, and that a player knows that the opponent knows about their own avatar. To make the knowledge base more clear, only this is implemented as knowledge and not a player's knowledge about its own avatar (although it could be argued that this should be present for making a decision as to which question to ask the opponent, making sure that the opponent does not find out what your avatar is). The knowledge is represented as e.g. "K1(K2(p1.hair:red))", which means that "player 1 knows that player 2 knows that the avatar of player 1 has red hair". The goal of the game is to ask questions such that a piece of knowledge will be proven that looks like "K1(p2.bob)", which means that "player 1 knows that the avatar of player 2 is Bob". There are four characters in this game (of which only three are currently shown) named {"Fred", "Li'l Timmy", "Bob", "Peter"}. A legend as to which character belongs to whom will be posted in the near future. If, at any point, the knowledge base contains a contradiction, the system will notify us of this in the console. It is expected that the final version will never contain contradictions since both players are perfect logical reasoners and perfectly truthful, but it does show that currently there is still a small bug in the prover that accidentally adds contradicting knowledge. To see this, try refreshing the page a few times with the console open. Finally, the question "crosseyed:false" seems to always be answered as "!pn.crosseyed:false". Whoops...
--->
-
-  </p>
-
+    <!-- 	  The game in its current state is not yet finished.
+    	  <br><br>
+    	  The game currently asks a random question (which might have been answered already). It keeps track of each agent's knowledge, a part of which can be seen by opening the browser's debugging console (on Chrome, right click -> inspect -> check the console tab) under 'Current Knowledge'. A custom logic prover is implemented which takes the rules of the game, as seen in the console, and proves new knowledge per agent once a question is answered. It seems only relevant that a player knows something about their opponent's avatar, and that a player knows that the opponent knows about their own avatar. To make the knowledge base more clear, only this is implemented as knowledge and not a player's knowledge about its own avatar (although it could be argued that this should be present for making a decision as to which question to ask the opponent, making sure that the opponent does not find out what your avatar is). The knowledge is represented as e.g. "K1(K2(p1.hair:red))", which means that "player 1 knows that player 2 knows that the avatar of player 1 has red hair". The goal of the game is to ask questions such that a piece of knowledge will be proven that looks like "K1(p2.bob)", which means that "player 1 knows that the avatar of player 2 is Bob". There are four characters in this game (of which only three are currently shown) named {"Fred", "Li'l Timmy", "Bob", "Peter"}. A legend as to which character belongs to whom will be posted in the near future. If, at any point, the knowledge base contains a contradiction, the system will notify us of this in the console. It is expected that the final version will never contain contradictions since both players are perfect logical reasoners and perfectly truthful, but it does show that currently there is still a small bug in the prover that accidentally adds contradicting knowledge. To see this, try refreshing the page a few times with the console open. Finally, the question "crosseyed:false" seems to always be answered as "!pn.crosseyed:false". Whoops...
+    -->
 </body>
 </html>
