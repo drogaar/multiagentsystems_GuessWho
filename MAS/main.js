@@ -59,7 +59,7 @@ function stepGame(){
 
 		// Log the knowledge
 		log(knowledgeBase.getCommonKnowledge(), "commonKnowledge")
-		log(knowledgeBase.getAgentKnowledge(), "agentKnowledge")
+		log(knowledgeBase.getAgentKnowledge(players[0], players[1]), "agentKnowledge")
 
 		turn++
 	}
@@ -90,7 +90,7 @@ function resetGame(){
 	log("________________")
 
 	log("There is no common knowledge yet.", "commonKnowledge")
-	log("There is no agent knowledge yet.", "agentKnowledge")
+	log(knowledgeBase.getAgentKnowledge(players), "agentKnowledge")
 }
 
 // stop game!
@@ -113,7 +113,7 @@ function endGame(){
 	}
 
 	log("\nFinal common knowledge:\n" + knowledgeBase.getCommonKnowledge(), 'commonKnowledge')
-	log("\nFinal agent knowledge:\n" + knowledgeBase.getAgentKnowledge(), 'agentKnowledge')
+	log("\nFinal agent knowledge:\n" + knowledgeBase.getAgentKnowledge(players), 'agentKnowledge')
 	//log("\n" + "Final knowledge:\n\n" + knowledgeBase.knowledge.sort().join("\n"), 'knowledgeConsole')
 
 
