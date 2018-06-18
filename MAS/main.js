@@ -170,6 +170,7 @@ function playManyGames() {
 	document.getElementById("simulationOutput").value = "Smart won " + smartWins + "/" + n + "; Random won " + randomWins + "/" + n + "; Ties: " + ties + "/" + n;
 	// document.getElementById("simulationOutput").value = "Smart won " + smartWins + "/" + n + " Random won " + smartWins + "/" + n + " Ties: " + ties "/" + n;
 	//console.log("Smart wins: " + smartWins + "\nRandom wins: " + randomWins + "\nTies: " + ties)
+	resetGame();
 	return [smartWins, randomWins, ties]
 }
 
