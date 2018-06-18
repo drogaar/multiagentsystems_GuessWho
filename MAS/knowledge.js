@@ -276,16 +276,6 @@ class Knowledge {
 			agentKnowledge.push("K" + player + "(p" + player + "." + props[3] + ")")
 		}
 
-
-		// var props = p1.getAvatar().getAttributes()
-		// for (var i in props){
-		// 	agentKnowledge.push("K1(p1." + props[i] + ")")
-		// }
-		// props = p2.getAvatar().getAttributes()
-		// for (var i in props){
-		// 	agentKnowledge.push("K2(p2." + props[i] + ")")
-		// }
-
 		// All common knowledge as agent knowledge
 		for (var i in this.knowledge){
 			var k = this.knowledge[i]

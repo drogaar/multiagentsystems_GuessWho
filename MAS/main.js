@@ -59,14 +59,14 @@ function stepGame(){
 
 		// Log the knowledge
 		log(knowledgeBase.getCommonKnowledge(), "commonKnowledge")
-		log(knowledgeBase.getAgentKnowledge(players[0], players[1]), "agentKnowledge")
+		log(knowledgeBase.getAgentKnowledge(players), "agentKnowledge")
 
 		turn++
 	}
 }
 
 // start game!
-function resetGame(){
+function resetGame(p1Random=true, p2Random=false){
 	ended = false
 	turn = 0
 	document.getElementById("stepButton").disabled = false
@@ -78,8 +78,9 @@ function resetGame(){
 	char1 = characters[Math.floor((Math.random() * numChars - 1) + 1)]
 	char2 = characters[Math.floor((Math.random() * numChars - 1) + 1)]
 
-	p1 = new Player("p1", char1, random=false)
-	p2 = new Player("p2", char2, random=false)
+	p1 = new Player("p1", char1, random=p1Random)
+	p2 = new Player("p2", char2, random=p2Random)
+
 	players = [p1, p2]
 
 	// update game view
@@ -118,6 +119,51 @@ function endGame(){
 
 
 	document.getElementById("stepButton").disabled = true
+}
+
+function playManyGames(n=100) {
+	var smartWins = 0;
+	var randomWins = 0;
+	var ties = 0;
+
+	for (var i = 1; i <=100; i++) {
+		console.log("Playing game " + i + "/" + n)
+		// Because player 1 always start, make a random player the smart one
+		if (Math.random() > 0.5) {
+			p1Random = true;
+			p2Random = false;
+		} else {
+			p1Random = false;
+			p2Random = true;
+		}
+		resetGame(p1Random, p2Random)
+
+		while (!ended) {
+			stepGame()
+		}
+		// console.log("Winner: " + winner)
+		switch(winner) {
+			case 1:
+				if (!p1Random) {
+					smartWins++;
+				} else {
+					randomWins++;
+				}
+				break;
+			case 2:
+				if (!p2Random) {
+					smartWins++;
+				} else {
+					randomWins++;
+				}
+				break;
+			case 3:
+				ties++;
+				break;
+		}
+	}
+	console.log("Smart wins: " + smartWins + "\nRandom wins: " + randomWins + "\nTies: " + ties)
+	return [smartWins, randomWins, ties]
 }
 
 // Jumps page to interactive game info
