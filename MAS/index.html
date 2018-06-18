@@ -44,7 +44,7 @@
 
   <div class="container">
     <div class="col-md-8 col-md-offset-2">
-      <h2>An interactive game</h2>
+      <h2>The Game</h2>
 
       <p>In the game of <i>Guess Who?</i>, two opposing players pick an avatar from a given set of characters. The characters that players can choose have various attributes such as their hair colour, or whether they are wearing glasses. It is up to the players to guess what character their opponent has chosen in order to win the game. Players may ask binary questions about the attributes in order to gain information on which avatar the opponent has chosen.
       </p>
@@ -178,6 +178,10 @@
           At the top of the page you will find the interactive game of <i>Guess Who</i>. By pressing 'next step', the game advances by one step, i.e. one player asks a question and each player answers this question with regard to their chosen avatar. Both players' knowledge about their opponent's avatar will be updated, and the solver tries to prove new propositions using the rules of the game. Note that pressing 'reset game' will reset all knowledge and chosen avatars. Pressing 'help me' should bring you to this section.
         </p>
 
+        <p>
+          The demo shows player 1 first and player 2 below that. The character that is circled is the character of the opponent that this player has to guess. The characters shown are the possibilities left for the opponent's character with the current knowledge.
+        </p>
+
         <br>
         <img id="model" style="display: block; width:600px; height:auto; margin: 0 auto;" src="./res/charNames.png">
         <br>
@@ -209,7 +213,7 @@
 
           <br><br>
 
-          When a question is asked, both players answer the question and the new knowledge is added to the knowledge base. We implemented our own logic prover that now tries to infer additional facts based on the old knowledge and the newly added information. For example, if we already knew that the hair of the character was not blue and we now have the new information that the hair is also not red, our logic prover will use one of the rules to infer that the hair must be blue. INSERT MORE EXPLANATION ABOUT SOLVER HERE. This continues until one or both of the players knows which character the opponent had chosen. 
+          When a question is asked, both players answer the question and the new knowledge is added to the knowledge base. We implemented our own logic prover that now tries to infer additional facts based on the old knowledge and the newly added information. For example, if we already knew that the hair of the character was not blue and we now have the new information that the hair is also not red, our logic prover will use one of the rules to infer that the hair must be blue. INSERT MORE EXPLANATION ABOUT SOLVER HERE. This continues until one or both of the players knows which character the opponent had chosen.
         </div>
       </div>
   </body>
