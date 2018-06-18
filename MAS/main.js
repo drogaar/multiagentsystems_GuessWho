@@ -21,7 +21,7 @@ var turn = 0
 var players = []
 var knowledgeBase
 var ended = false // whether the game has ended
-var consoleText = {"QnA": "", "commonKnowledge": "", "agentKnowledge": ""}
+var consoleText = {"QnA": "", "commonKnowledge": "", "agentKnowledge": "", "gameRules":""}
 
 // Start game
 resetGame()
@@ -92,6 +92,7 @@ function resetGame(p1Random=true, p2Random=false){
 
 	log("There is no common knowledge yet.", "commonKnowledge")
 	log(knowledgeBase.getAgentKnowledge(players), "agentKnowledge")
+  log((knowledgeBase.rules).join("\n\n"), "gameRules")
 }
 
 // stop game!
@@ -182,7 +183,7 @@ function help(){
 // A text or radio button change will update the console
 function consoleChange(){
 	var cons = 0
-	consoles = ["QnA", "commonKnowledge", "agentKnowledge"]
+	consoles = ["QnA", "commonKnowledge", "agentKnowledge", "gameRules"]
 	for (var i in consoles){
 		if (document.getElementById(consoles[i]).checked){
 			document.getElementById("console").value = consoleText[consoles[i]]
