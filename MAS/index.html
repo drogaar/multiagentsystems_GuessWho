@@ -2,30 +2,30 @@
 <html>
 <head>
   <style type="text/css">
-    .bgimg {
-      background-image: url('./res/bg.jpg');
-      background-repeat:no-repeat;
-      background-size:100%;
-      width: 100%;
-      padding-bottom: 44.5%;
-    }
-    body {
-      margin: 10em;
-    }
+  .bgimg {
+    background-image: url('./res/bg.jpg');
+    background-repeat:no-repeat;
+    background-size:100%;
+    width: 100%;
+    padding-bottom: 44.5%;
+  }
+  body {
+    margin: 10em;
+  }
 
-		p{
-    	word-wrap: break-word;
-		}
+  p{
+    word-wrap: break-word;
+  }
 
-    avatar {
-      width:100;
-      height:100;
-    }
-    h1 {text-align:center;}
-    h2 {text-align:center;}
-    h3 {text-align:center;}
-    h4 {text-align:center;}
-    textarea {resize: none;}
+  avatar {
+    width:100;
+    height:100;
+  }
+  h1 {text-align:center;}
+  h2 {text-align:center;}
+  h3 {text-align:center;}
+  h4 {text-align:center;}
+  textarea {resize: none;}
   </style>
   <meta charset="utf-8"/>
   <link rel="icon" href="res/favicon.ico" type="image/x-icon" />
@@ -43,84 +43,80 @@
   </div>
 
   <div class="container">
-		<div class="col-md-8 col-md-offset-2">
-	    <h2>The game</h2>
+    <div class="col-md-8 col-md-offset-2">
+      <h2>An interactive game</h2>
 
-	    <p>In the game of <i>Guess Who?</i>, two opposing players pick an avatar from a given set of characters. The characters that players can choose have various
-	    attributes such as their hair colour, or whether they are wearing glasses. It is up to the players to guess what character their opponent has chosen in order to win the game. Players may ask binary questions about the attributes in order to gain
-	    information on which avatar the opponent has chosen.</p>
+      <p>In the game of <i>Guess Who?</i>, two opposing players pick an avatar from a given set of characters. The characters that players can choose have various
+        attributes such as their hair colour, or whether they are wearing glasses. It is up to the players to guess what character their opponent has chosen in order to win the game. Players may ask binary questions about the attributes in order to gain
+        information on which avatar the opponent has chosen.</p>
 
-	    <p> The variant that is analysed here is a symmetric <i>Guess Who?</i>. Here, once a player asks a question about an attribute, both players have to say whether or not their character satisfies the mentioned attribute, truthfully. The implications of the symmetric gameplay is that players may be unable to ask direct questions when it would reveal which character they are playing themselves. Thus, as a player, you need to have information on what your opponent knows about your character.
-	    </p>
-		</div>
-	</div>
+        <p> The variant that is analysed here is a symmetric <i>Guess Who?</i>. Here, once a player asks a question about an attribute, both players have to say whether or not their character satisfies the mentioned attribute, truthfully. The implications of the symmetric gameplay is that players may be unable to ask direct questions when it would reveal which character they are playing themselves. Thus, as a player, you need to have information on what your opponent knows about your character.
+        </p>
+      </div>
+    </div>
 
     <!-- THE INTERACTIVE GAME -->
     <br><br>
     <div class="container">
-        <div class="row">
-            <div class="bgimg col-sm-8 h-100" id="arena">
-                  <div class="row" style="position:absolute; left: 36%; top:10%;">
-                    <img class="avatar col-xs-2" id="p0_char4" src="./res/chars/hg t1 cn.png" height="60">
-					<div class="col-xs-1"></div>
-                    <img class="avatar col-xs-2" id="p0_char1" src="./res/chars/hg t1 cn.png" height="60">
-					<div class="col-xs-1"></div>
-                    <img class="avatar col-xs-2" id="p0_char2" src="./res/chars/hg t1 cn.png" height="60">
-					<div class="col-xs-1"></div>
-                    <img class="avatar col-xs-2" id="p0_char3" src="./res/chars/hg t1 cn.png" height="60">
-				</div><div class="row" style="position:absolute; left: 36%; top:25%;">
-                    <img class="avatar col-xs-2" id="p0_char5" src="./res/chars/hg t1 cn.png" height="60">
-					<div class="col-xs-1"></div>
-                    <img class="avatar col-xs-2" id="p0_char6" src="./res/chars/hg t1 cn.png" height="60">
-					<div class="col-xs-1"></div>
-                    <img class="avatar col-xs-2" id="p0_char7" src="./res/chars/hg t1 cn.png" height="60">
-					<div class="col-xs-1"></div>
-                    <img class="avatar col-xs-2" id="p0_char8" src="./res/chars/hg t1 cn.png" height="60">
-                  </div>
+      <div class="row">
+        <div class="bgimg col-sm-8 h-100" id="arena">
+          <div class="row" style="position:absolute; left: 36%; top:10%;">
+            <img class="avatar col-xs-2" id="p0_char4" src="./res/chars/hg t1 cn.png" height="60">
+            <div class="col-xs-1"></div>
+            <img class="avatar col-xs-2" id="p0_char1" src="./res/chars/hg t1 cn.png" height="60">
+            <div class="col-xs-1"></div>
+            <img class="avatar col-xs-2" id="p0_char2" src="./res/chars/hg t1 cn.png" height="60">
+            <div class="col-xs-1"></div>
+            <img class="avatar col-xs-2" id="p0_char3" src="./res/chars/hg t1 cn.png" height="60">
+          </div><div class="row" style="position:absolute; left: 36%; top:25%;">
+            <img class="avatar col-xs-2" id="p0_char5" src="./res/chars/hg t1 cn.png" height="60">
+            <div class="col-xs-1"></div>
+            <img class="avatar col-xs-2" id="p0_char6" src="./res/chars/hg t1 cn.png" height="60">
+            <div class="col-xs-1"></div>
+            <img class="avatar col-xs-2" id="p0_char7" src="./res/chars/hg t1 cn.png" height="60">
+            <div class="col-xs-1"></div>
+            <img class="avatar col-xs-2" id="p0_char8" src="./res/chars/hg t1 cn.png" height="60">
+          </div>
 
-				  <div class="row"><br></div>
+          <div class="row"><br></div>
 
-                  <div class="row" style="position:absolute; left: 36%; top:60%;">
-                    <img class="avatar col-xs-2" id="p1_char4" src="./res/chars/hg t1 cn.png" height="60">
-					<div class="col-xs-1"></div>
-                    <img class="avatar col-xs-2" id="p1_char1" src="./res/chars/hg t1 cn.png" height="60">
-					<div class="col-xs-1"></div>
-                    <img class="avatar col-xs-2" id="p1_char2" src="./res/chars/hg t1 cn.png" height="60">
-					<div class="col-xs-1"></div>
-                    <img class="avatar col-xs-2" id="p1_char3" src="./res/chars/hg t1 cn.png" height="60">
-				</div><div class="row" style="position:absolute; left: 36%; top:75%;">
-                    <img class="avatar col-xs-2" id="p1_char5" src="./res/chars/hg t1 cn.png" height="60">
-					<div class="col-xs-1"></div>
-                    <img class="avatar col-xs-2" id="p1_char6" src="./res/chars/hg t1 cn.png" height="60">
-					<div class="col-xs-1"></div>
-                    <img class="avatar col-xs-2" id="p1_char7" src="./res/chars/hg t1 cn.png" height="60">
-					<div class="col-xs-1"></div>
-                    <img class="avatar col-xs-2" id="p1_char8" src="./res/chars/hg t1 cn.png" height="60">
-                  </div>
+          <div class="row" style="position:absolute; left: 36%; top:60%;">
+            <img class="avatar col-xs-2" id="p1_char4" src="./res/chars/hg t1 cn.png" height="60">
+            <div class="col-xs-1"></div>
+            <img class="avatar col-xs-2" id="p1_char1" src="./res/chars/hg t1 cn.png" height="60">
+            <div class="col-xs-1"></div>
+            <img class="avatar col-xs-2" id="p1_char2" src="./res/chars/hg t1 cn.png" height="60">
+            <div class="col-xs-1"></div>
+            <img class="avatar col-xs-2" id="p1_char3" src="./res/chars/hg t1 cn.png" height="60">
+          </div><div class="row" style="position:absolute; left: 36%; top:75%;">
+            <img class="avatar col-xs-2" id="p1_char5" src="./res/chars/hg t1 cn.png" height="60">
+            <div class="col-xs-1"></div>
+            <img class="avatar col-xs-2" id="p1_char6" src="./res/chars/hg t1 cn.png" height="60">
+            <div class="col-xs-1"></div>
+            <img class="avatar col-xs-2" id="p1_char7" src="./res/chars/hg t1 cn.png" height="60">
+            <div class="col-xs-1"></div>
+            <img class="avatar col-xs-2" id="p1_char8" src="./res/chars/hg t1 cn.png" height="60">
+          </div>
+        </div>
+        <div class="col-sm-1" id="empty_width"></div>
+        <div class="col-sm-3" id="consoleArea">
+          <div class="form-group">
+            <div class="radio">
+              <label class="radio"><input type="radio" name="consoleType" onchange="consoleChange()" id="QnA" checked="checked">Q & A</label>
+              <label class="radio"><input type="radio" name="consoleType" onchange="consoleChange()" id="commonKnowledge">Common Knowledge</label>
+              <label class="radio"><input type="radio" name="consoleType" onchange="consoleChange()" id="agentKnowledge">Agent Knowledge</label>
             </div>
-			<div class="col-sm-1" id="empty_width"></div>
-			<div class="col-sm-3" id="consoleArea">
-				<div class="form-group">
-					<div class="radio">
-						<label class="radio"><input type="radio" name="consoleType" onchange="consoleChange()" id="QnA" checked="checked">Q & A</label>
-						<label class="radio"><input type="radio" name="consoleType" onchange="consoleChange()" id="commonKnowledge">Common Knowledge</label>
-						<label class="radio"><input type="radio" name="consoleType" onchange="consoleChange()" id="agentKnowledge">Agent Knowledge</label>
-					</div>
-				    <textarea class="form-control rounded-0" id="console" rows="23" cols="25" disabled></textarea>
-				</div>
-				<!--<textarea class="form-group" id="console" rows="25" cols="25" disabled></textarea>-->
-
-            	<!--<textarea class = "col-sm-2" id="outConsole" rows="25" cols="25" disabled></textarea>
-				<textarea class = "col-sm-2" id="knowledgeConsole" rows="25" cols="25" disabled></textarea>-->
-				</div>
-			</div>
+            <textarea class="form-control rounded-0" id="console" rows="23" cols="25" disabled></textarea>
+          </div>
         </div>
-        <br>
-        <div class="row" style="text-align: center">
-            <button type="button" class="btn btn-default" id="stepButton" onclick="stepGame()">Next step</button>
-            <button type="button" class="btn btn-default" id="resetButton" onclick="resetGame()">Reset game</button>
-            <button type="button" class="btn btn-info" id="helpButton" onclick="help()">Help me</button>
-        </div>
+      </div>
+    </div>
+    <br>
+    <div class="row" style="text-align: center">
+      <button type="button" class="btn btn-default" id="stepButton" onclick="stepGame()">Next step</button>
+      <button type="button" class="btn btn-default" id="resetButton" onclick="resetGame()">Reset game</button>
+      <button type="button" class="btn btn-info" id="helpButton" onclick="help()">Help me</button>
+    </div>
   </div>
 
   <script src="character.js"></script>
@@ -129,74 +125,68 @@
   <script src="images.js"></script>
   <script src="main.js"></script>
 
-  <div class="col-md-8 col-md-offset-2">
-    	  <h2>Using epistemic logic</h2>
+  <div class="container">
+    <div class="col-md-8 col-md-offset-2">
+      <h2>Using epistemic logic</h2>
 
-    	  <p>
-    	    The game is analysed here using epistemic logic. We use the knowledge
-    	    operator K to represent what knowledge is held by each player. A Kripke model in S5 is shown below. Each world consists of a pair of characters such that each player has chosen a character. Since each player knows what character they have, they know which characters they do not have. Therefore, e.g. player 1 can only access worlds where the character for player 1 is the same as the one he chose. This means that worlds have connections to each other world where the local state is preserved, much like the distributed systems used in chapt. 1.8, "Epistemic Logic for AI and Computer Science" by Meyer and van der Hoek (1995).
-    	  </p>
+      <p>
+        The game is analysed here using epistemic logic. We use the knowledge
+        operator K to represent what knowledge is held by each player. A Kripke model in S5 is shown below. Each world consists of a pair of characters such that each player has chosen a character. Since each player knows what character they have, they know which characters they do not have. Therefore, e.g. player 1 can only access worlds where the character for player 1 is the same as the one he chose. This means that worlds have connections to each other world where the local state is preserved, much like the distributed systems used in chapt. 1.8, "Epistemic Logic for AI and Computer Science" by Meyer and van der Hoek (1995).
+      </p>
 
-    	  <img id="model"  style="display: block; width:600px; height:450px; margin: 0 auto;" src="./res/kripkemodel.jpg">
+      <img id="model"  style="display: block; width:600px; height:450px; margin: 0 auto;" src="./res/kripkemodel.jpg">
 
-    	  <p>
-    	    The system shown above uses double lines to indicate that every state along that line can be reached from any other state reached. Notably, states along these lines can make 'jumps' to another state along the same line. Given that players know which attributes their character has, players may only access states in which this chosen character is the same. Thus, there is a horizontal and vertical double line for player one and two respectively, in order to access the reachable states.
-    	    <br><br>
-    	    We have indicated the propositions that are true in a world by showing the avatar for each player. The avatars, here, form a specification on propositions that are true and false by visualising the attributes of the characters, such as red hair and having two teeth. Then, the visualisation marks whether a given proposition is true or false. We use propositions for the attributes hair (red, green or blue), teeth (characters have either 0, 1 or 2 teeth) crosseyed (characters either have normal centred eyes or not) and character name. A proposition is displayed in the consoles as for example: p1.hair:red, which would indicate that player 1's character has red hair. All character names are listed in the help section.
-          <br><br>
-          Given that players have access to the local states in the above Kripke model, indeed, players have knowledge about the avatar that they have themselves. However, relations for a local state exists to all of the worlds that have varying avatars for the opponent. So, players do not know which avatar their opponent has until they have asked questions.
-    	  </p>
+      <p>
+        The system shown above uses double lines to indicate that every state along that line can be reached from any other state reached. Notably, states along these lines can make 'jumps' to another state along the same line. Given that players know which attributes their character has, players may only access states in which this chosen character is the same. Thus, there is a horizontal and vertical double line for player one and two respectively, in order to access the reachable states.
+        <br><br>
+        We have indicated the propositions that are true in a world by showing the avatar for each player. The avatars, here, form a specification on propositions that are true and false by visualising the attributes of the characters, such as red hair and having two teeth. Then, the visualisation marks whether a given proposition is true or false. We use propositions for the attributes hair (red, green or blue), teeth (characters have either 0, 1 or 2 teeth) crosseyed (characters either have normal centred eyes or not) and character name. A proposition is displayed in the consoles as for example: p1.hair:red, which would indicate that player 1's character has red hair. All character names are listed in the help section.
+        <br><br>
+        Given that players have access to the local states in the above Kripke model, indeed, players have knowledge about the avatar that they have themselves. However, relations for a local state exists to all of the worlds that have varying avatars for the opponent. So, players do not know which avatar their opponent has until they have asked questions.
+      </p>
 
-        <h2> Announcement logic</h2>
-        <p>
-          So, what happens when a player asks a question? That is, a player makes a statement that from that moment on, should be true. To account for this, announcement logic is used. This logic introduces restrictions on the Kripke model such that any (always truthful) answer players give to a question will be true in the Kripke model. For example, when a players asks whether an avatars hair is red and both players answer no, the Kripke model is restricted to only the worlds where both player's avatar is not red. Any relations agents have to the worlds with red hair are also not considered. Using this logic, a game of Guess Who? becomes a series of restrictions on the Kripke model until a player has access to only one world and thereby knows his opponent's avatar. An example of a model restriction following a question is shown below.
-        </p>
+      <h2> Announcement logic</h2>
+      <p>
+        So, what happens when a player asks a question? That is, a player makes a statement that from that moment on, should be true. To account for this, announcement logic is used. This logic introduces restrictions on the Kripke model such that any (always truthful) answer players give to a question will be true in the Kripke model. For example, when a players asks whether an avatars hair is red and both players answer no, the Kripke model is restricted to only the worlds where both player's avatar is not red. Any relations agents have to the worlds with red hair are also not considered. Using this logic, a game of Guess Who? becomes a series of restrictions on the Kripke model until a player has access to only one world and thereby knows his opponent's avatar. An example of a model restriction following a question is shown below.
+      </p>
 
-        <img id="model"  style="display: block; width:723px; height:441px; margin: 0 auto;" src="./res/restrictedmodel.jpg">
+      <img id="model"  style="display: block; width:723px; height:441px; margin: 0 auto;" src="./res/restrictedmodel.jpg">
 
-        <h2> Asking questions</h2>
-        <p> Given the logic and Kripke model, then, what is the best question an agent can ask? We find that new questions can decrease the number of avatars an opponent could possibly have. For a player, a question is intended to gain the most information about his opponent's avatar while giving away the least amount of information about his own avatar. We implement this strategy by counting the possible world in the restricted Kripke model, following the question that have been asked. That is, the most informative question about the opponent is the one that has the largest reduction in possible avatars of the opponent after restricting the model to the given question. Similarly, the safest question for you has the smallest reduction in worlds that you believe the opponent holds possible for you.
+      <h2> Asking questions</h2>
+      <p> Given the logic and Kripke model, then, what is the best question an agent can ask? We find that new questions can decrease the number of avatars an opponent could possibly have. For a player, a question is intended to gain the most information about his opponent's avatar while giving away the least amount of information about his own avatar. We implement this strategy by counting the possible world in the restricted Kripke model, following the question that have been asked. That is, the most informative question about the opponent is the one that has the largest reduction in possible avatars of the opponent after restricting the model to the given question. Similarly, the safest question for you has the smallest reduction in worlds that you believe the opponent holds possible for you.
 
         <h2> Simulating a game </h2>
-        If we run a number of <i>Guess Who?</i> games, we can get results on the bests strategy for a player. Below, you can press the simulate button to see the resulting score for each player. To show the effect of strategy, we have one player asking random questions about avatars, and the other agent using the strategy described earlier.
+        If we run a number of <i>Guess Who?</i> games, we can get results on the strategies for a player. Below, you can press the 'simulate n games' button to see the resulting score for each player. To show the effect of strategy, we have one player asking random questions about avatars, and the other agent using the strategy described earlier.
         <p>
           <div class="input-group">
-              <div class="input-group-btn">
-                <button class="btn btn-default" onclick="playManyGames() ">Simulate n games: </button>
-              </div>
-              <input type="text" id="nGames" class="form-control" value="n" />
-              <span class="input-group-btn" style="width:0px;"></span>
-              <input type="text" id="simulationOutput" class="form-control" value="output" disabled/>
-              <!-- nGames = document.getElementById("nGames").value -->
-              <!-- document.getElementById("simulationOutput").value = "output" -->
+            <div class="input-group-btn">
+              <button class="btn btn-default" onclick="playManyGames() ">Simulate n games</button>
+            </div>
+            <input type="text" id="nGames" class="form-control" placeholder="20" size="1" />
+            <span class="input-group-btn" style="width:0px;"></span>
+            <input type="text" id="simulationOutput" class="form-control" value="no output yet" disabled/>
           </div>
         </p>
 
-    	  <br>
+        <br>
         <h1 id="help">Need help?</h1>
 
-  			<p>
-  				At the top of the page you will find the interactive game of <i>Guess Who</i>. By pressing 'next step', the game advances by one step, i.e. one player asks a question and each players answers this question with regard to their chosen avatar. Both players' knowledge about their opponent's avatar will be updated, and the knowledge base tries to prove new propositions using the rules of the game. Note that pressing 'reset game' will reset all knowledge and chosen avatars. Pressing 'help me' should bring you to this section.
-  			</p>
+        <p>
+          At the top of the page you will find the interactive game of <i>Guess Who</i>. By pressing 'next step', the game advances by one step, i.e. one player asks a question and each players answers this question with regard to their chosen avatar. Both players' knowledge about their opponent's avatar will be updated, and the knowledge base tries to prove new propositions using the rules of the game. Note that pressing 'reset game' will reset all knowledge and chosen avatars. Pressing 'help me' should bring you to this section.
+        </p>
 
-  			<br>
-  			<img id="model" style="display: block; width:600px; height:auto; margin: 0 auto;" src="./res/charNames.png">
-  			<br>
+        <br>
+        <img id="model" style="display: block; width:600px; height:auto; margin: 0 auto;" src="./res/charNames.png">
+        <br>
 
-  			<p>
-  				Meet the characters -- the image above tells you who's who, in case you couldn't tell from the character attributes in the interactive game.
-  			</p>
-  			<br><br>
+        <p>
+          Meet the characters -- the image above tells you who's who, in case you couldn't tell from the character attributes in the interactive game.
+        </p>
+        <br><br>
 
-  		  <h1>Project implementation & status</h1>
-  		  <p>
-  		  	In the game, two players compete with each other. Player 1 tries to ask questions in a smart way by using the available knowledge. Player 2 does not take the knowledge into account and asks random questions. A custom logic prover is implemented which takes the rules of the game, as seen in the console, and proves new knowledge per agent once a question is answered. The knowledge is implemented in a simplified way. Because questions are announced publicly, both of the players know the answers. They also know that the other player knows the same things, etc. Essentially, all knowledge in the game is common knowledge. Therefore, we don't use the K operators in representing the knowledge. This makes the prover less complex. When reasoning about what decision to take, a player takes each possible question and reasons about what the result of the possible answers (true or false) will be on the possible characters that are left. It tries to find the question that will eliminate as many characters as possible regardless of whether the answer is true or false, but it also takes into account how many characters are left for the player itself after answering its own question.
-  		</div>
-	</div>
-
-    <!-- 	  The game in its current state is not yet finished.
-    	  <br><br>
-    	  The game currently asks a random question (which might have been answered already). It keeps track of each agent's knowledge, a part of which can be seen by opening the browser's debugging console (on Chrome, right click -> inspect -> check the console tab) under 'Current Knowledge'. A custom logic prover is implemented which takes the rules of the game, as seen in the console, and proves new knowledge per agent once a question is answered. It seems only relevant that a player knows something about their opponent's avatar, and that a player knows that the opponent knows about their own avatar. To make the knowledge base more clear, only this is implemented as knowledge and not a player's knowledge about its own avatar (although it could be argued that this should be present for making a decision as to which question to ask the opponent, making sure that the opponent does not find out what your avatar is). The knowledge is represented as e.g. "K1(K2(p1.hair:red))", which means that "player 1 knows that player 2 knows that the avatar of player 1 has red hair". The goal of the game is to ask questions such that a piece of knowledge will be proven that looks like "K1(p2.bob)", which means that "player 1 knows that the avatar of player 2 is Bob". There are four characters in this game (of which only three are currently shown) named {"Fred", "Li'l Timmy", "Bob", "Peter"}. A legend as to which character belongs to whom will be posted in the near future. If, at any point, the knowledge base contains a contradiction, the system will notify us of this in the console. It is expected that the final version will never contain contradictions since both players are perfect logical reasoners and perfectly truthful, but it does show that currently there is still a small bug in the prover that accidentally adds contradicting knowledge. To see this, try refreshing the page a few times with the console open. Finally, the question "crosseyed:false" seems to always be answered as "!pn.crosseyed:false". Whoops...
-    -->
-</body>
-</html>
+        <h1>Project implementation & status</h1>
+        <p>
+          In the game, two players compete with each other. Player 1 tries to ask questions in a smart way by using the available knowledge. Player 2 does not take the knowledge into account and asks random questions. A custom logic prover is implemented which takes the rules of the game, as seen in the console, and proves new knowledge per agent once a question is answered. The knowledge is implemented in a simplified way. Because questions are announced publicly, both of the players know the answers. They also know that the other player knows the same things, etc. Essentially, all knowledge in the game is common knowledge. Therefore, we don't use the K operators in representing the knowledge. This makes the prover less complex. When reasoning about what decision to take, a player takes each possible question and reasons about what the result of the possible answers (true or false) will be on the possible characters that are left. It tries to find the question that will eliminate as many characters as possible regardless of whether the answer is true or false, but it also takes into account how many characters are left for the player itself after answering its own question.
+        </div>
+      </div>
+  </body>
+  </html>

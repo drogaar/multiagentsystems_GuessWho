@@ -121,20 +121,25 @@ function endGame(){
 	document.getElementById("stepButton").disabled = true
 }
 
-function playManyGames(n=100) {
-	var smartWins = 0;
-	var randomWins = 0;
-	var ties = 0;
+function playManyGames() {
+	var smartWins = 0
+	var randomWins = 0
+	var ties = 0
+	var defaultN = 20
 
-	for (var i = 1; i <=100; i++) {
-		console.log("Playing game " + i + "/" + n)
+	n = parseInt(document.getElementById("nGames").value) || defaultN
+	document.getElementById("simulationOutput").value = "now testing..."
+
+	for (var i = 1; i <= n; i++) {
+		document.getElementById("simulationOutput").value = (i + " / " + n)
+
 		// Because player 1 always start, make a random player the smart one
 		if (Math.random() > 0.5) {
-			p1Random = true;
-			p2Random = false;
+			p1Random = true
+			p2Random = false
 		} else {
-			p1Random = false;
-			p2Random = true;
+			p1Random = false
+			p2Random = true
 		}
 		resetGame(p1Random, p2Random)
 
@@ -145,24 +150,26 @@ function playManyGames(n=100) {
 		switch(winner) {
 			case 1:
 				if (!p1Random) {
-					smartWins++;
+					smartWins++
 				} else {
-					randomWins++;
+					randomWins++
 				}
-				break;
+				break
 			case 2:
 				if (!p2Random) {
-					smartWins++;
+					smartWins++
 				} else {
-					randomWins++;
+					randomWins++
 				}
-				break;
+				break
 			case 3:
-				ties++;
-				break;
+				ties++
+				break
 		}
 	}
-	console.log("Smart wins: " + smartWins + "\nRandom wins: " + randomWins + "\nTies: " + ties)
+
+	document.getElementById("simulationOutput").value = "Smart won " + Math.round((smartWins/n)*100) + "%;  Random won " + Math.round((randomWins/n)*100) + "%"
+	//console.log("Smart wins: " + smartWins + "\nRandom wins: " + randomWins + "\nTies: " + ties)
 	return [smartWins, randomWins, ties]
 }
 
