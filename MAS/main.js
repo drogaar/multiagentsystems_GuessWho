@@ -168,8 +168,8 @@ function playManyGames() {
 				break
 		}
 	}
-
-	document.getElementById("simulationOutput").value = "Smart won " + Math.round((smartWins/n)*100) + "%;  Random won " + Math.round((randomWins/n)*100) + "%"
+	document.getElementById("simulationOutput").value = "Smart won " + smartWins + "/" + n + "; Random won " + randomWins + "/" + n + "; Ties: " + ties + "/" + n;
+	// document.getElementById("simulationOutput").value = "Smart won " + smartWins + "/" + n + " Random won " + smartWins + "/" + n + " Ties: " + ties "/" + n;
 	//console.log("Smart wins: " + smartWins + "\nRandom wins: " + randomWins + "\nTies: " + ties)
 	return [smartWins, randomWins, ties]
 }
