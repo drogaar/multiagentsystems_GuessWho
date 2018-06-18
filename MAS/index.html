@@ -119,102 +119,119 @@
       <button type="button" class="btn btn-default" id="resetButton" onclick="resetGame()">Reset game</button>
       <button type="button" class="btn btn-info" id="helpButton" onclick="help()">Help me</button>
     </div>
-  </div>
+  <!--</div>-->
 
-  <script src="character.js"></script>
-  <script src="player.js"></script>
-  <script src="knowledge.js"></script>
-  <script src="images.js"></script>
-  <script src="main.js"></script>
+	  <script src="character.js"></script>
+	  <script src="player.js"></script>
+	  <script src="knowledge.js"></script>
+	  <script src="images.js"></script>
+	  <script src="main.js"></script>
 
-  <div class="container">
-    <div class="col-md-8 col-md-offset-2">
-      <h2>Using epistemic logic</h2>
+	  <div class="container">
+	    <div class="col-md-8 col-md-offset-2">
 
-      <p>
-        The game is analysed here using epistemic logic. We use the knowledge
-        operator K to represent what knowledge is held by each player, which is shown in the game console.
-        <br><br>
-        A Kripke model in S5 is shown below. Each world consists of a pair of characters such that each player has chosen a character. Since each player knows what character they have, they know which characters they do not have. Therefore, player 1 can only access worlds where the character for player 1 is the same as the one he chose. This means that worlds have connections to each other world where the local state is preserved, much like the distributed systems used in chapt. 1.8, "Epistemic Logic for AI and Computer Science" by Meyer and van der Hoek (1995).
-      </p>
+			<!-- USING EPISTEMIC LOGIC -->
 
-      <img id="model"  style="display: block; width:600px; height:450px; margin: 0 auto;" src="./res/kripkemodel.jpg">
+	      <h2>Using epistemic logic</h2>
 
-      <p>
-        The system shown above uses double lines to indicate that every state along that line can be reached from any other state reached. Notably, states along these lines can make 'jumps' to another state along the same line. Given that players know which attributes their character has, players may only access states in which this chosen character is the same. Thus, there is a horizontal and vertical double line for player one and two respectively, in order to access the reachable states.
-        <br><br>
-        We have indicated the propositions that are true in a world by showing the avatar for each player. The avatars, here, form a specification on propositions that are true and false by visualising the attributes of the characters, such as red hair and having two teeth. Then, the visualisation marks whether a given proposition is true or false. We use propositions for the attributes hair (red, green or blue), teeth (characters have either 0, 1 or 2 teeth), crosseyed (characters either have normal centred eyes or not) and character name. A proposition is displayed in the consoles as for example: p1.hair:red, which would indicate that player 1's character has red hair. All character names are listed in the help section.
-        <br><br>
-        Given that players have access to the local states in the above Kripke model, indeed, players have knowledge about the avatar that they have themselves. However, relations for a local state exists to all of the worlds that have varying avatars for the opponent. So, players do not know which avatar their opponent has until they have asked questions.
-      </p>
+	      <p>
+	        The game is analysed here using epistemic logic. We use the knowledge
+	        operator K to represent what knowledge is held by each player, which is shown in the game console.
+	        <br><br>
+	        A Kripke model in S5 is shown below. Each world consists of a pair of characters such that each player has chosen a character. Since each player knows what character they have, they know which characters they do not have. Therefore, player 1 can only access worlds where the character for player 1 is the same as the one he chose. This means that worlds have connections to each other world where the local state is preserved, much like the distributed systems used in chapt. 1.8, "Epistemic Logic for AI and Computer Science" by Meyer and van der Hoek (1995).
+	      </p>
 
-      <h2> Announcement logic</h2>
-      <p>
-        So, what happens when a player asks a question? That is, a player makes a statement that from that moment on, should be true. To account for this, we borrow restrictions from announcement logic. This logic introduces restrictions on the Kripke model such that any (always truthful) answer players give to a question will be true in the Kripke model. For example, when a players asks whether an avatars hair is red and both players answer no, the Kripke model is restricted to only the worlds where both player's avatar is not red. Any relations agents have to the worlds with red hair are also not considered. When propositions are evaluated in the restricted model, they may return different valuations. That is, if all but one character has red hair then both players know exactly which characters their opponent are playing in the restricted model, even though the restriction only disregards worlds where avatars did not have red hair. Using this logic, a game of Guess Who? becomes a series of restrictions on the Kripke model until a player has access to only one world and thereby knows his opponent's avatar. An example of a model restriction following the question whether hair is red for each avatar is shown below. This model also shows the question giving more information to player 2, who immediately knows which avatar player 1 has in the restricted model (using only 3 characters).
-      </p>
+	      <img id="model"  style="display: block; width:600px; height:450px; margin: 0 auto;" src="./res/kripkemodel.jpg">
 
-      <img id="model"  style="display: block; width:723px; height:441px; margin: 0 auto;" src="./res/restrictedmodel.jpg">
-
-      <h2> Asking questions</h2>
-      <p> Given the logic and Kripke model, then, what is the best question an agent can ask? We find that new questions can decrease the number of avatars an opponent could possibly have. For a player, a question is intended to gain the most information about his opponent's avatar while giving away the least amount of information about his own avatar. We implement this strategy by counting the possible world in the restricted Kripke model, following the question that have been asked. That is, the most informative question about the opponent is the one that has the largest reduction in possible avatars of the opponent after restricting the model to the given question. Similarly, the safest question for you has the smallest reduction in worlds that you believe the opponent holds possible for you. We weigh safe and informative equally much in making a decision, as further explained in the Project implementation section.
-
-        <h2> Simulating games </h2>
-        If we run a number of <i>Guess Who?</i> games, we can get results on the strategies for a player and see how well a strategy performs. Below, you can press the 'simulate n games' button to see the resulting win percentages for each player. To show the effect of strategy, we have one player asking random questions about avatars, and the other agent using the strategy described earlier. By default 20 simulations are performed, though a higher number can be specified. The results show a clear advantage to the player anticipating the benefits of his questions. Note that the simulation can take a while for a large number of games.
-        <p>
-          <div class="input-group">
-            <div class="input-group-btn">
-              <button class="btn btn-default" onclick="playManyGames() ">Simulate n games</button>
-            </div>
-            <input type="text" id="nGames" class="form-control" placeholder="20" size="1" />
-            <span class="input-group-btn" style="width:0px;"></span>
-            <input type="text" id="simulationOutput" class="form-control" value="no output yet" disabled/>
-          </div>
-        </p>
-
-        <br>
-        <h1 id="help">Need help?</h1>
-
-        <p>
-          At the top of the page you will find the interactive game of <i>Guess Who</i>. By pressing 'next step', the game advances by one step, i.e. one player asks a question and each player answers this question with regard to their chosen avatar. Both players' knowledge about their opponent's avatar will be updated, and the solver tries to prove new propositions using the rules of the game. Note that pressing 'reset game' will reset all knowledge and chosen avatars. Pressing 'help me' should bring you to this section.
-        </p>
-
-        <p>
-          The demo shows player 1 first and player 2 below that. The character that is circled is the character of the opponent that this player has to guess. The characters shown are the possibilities left for the opponent's character with the current knowledge.
-        </p>
-
-        <br>
-        <img id="model" style="display: block; width:600px; height:auto; margin: 0 auto;" src="./res/charNames.png">
-        <br>
-
-        <p>
-          Meet the characters -- the image above tells you who's who, in case you couldn't tell from the character attributes in the interactive game.
-        </p>
-        <br><br>
-
-        <h1>Project implementation</h1>
-        <p>
-          We implemented the game in javascript. We create two players that both select a random character. We use a knowledge class to represent all the knowledge about the characters. This knowledge base contains rules that are known beforehand to the player, for instance that if a character does not have red or green hair, it must have blue hair. It also contains information about which of the characters has which attributes, for example: red hair, crosseyed and 0 teeth imply that the character is peter. In each game step, one of the players can ask a question. This can be done randomly, but we also implemented a strategy that selects a question in a smart way.
-
-          <br><br>
-
-          When asking a question, a player has to take into account that they have to answer their own question as well. Because of this, they need to ask a question that does not reveal their own character. At the same time, the question should not be too specific. For example, there could be only one character left that has green hair but many others that do not. If you ask if the opponent's character has green hair and you get lucky, the answer is yes and you now know the answer; but most likely, this will not be the case and you can only cross out one character. Therefore, it is better to ask questions where you can cross out many characters regardless of the answer. It is best to ask the question where half of the characters can be crossed out if the answer is yes, and the other half if the answer is no. To implement this, we let the agent reason about each of the possible questions and calculate a score based on this. The formula for this score is the following:
+	      <p>
+	        The system shown above uses double lines to indicate that every state along that line can be reached from any other state reached. Notably, states along these lines can make 'jumps' to another state along the same line. Given that players know which attributes their character has, players may only access states in which this chosen character is the same. Thus, there is a horizontal and vertical double line for player one and two respectively, in order to access the reachable states.
+	        <br><br>
+	        We have indicated the propositions that are true in a world by showing the avatar for each player. The avatars, here, form a specification on propositions that are true and false by visualising the attributes of the characters, such as red hair and having two teeth. Then, the visualisation marks whether a given proposition is true or false. We use propositions for the attributes hair (red, green or blue), teeth (characters have either 0, 1 or 2 teeth), crosseyed (characters either have normal centred eyes or not) and character name. A proposition is displayed in the consoles as for example: p1.hair:red, which would indicate that player 1's character has red hair. All character names are listed in the help section.
+	        <br><br>
+	        Given that players have access to the local states in the above Kripke model, indeed, players have knowledge about the avatar that they have themselves. However, relations for a local state exists to all of the worlds that have varying avatars for the opponent. So, players do not know which avatar their opponent has until they have asked questions.
+	      </p>
 
 
-          <br><br>
+				<!-- ANNOUNCEMENT LOGIC -->
 
-          Score_q = <b>A</b> - abs(<b>B</b> - <b>C</b>)
-          <br>
-          where <br>
-          <b>A</b> = possible characters left for player after asking question q <br>
-          <b>B</b> = possible characters left for opponent if answer of opponent is “yes” <br>
-          <b>C</b> = possible characters left for opponent if answer of opponent is “no” <br><br>
+	      <h2> Announcement logic</h2>
+	      <p>
+	        So, what happens when a player asks a question? That is, a player makes a statement that from that moment on, should be true. To account for this, we borrow restrictions from announcement logic. This logic introduces restrictions on the Kripke model such that any (always truthful) answer players give to a question will be true in the Kripke model. For example, when a players asks whether an avatars hair is red and both players answer no, the Kripke model is restricted to only the worlds where both player's avatar is not red. Any relations agents have to the worlds with red hair are also not considered. When propositions are evaluated in the restricted model, they may return different valuations. That is, if all but one character has red hair then both players know exactly which characters their opponent are playing in the restricted model, even though the restriction only disregards worlds where avatars did not have red hair. Using this logic, a game of Guess Who? becomes a series of restrictions on the Kripke model until a player has access to only one world and thereby knows his opponent's avatar. An example of a model restriction following the question whether hair is red for each avatar is shown below. This model also shows the question giving more information to player 2, who immediately knows which avatar player 1 has in the restricted model (using only 3 characters).
+	      </p>
 
-          The more characters that are left for the player after asking this question, the higher the score. The smaller the difference between possible characters between the answers (yes or no), the higher the score. The player ends up asking the question with the highest score.
+	      <img id="model"  style="display: block; width:723px; height:441px; margin: 0 auto;" src="./res/restrictedmodel.jpg">
 
-          <br><br>
 
-          When a question is asked, both players answer the question and the new knowledge is added to the knowledge base. We implemented our own logic prover that now tries to infer additional facts based on the old knowledge and the newly added information. For example, if we already knew that the hair of the character was not blue and we now have the new information that the hair is also not red, our logic prover will use one of the rules to infer that the hair must be blue. INSERT MORE EXPLANATION ABOUT SOLVER HERE. This continues until one or both of the players knows which character the opponent had chosen.
-        </div>
-      </div>
+				<!-- ASKING QUESTIONS -->
+
+	      <h2> Asking questions</h2>
+	      <p> Given the logic and Kripke model, then, what is the best question an agent can ask? We find that new questions can decrease the number of avatars an opponent could possibly have. For a player, a question is intended to gain the most information about his opponent's avatar while giving away the least amount of information about his own avatar. We implement this strategy by counting the possible world in the restricted Kripke model, following the question that have been asked. That is, the most informative question about the opponent is the one that has the largest reduction in possible avatars of the opponent after restricting the model to the given question. Similarly, the safest question for you has the smallest reduction in worlds that you believe the opponent holds possible for you. We weigh safe and informative equally much in making a decision, as further explained in the Project implementation section.
+
+	      <h2> Simulating games </h2>
+	      If we run a number of <i>Guess Who?</i> games, we can get results on the strategies for a player and see how well a strategy performs. Below, you can press the 'simulate n games' button to see the resulting win percentages for each player. To show the effect of strategy, we have one player asking random questions about avatars, and the other agent using the strategy described earlier. By default 20 simulations are performed, though a higher number can be specified. The results show a clear advantage to the player anticipating the benefits of his questions. Note that the simulation can take a while for a large number of games.
+	      <p>
+	        <div class="input-group">
+	          <div class="input-group-btn">
+	            <button class="btn btn-default" onclick="playManyGames() ">Simulate n games</button>
+	          </div>
+	          <input type="text" id="nGames" class="form-control" placeholder="20" size="1" />
+	          <span class="input-group-btn" style="width:0px;"></span>
+	          <input type="text" id="simulationOutput" class="form-control" value="no output yet" disabled/>
+	        </div>
+	      </p>
+
+	      <br>
+
+
+				<!-- NEED HELP? -->
+
+	      <h1 id="help">Need help?</h1>
+
+	      <p>
+	        At the top of the page you will find the interactive game of <i>Guess Who</i>. By pressing 'next step', the game advances by one step, i.e. one player asks a question and each player answers this question with regard to their chosen avatar. Both players' knowledge about their opponent's avatar will be updated, and the solver tries to prove new propositions using the rules of the game. Note that pressing 'reset game' will reset all knowledge and chosen avatars. Pressing 'help me' should bring you to this section.
+	      </p>
+
+	      <p>
+	        The demo shows player 1 first and player 2 below that. The character that is circled is the character of the opponent that this player has to guess. The characters shown are the possibilities left for the opponent's character with the current knowledge.
+	      </p>
+
+	      <br>
+	      <img id="model" style="display: block; width:600px; height:auto; margin: 0 auto;" src="./res/charNames.png">
+	      <br>
+
+	      <p>
+	        Meet the characters -- the image above tells you who's who, in case you couldn't tell from the character attributes in the interactive game.
+	      </p>
+	      <br><br>
+
+
+			<!-- PROJECT IMPLEMENTATION -->
+
+	      <h1>Project implementation</h1>
+	      <p>
+	        We implemented the game in javascript. We create two players that both select a random character. We use a knowledge class to represent all the knowledge about the characters. This knowledge base contains rules that are known beforehand to the player, for instance that if a character does not have red or green hair, it must have blue hair. It also contains information about which of the characters has which attributes, for example: red hair, crosseyed and 0 teeth imply that the character is peter. In each game step, one of the players can ask a question. This can be done randomly, but we also implemented a strategy that selects a question in a smart way.
+
+	        <br><br>
+
+	        When asking a question, a player has to take into account that they have to answer their own question as well. Because of this, they need to ask a question that does not reveal their own character. At the same time, the question should not be too specific. For example, there could be only one character left that has green hair but many others that do not. If you ask if the opponent's character has green hair and you get lucky, the answer is yes and you now know the answer; but most likely, this will not be the case and you can only cross out one character. Therefore, it is better to ask questions where you can cross out many characters regardless of the answer. It is best to ask the question where half of the characters can be crossed out if the answer is yes, and the other half if the answer is no. To implement this, we let the agent reason about each of the possible questions and calculate a score based on this. The formula for this score is the following:
+
+
+	        <br><br>
+
+	        Score_q = <b>A</b> - abs(<b>B</b> - <b>C</b>)
+	        <br>
+	        where <br>
+	        <b>A</b> = possible characters left for player after asking question q <br>
+	        <b>B</b> = possible characters left for opponent if answer of opponent is “yes” <br>
+	        <b>C</b> = possible characters left for opponent if answer of opponent is “no” <br><br>
+
+	        The more characters that are left for the player after asking this question, the higher the score. The smaller the difference between possible characters between the answers (yes or no), the higher the score. The player ends up asking the question with the highest score.
+
+	        <br><br>
+
+	        When a question is asked, both players answer the question and the new knowledge is added to the knowledge base. We implemented our own logic prover that now tries to infer additional facts based on the old knowledge and the newly added information. For example, if we already knew that the hair of the character was not blue and we now have the new information that the hair is also not red, our logic prover will use one of the rules to infer that the hair must be blue. INSERT MORE EXPLANATION ABOUT SOLVER HERE. This continues until one or both of the players knows which character the opponent had chosen.
+				</p>
+			</div>
+    </div>
   </body>
   </html>
