@@ -39,7 +39,7 @@ class Knowledge {
 
 			// Add the new piece of knowledge
 			if (!this.knowledge.includes(k)){
-				this.addKnowledge(k)
+				this.addKnowledge(k, warnConsole)
 			}
 		}
 		this.checkConsistency(warnConsole)
